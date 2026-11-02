@@ -989,6 +989,11 @@ window.GRANJA_I18N = (function () {
       "Nenhum": "None",
       "Vaga livre": "Free slot",
       "Vazia": "Empty",
+      "Auto organizar": "Auto assign",
+      "Melhores galinhas nos melhores celeiros": "Best hens in the best coops",
+      "Organizar": "Assign",
+      "Galinhas organizadas": "Hens assigned",
+      "Já está organizado": "Already assigned",
     },
     es: {
       "1 ovo": "1 huevo",
@@ -1270,6 +1275,11 @@ window.GRANJA_I18N = (function () {
       "Nenhum": "Ninguno",
       "Vaga livre": "Plaza libre",
       "Vazia": "Vacía",
+      "Auto organizar": "Auto organizar",
+      "Melhores galinhas nos melhores celeiros": "Mejores gallinas en los mejores gallineros",
+      "Organizar": "Organizar",
+      "Galinhas organizadas": "Gallinas organizadas",
+      "Já está organizado": "Ya está organizado",
     },
     ar: {
       "1 ovo": "بيضة واحدة",
@@ -1551,6 +1561,11 @@ window.GRANJA_I18N = (function () {
       "Nenhum": "لا شيء",
       "Vaga livre": "مكان فارغ",
       "Vazia": "فارغة",
+      "Auto organizar": "تنظيم تلقائي",
+      "Melhores galinhas nos melhores celeiros": "أفضل الدجاجات في أفضل الحظائر",
+      "Organizar": "نظّم",
+      "Galinhas organizadas": "تم تنظيم الدجاج",
+      "Já está organizado": "منظّم بالفعل",
     },
     ru: {
       "1 ovo": "1 яйцо",
@@ -1832,6 +1847,11 @@ window.GRANJA_I18N = (function () {
       "Nenhum": "Нет",
       "Vaga livre": "Свободно",
       "Vazia": "Пусто",
+      "Auto organizar": "Авторасстановка",
+      "Melhores galinhas nos melhores celeiros": "Лучшие куры в лучшие курятники",
+      "Organizar": "Расставить",
+      "Galinhas organizadas": "Куры расставлены",
+      "Já está organizado": "Уже расставлены",
     },
   };
   function pick() {
@@ -3670,6 +3690,7 @@ window.GRANJA_ART = (function () {
     const free = slots() - S.hens.length, out = [];
     out.push('<p class="p-lead">+<span data-live="y"></span>/' + t('h') + ' · ' + t('{n} galinhas', { n: S.hens.length }) + '</p>');
     out.push('<div class="coops">' + PENS.map((p, i) => coopCard(i)).join('') + '</div>');
+    if (S.pens > 1) out.push(tile('', 'coop' + (S.pens - 1), t('Auto organizar'), t('Melhores galinhas nos melhores celeiros'), pBtn('autoPens', null, t('Organizar'), false, 'gold')));
     out.push('<section class="tile buy" data-foco="buy">' + ART.pic('egg') + '<div class="t-txt"><b>' + t('Comprar ovo') + '</b></div><div class="t-btns">'
       + [1, 5, 10].map((n) => pBtn('mint', n, n + '<small>' + solTxt(mintCost(n)) + '</small>', free < n)).join('') + '</div></section>');
     out.push(infoRow('galo', 'rooster', t('Galo'), S.rooster > 0 ? durTxt(S.rooster) : t('Acorda as galinhas sozinho')));
@@ -3680,6 +3701,24 @@ window.GRANJA_ART = (function () {
     out.push(infoRow('celeiros', 'coop', t('Celeiros'), t('O que cada nível traz')));
     setHTML(el.pBarn, out.join(''));
     live(el.pBarn, { y: fmt(rate() * burnK) });
+  }
+  // Auto organizar: das que mais rendem para as que menos, enche o melhor celeiro aberto, depois o seguinte. Quem não couber continua esperando o próximo abrir.
+  function autoPens() {
+    if (busy) return;
+    // no empate, fica quem já está no celeiro melhor: apertar de novo não troca ninguém de lugar à toa
+    const seat = (d) => (d.pen < S.pens ? d.pen : -1), moved = [];
+    const best = S.hens.slice().sort((a, b) => b.p * goldK(b.r) - a.p * goldK(a.r) || b.r - a.r || seat(b) - seat(a));
+    const put = (d, i) => { if (d.pen !== i) { d.pen = i; moved.push(d); } };
+    let k = 0;
+    for (let i = S.pens - 1; i >= 0; i--) for (let n = perPen(i); n > 0 && k < best.length; n--) put(best[k++], i);
+    while (k < best.length) put(best[k++], S.pens);
+    selHen = null;
+    if (!moved.length) { toast(t('Já está organizado')); return; }
+    syncHens();
+    for (const d of moved) emit('move', { hen: W.hens.find((h) => h.id === d.id) });
+    celebrate();
+    toast('<b>' + t('Galinhas organizadas') + '</b> ' + moved.length);
+    save(); ui();
   }
   function moveHen(to) {
     const hen = S.hens.find((h) => h.id === selHen);
@@ -3823,7 +3862,7 @@ window.GRANJA_ART = (function () {
     worker: hireWorker,
     guide: () => { H.closeSheet(); guideOpen(false); },
     info: showInfo, back: () => showInfo(null),
-    clean: (v) => cleanPen(+v), wakePen: (v) => wakeHens(+v), goPen: (v) => { barnView = +v; selHen = null; renderBarn(); el.sheetBody.scrollTop = 0; sheetFocus(); },
+    autoPens, clean: (v) => cleanPen(+v), wakePen: (v) => wakeHens(+v), goPen: (v) => { barnView = +v; selHen = null; renderBarn(); el.sheetBody.scrollTop = 0; sheetFocus(); },
     hen: (v) => { selHen = selHen === +v ? null : +v; renderBarn(); },
     move: (v) => moveHen(+v),
     hunter: (v) => buyHunter(+v),
@@ -4330,7 +4369,7 @@ window.GRANJA_ART = (function () {
   const Z = (z) => (z - 30) * U;
   const MAX_CHICKS = 800;
   const NUG = ['#e0a84a', '#c98a32', '#f0c46a'];
-  const CHICK_K = 1.3;        // o pintinho é o herói da cadeia: um pouco maior que o natural
+  const CHICK_K = 0.75;       // todo pintinho é pequenino e do mesmo tamanho: a cor mostra a raridade
   const ROOST_Y = 1.38;       // altura da travessa do poleiro do galo
   const STAIN_N = 30, POOP_N = 18, FLY_N = 9;   // manchas, montinhos e moscas por celeiro
 
@@ -8352,11 +8391,10 @@ window.GRANJA_ART = (function () {
         const tgtP = c.wp[Math.min(c.i, c.wp.length - 1)];
         const yaw = Math.atan2(-(tgtP[1] - c.z), tgtP[0] - c.x);
         eul.set(0, yaw, Math.sin(c.ph) * 0.12); quat.setFromEuler(eul);
-        const s = (c.gold ? 1.35 : 1) * CHICK_K * Math.min(1.5, 1 + Math.log10(c.n) * 0.25);
         // na esteira: sobe a rampa do portão e segue em cima da tira
         let cy = Math.abs(Math.sin(c.ph)) * 0.07;
         if (c.i >= 1) { const g0 = c.wp[0], up = c.i > 1 ? 1 : Math.min(1, Math.hypot(c.x - g0[0], c.z - g0[1]) * U / BELT_RAMP); cy = 0.04 + (BELT_Y - 0.04) * up + Math.abs(Math.sin(c.ph)) * 0.02; }
-        vpos.set(X(c.x), cy, Z(c.z)); vscl.set(s, s, s);
+        vpos.set(X(c.x), cy, Z(c.z)); vscl.set(CHICK_K, CHICK_K, CHICK_K);
         mtx.compose(vpos, quat, vscl);
         chicks.setMatrixAt(i, mtx);
         chicks.setColorAt(i, col.set(c.gold ? '#ffcf1a' : RAR[c.r].chick));
