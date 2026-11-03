@@ -511,6 +511,18 @@ button.tile { appearance: none; cursor: pointer; width: 100%; border: 0; color: 
 @keyframes twinkle { 0%, 100% { opacity: .15; transform: scale(.5); } 50% { opacity: 1; transform: scale(1.1); } }
 .pic.lend { filter: drop-shadow(0 0 4px rgba(255, 210, 60, .9)); }
 .pic.mit { filter: drop-shadow(0 0 4px rgba(255, 92, 200, .7)); }
+
+/* palavra que abre outra explicação, a galeria das Míticas, o filminho do ladrão e a energia no slot */
+.mark { appearance: none; padding: 0 3px; border: 0; border-radius: 4px; background: color-mix(in srgb, var(--accent) 22%, transparent); color: inherit; font: inherit; font-weight: 800; text-decoration: underline dotted; cursor: pointer; }
+.skins { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; }
+.skin { display: grid; justify-items: center; gap: 2px; min-width: 0; padding: 6px 2px; border-radius: var(--radius-in); background: var(--sheet-inset); text-align: center; }
+.skin .pic { width: 44px; height: 44px; }
+.skin small { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 10px; font-weight: 700; }
+.clip { overflow: hidden; border-radius: var(--radius); }
+.clip svg { display: block; width: 100%; height: auto; }
+.slot .t-txt > .h-en { display: flex; align-items: center; gap: 6px; }
+.h-en > span:first-child { flex: none; font-weight: 700; }
+.h-en .bar { flex: 1; margin-top: 0; }
 </style>
 <style>
   /* Uma página, três visuais. O seletor em Ajustes troca data-style no <html> e os tokens abaixo trocam juntos.
@@ -710,7 +722,6 @@ window.GRANJA_I18N = (function () {
   ];
   const DICT = {
     en: {
-      "1 ovo": "1 egg",
       "A fusão falhou": "Fusion failed",
       "A galinha bota no celeiro. Choque para ter outra, ou venda.": "The hen lays in the coop. Hatch for another, or sell.",
       "Abrindo o ovo…": "Opening the egg…",
@@ -760,7 +771,6 @@ window.GRANJA_I18N = (function () {
       "Enquanto você estava fora": "While you were away",
       "Esteira": "Conveyor",
       "Faltam": "Need",
-      "Faxineiro": "Cleaner",
       "Fechar": "Close",
       "Frutas": "Fruits",
       "Fundindo": "Fusing",
@@ -788,15 +798,11 @@ window.GRANJA_I18N = (function () {
       "Maquete": "Diorama",
       "Mercado": "Market",
       "Milho": "Corn",
-      "Motorista": "Driver",
       "Mítica": "Mythic",
-      "Na pool": "In pool",
       "Ninho cheio": "Nest full",
       "O caçador errou.": "The hunter missed.",
-      "O faxineiro terminou o turno.": "The cleaner's shift is over.",
       "O ladrão fugiu.": "The thief got away.",
       "O ladrão levou uma galinha": "The thief took a hen",
-      "O motorista terminou o turno.": "The driver's shift is over.",
       "O ovo chocou!": "The egg hatched!",
       "O pato levou a raposa embora.": "The duck led the fox away.",
       "Os nuggets enchem a caixa. Chame o caminhão antes que ela lote.": "Nuggets fill the crate. Call the truck before it's full.",
@@ -825,7 +831,6 @@ window.GRANJA_I18N = (function () {
       "Reiniciar": "Reset",
       "Rejeitar": "Reject",
       "SOL investido": "SOL invested",
-      "Sai na 1ª compra em SOL": "Unlocks on 1st SOL buy",
       "Saldo": "Balance",
       "Sem SOL": "No SOL",
       "Sem vaga": "No room",
@@ -883,7 +888,6 @@ window.GRANJA_I18N = (function () {
       "Raposa!": "Fox!",
       "4 canteiros": "4 plots",
       "A galinha bota no celeiro dela. Venda na hora, ou choque na chocadeira do celeiro para ganhar uma galinha nova. Comprado, o ovo abre na hora.": "The hen lays in her own coop. Sell the egg right away, or hatch it in the coop's incubator to get a new hen. A bought egg opens instantly.",
-      "Abre na hora": "Opens instantly",
       "Acelerar": "Speed up",
       "Acerta raposa e ladrão": "Hits fox and thief",
       "Acorda as galinhas sozinho": "Wakes the hens by itself",
@@ -896,8 +900,6 @@ window.GRANJA_I18N = (function () {
       "Cada canteiro colhido soma o bônus dele nos nuggets por {h} h. Colher de novo soma horas, até {m} h.": "Each harvested plot adds its bonus to your nuggets for {h} h. Harvesting again adds hours, up to {m} h.",
       "Cada galinha nasce com uma produção sorteada dentro da faixa da raridade. Quanto mais rara, mais produz e mais tempo trabalha antes de cansar. A Mítica tem 10 versões únicas.": "Each hen is born with a random output within her rarity range. The rarer she is, the more she makes and the longer she works before getting tired. Mythic has 10 unique versions.",
       "Cada reforma dá mais camas a este celeiro, garantido.": "Each upgrade gives this coop more beds, guaranteed.",
-      "Chama o caminhão sozinho": "Calls the truck by itself",
-      "Chama o caminhão sozinho a cada {h} h de produção, mesmo com você fora. Cobra {p}% a mais de frete.": "Calls the truck by itself every {h} h of output, even while you're away. Charges {p}% more freight.",
       "Come os pintinhos da esteira": "Eats the chicks on the belt",
       "Contorno no que é útil": "Outline on what's useful",
       "Cresce em {d}": "Grows in {d}",
@@ -911,13 +913,8 @@ window.GRANJA_I18N = (function () {
       "Gelo": "Ice",
       "Grátis": "Free",
       "Guarda os nuggets": "Stores the nuggets",
-      "Guarda os nuggets até o caminhão buscar. Cheia, as galinhas param. Caixa maior aguenta mais tempo longe, mas a parte acima de 4 h paga frete maior.": "Holds the nuggets until the truck picks them up. When it's full, the hens stop. A bigger crate lasts longer while you're away, but the part above 4 h pays higher freight.",
-      "Junta galinhas numa mais rara": "Merges hens into a rarer one",
-      "Junte de {a} a {b} galinhas iguais para tentar uma da raridade seguinte. Mais galinhas, mais chance. Falhou, perde uma delas e a taxa.": "Combine {a} to {b} identical hens to try for one of the next rarity. More hens, better odds. If it fails, you lose one of them and the fee.",
-      "Leva galinhas de granja grande": "Steals hens from big farms",
       "Leva os pintinhos ao abatedouro": "Takes chicks to the slaughterhouse",
       "Mais galinhas neste celeiro": "More hens in this coop",
-      "Mantém os celeiros limpos": "Keeps the coops clean",
       "Máximo": "Max",
       "Na hora": "Instantly",
       "Na horta": "In the garden",
@@ -929,10 +926,7 @@ window.GRANJA_I18N = (function () {
       "Quanto cada uma rende": "What each one earns",
       "Rainha": "Queen",
       "Robô": "Robot",
-      "Sem ele, um celeiro chega ao piso em {h} h e rende {p}%. Enquanto ele trabalha, nada suja.": "Without him, a coop bottoms out in {h} h and yields {p}%. While he works, nothing gets dirty.",
-      "Sem faxineiro": "No cleaner",
       "Sem galo, a galinha dorme até 100%, ou até você tocar em Acordar depois da metade do descanso. Com galo, ele canta na metade e ela volta sozinha.": "Without a rooster, the hen sleeps until 100%, or until you tap Wake after half her rest. With a rooster, he crows at the halfway point and she wakes on her own.",
-      "Sem motorista": "No driver",
       "Transforma cada pintinho em nuggets. Cada nível é um prédio novo, que paga mais por pintinho.": "Turns each chick into nuggets. Each level is a new building that pays more per chick.",
       "Transforma pintinhos em nuggets": "Turns chicks into nuggets",
       "Vender, chocar e comprar": "Sell, hatch and buy",
@@ -946,7 +940,6 @@ window.GRANJA_I18N = (function () {
       "Caçador": "Hunter",
       "Bônus": "Bonus",
       "Cada celeiro novo é melhor que o anterior e já vem com a esteira e as camas do nível dele. As vagas extras só abrem depois do último.": "Each new coop is better than the last and comes with the conveyor and beds of its level. Extra slots only open after the last one.",
-      "Cada pato atrai uma raposa para a mata e é gasto. Com caçador, não faz falta.": "Each duck lures one fox into the woods and is used up. With a hunter, you don't need them.",
       "Cansando": "Tiring",
       "Celeiro {n} em obra": "Coop {n} under construction",
       "Celeiro {n} pronto": "Coop {n} ready",
@@ -957,22 +950,17 @@ window.GRANJA_I18N = (function () {
       "Em obra": "Under construction",
       "Espera a obra": "Waiting for the build",
       "Fazendeiro": "Farmer",
-      "Fica com você para sempre e acerta toda raposa e todo ladrão.": "Stays with you for good and hits every fox and every thief.",
-      "Leva a caixa inteira e a venda é na hora: o saldo sobe no toque. Parte da carga fica de frete e é queimada.": "Takes the whole crate and sells it instantly: your balance goes up on the tap. Part of the load goes to freight and is burned.",
       "Leva os pintinhos do celeiro até o abatedouro. Cada celeiro já vem com a sua, e o que passa do limite fica parado no celeiro.": "Carries chicks from the coop to the slaughterhouse. Each coop comes with its own, and anything over the limit waits in the coop.",
       "Limpeza": "Cleanliness",
       "Metal": "Metal",
-      "No posto": "On duty",
       "O galo terminou o turno.": "The rooster's shift ended.",
       "O que cada nível traz": "What each level brings",
       "Pedra": "Stone",
       "Rende": "Earns",
       "Sem galo": "No rooster",
       "Sujo": "Dirty",
-      "Só vem com mais de um celeiro e mais de 10 galinhas. Sem caçador, ele leva uma galinha. Pato não engana ladrão.": "Only comes with more than one coop and more than 10 hens. With no hunter, he takes a hen. Ducks don't fool a thief.",
       "Taxa para abrir": "Fee to open",
       "Trabalhando": "Working",
-      "Vende a caixa na hora": "Sells the crate instantly",
       "acelerar": "speed up",
       "acorda em {d}": "wakes in {d}",
       "cansa em {d}": "tires in {d}",
@@ -994,9 +982,39 @@ window.GRANJA_I18N = (function () {
       "Organizar": "Assign",
       "Galinhas organizadas": "Hens assigned",
       "Já está organizado": "Already assigned",
+      "Acerta toda raposa e todo {ladrao} enquanto estiver no posto. Contrate por alguns dias e renove quando acabar.": "Hits every fox and every {ladrao} while on duty. Hire him for a few days and renew when it ends.",
+      "As 10 Míticas": "The 10 Mythics",
+      "Cansada demais para mudar de celeiro": "Too tired to change coops",
+      "Cansaço e descanso": "Tiredness and rest",
+      "Com caçador: foge sem nada": "With a hunter: he runs off empty-handed",
+      "Energia": "Energy",
+      "Guarda os nuggets até você chamar o caminhão. Cheia, as galinhas param. Caixa maior aguenta mais tempo longe.": "Holds the nuggets until you call the truck. When full, the hens stop. A bigger crate lasts longer while you are away.",
+      "Junte galinhas iguais para tentar uma da raridade seguinte.": "Combine identical hens to try for the next rarity.",
+      "O caçador terminou o turno.": "The hunter's shift ended.",
+      "Quanto trabalha e quanto dorme": "How long she works and sleeps",
+      "Sai na 1ª compra": "Unlocks with your first purchase",
+      "Sem caçador": "No hunter",
+      "Sem caçador: leva uma galinha": "No hunter: he takes a hen",
+      "Trabalha {a} e dorme {b}": "Works {a}, sleeps {b}",
+      "Trabalhando, a energia cai até 0% e ela dorme. Dormindo, ela não produz e a energia volta. Sem galo, dorme até 100%, ou você toca em Acordar depois de 50%. Com galo, acorda sozinha em 50%. Cansada ou dormindo, não troca de celeiro.": "While working, energy drops to 0% and she sleeps. While sleeping, she produces nothing and energy comes back. Without a rooster she sleeps to 100%, or you tap Wake after 50%. With a rooster she wakes on her own at 50%. Tired or sleeping hens can't change coops.",
+      "com galo, {d}": "with rooster, {d}",
+      "dia": "day",
+      "ladrão": "thief",
+      "{n} cansadas ficaram onde estavam": "{n} tired hens stayed put",
+      "{n} dias": "{n} days",
+      "1 de cada": "1 of each",
+      "+1 pato": "+1 duck",
+      "+{h} h de proteção, em média": "+{h} h of protection, on average",
+      "A raposa vem em média a cada {h} h. Cada pato atrai uma para a mata e é gasto: {n} patos protegem por cerca de {t} h. Não engana o {ladrao}, que só aparece com mais de 10 galinhas.": "A fox comes about every {h} h. Each duck lures one into the woods and is used up: {n} ducks protect you for about {t} h. It does not fool the {ladrao}, who only shows up with more than 10 hens.",
+      "Cerca de {h} h sem raposa": "About {h} h with no fox",
+      "Encher os {n}": "Fill all {n}",
+      "Foi para o dev": "Went to the dev",
+      "Protegem por cerca de {h} h": "Protect you for about {h} h",
+      "Sem proteção": "No protection",
+      "Só aparece com mais de 10 galinhas e mais de um celeiro, mais ou menos uma vez por dia. Sem caçador, ele leva uma galinha. Pato não engana ladrão.": "Only shows up with more than 10 hens and more than one coop, about once a day. With no hunter, he takes a hen. Ducks don't fool a thief.",
+      "cada": "each",
     },
     es: {
-      "1 ovo": "1 huevo",
       "A fusão falhou": "La fusión falló",
       "A galinha bota no celeiro. Choque para ter outra, ou venda.": "La gallina pone en el gallinero. Incuba para tener otra, o vende.",
       "Abrindo o ovo…": "Abriendo el huevo…",
@@ -1046,7 +1064,6 @@ window.GRANJA_I18N = (function () {
       "Enquanto você estava fora": "Mientras no estabas",
       "Esteira": "Cinta",
       "Faltam": "Faltan",
-      "Faxineiro": "Limpiador",
       "Fechar": "Cerrar",
       "Frutas": "Frutas",
       "Fundindo": "Fusionando",
@@ -1074,15 +1091,11 @@ window.GRANJA_I18N = (function () {
       "Maquete": "Maqueta",
       "Mercado": "Mercado",
       "Milho": "Maíz",
-      "Motorista": "Conductor",
       "Mítica": "Mítica",
-      "Na pool": "En el pool",
       "Ninho cheio": "Nido lleno",
       "O caçador errou.": "El cazador falló.",
-      "O faxineiro terminou o turno.": "El limpiador terminó su turno.",
       "O ladrão fugiu.": "El ladrón huyó.",
       "O ladrão levou uma galinha": "El ladrón se llevó una gallina",
-      "O motorista terminou o turno.": "El conductor terminó su turno.",
       "O ovo chocou!": "¡El huevo eclosionó!",
       "O pato levou a raposa embora.": "El pato se llevó al zorro.",
       "Os nuggets enchem a caixa. Chame o caminhão antes que ela lote.": "Los nuggets llenan la caja. Llama al camión antes de que se llene.",
@@ -1111,7 +1124,6 @@ window.GRANJA_I18N = (function () {
       "Reiniciar": "Reiniciar",
       "Rejeitar": "Rechazar",
       "SOL investido": "SOL invertido",
-      "Sai na 1ª compra em SOL": "Se libera en la 1ª compra en SOL",
       "Saldo": "Saldo",
       "Sem SOL": "Sin SOL",
       "Sem vaga": "Sin espacio",
@@ -1169,7 +1181,6 @@ window.GRANJA_I18N = (function () {
       "Raposa!": "¡Zorro!",
       "4 canteiros": "4 parcelas",
       "A galinha bota no celeiro dela. Venda na hora, ou choque na chocadeira do celeiro para ganhar uma galinha nova. Comprado, o ovo abre na hora.": "La gallina pone en su gallinero. Vende el huevo al instante, o incúbalo en la incubadora del gallinero para ganar una gallina nueva. El huevo comprado se abre al instante.",
-      "Abre na hora": "Se abre al instante",
       "Acelerar": "Acelerar",
       "Acerta raposa e ladrão": "Acierta al zorro y al ladrón",
       "Acorda as galinhas sozinho": "Despierta a las gallinas solo",
@@ -1182,8 +1193,6 @@ window.GRANJA_I18N = (function () {
       "Cada canteiro colhido soma o bônus dele nos nuggets por {h} h. Colher de novo soma horas, até {m} h.": "Cada parcela cosechada suma su bono a los nuggets durante {h} h. Cosechar de nuevo suma horas, hasta {m} h.",
       "Cada galinha nasce com uma produção sorteada dentro da faixa da raridade. Quanto mais rara, mais produz e mais tempo trabalha antes de cansar. A Mítica tem 10 versões únicas.": "Cada gallina nace con una producción sorteada dentro del rango de su rareza. Cuanto más rara, más produce y más tiempo trabaja antes de cansarse. La Mítica tiene 10 versiones únicas.",
       "Cada reforma dá mais camas a este celeiro, garantido.": "Cada reforma da más camas a este gallinero, garantizado.",
-      "Chama o caminhão sozinho": "Llama al camión solo",
-      "Chama o caminhão sozinho a cada {h} h de produção, mesmo com você fora. Cobra {p}% a mais de frete.": "Llama al camión solo cada {h} h de producción, incluso si no estás. Cobra un {p}% más de flete.",
       "Come os pintinhos da esteira": "Se come los pollitos de la cinta",
       "Contorno no que é útil": "Contorno en lo útil",
       "Cresce em {d}": "Crece en {d}",
@@ -1197,13 +1206,8 @@ window.GRANJA_I18N = (function () {
       "Gelo": "Hielo",
       "Grátis": "Gratis",
       "Guarda os nuggets": "Guarda los nuggets",
-      "Guarda os nuggets até o caminhão buscar. Cheia, as galinhas param. Caixa maior aguenta mais tempo longe, mas a parte acima de 4 h paga frete maior.": "Guarda los nuggets hasta que el camión los recoja. Llena, las gallinas paran. Una caja mayor aguanta más tiempo lejos, pero la parte por encima de 4 h paga más flete.",
-      "Junta galinhas numa mais rara": "Junta gallinas en una más rara",
-      "Junte de {a} a {b} galinhas iguais para tentar uma da raridade seguinte. Mais galinhas, mais chance. Falhou, perde uma delas e a taxa.": "Junta de {a} a {b} gallinas iguales para intentar una de la siguiente rareza. Más gallinas, más probabilidad. Si falla, pierdes una de ellas y la tasa.",
-      "Leva galinhas de granja grande": "Se lleva gallinas de granjas grandes",
       "Leva os pintinhos ao abatedouro": "Lleva los pollitos al matadero",
       "Mais galinhas neste celeiro": "Más gallinas en este gallinero",
-      "Mantém os celeiros limpos": "Mantiene limpios los gallineros",
       "Máximo": "Máx.",
       "Na hora": "Al instante",
       "Na horta": "En la huerta",
@@ -1215,10 +1219,7 @@ window.GRANJA_I18N = (function () {
       "Quanto cada uma rende": "Cuánto rinde cada una",
       "Rainha": "Reina",
       "Robô": "Robot",
-      "Sem ele, um celeiro chega ao piso em {h} h e rende {p}%. Enquanto ele trabalha, nada suja.": "Sin él, un gallinero llega al mínimo en {h} h y rinde un {p}%. Mientras trabaja, nada se ensucia.",
-      "Sem faxineiro": "Sin limpiador",
       "Sem galo, a galinha dorme até 100%, ou até você tocar em Acordar depois da metade do descanso. Com galo, ele canta na metade e ela volta sozinha.": "Sin gallo, la gallina duerme hasta el 100%, o hasta que toques Despertar pasada la mitad del descanso. Con gallo, él canta a la mitad y ella vuelve sola.",
-      "Sem motorista": "Sin conductor",
       "Transforma cada pintinho em nuggets. Cada nível é um prédio novo, que paga mais por pintinho.": "Convierte cada pollito en nuggets. Cada nivel es un edificio nuevo, que paga más por pollito.",
       "Transforma pintinhos em nuggets": "Convierte pollitos en nuggets",
       "Vender, chocar e comprar": "Vender, incubar y comprar",
@@ -1232,7 +1233,6 @@ window.GRANJA_I18N = (function () {
       "Caçador": "Cazador",
       "Bônus": "Bono",
       "Cada celeiro novo é melhor que o anterior e já vem com a esteira e as camas do nível dele. As vagas extras só abrem depois do último.": "Cada gallinero nuevo es mejor que el anterior y viene con la cinta y las camas de su nivel. Las plazas extra solo se abren después del último.",
-      "Cada pato atrai uma raposa para a mata e é gasto. Com caçador, não faz falta.": "Cada pato atrae a un zorro al bosque y se gasta. Con cazador, no hace falta.",
       "Cansando": "Cansándose",
       "Celeiro {n} em obra": "Gallinero {n} en obras",
       "Celeiro {n} pronto": "Gallinero {n} listo",
@@ -1243,22 +1243,17 @@ window.GRANJA_I18N = (function () {
       "Em obra": "En obras",
       "Espera a obra": "Espera la obra",
       "Fazendeiro": "Granjero",
-      "Fica com você para sempre e acerta toda raposa e todo ladrão.": "Se queda contigo para siempre y acierta a todo zorro y todo ladrón.",
-      "Leva a caixa inteira e a venda é na hora: o saldo sobe no toque. Parte da carga fica de frete e é queimada.": "Lleva toda la caja y vende al instante: tu saldo sube al tocar. Parte de la carga queda como flete y se quema.",
       "Leva os pintinhos do celeiro até o abatedouro. Cada celeiro já vem com a sua, e o que passa do limite fica parado no celeiro.": "Lleva los pollitos del gallinero al matadero. Cada gallinero viene con la suya, y lo que pasa del límite se queda en el gallinero.",
       "Limpeza": "Limpieza",
       "Metal": "Metal",
-      "No posto": "En su puesto",
       "O galo terminou o turno.": "El gallo terminó su turno.",
       "O que cada nível traz": "Qué trae cada nivel",
       "Pedra": "Piedra",
       "Rende": "Rinde",
       "Sem galo": "Sin gallo",
       "Sujo": "Sucio",
-      "Só vem com mais de um celeiro e mais de 10 galinhas. Sem caçador, ele leva uma galinha. Pato não engana ladrão.": "Solo viene con más de un gallinero y más de 10 gallinas. Sin cazador, se lleva una gallina. El pato no engaña al ladrón.",
       "Taxa para abrir": "Tarifa para abrir",
       "Trabalhando": "Trabajando",
-      "Vende a caixa na hora": "Vende la caja al instante",
       "acelerar": "acelerar",
       "acorda em {d}": "despierta en {d}",
       "cansa em {d}": "se cansa en {d}",
@@ -1280,9 +1275,39 @@ window.GRANJA_I18N = (function () {
       "Organizar": "Organizar",
       "Galinhas organizadas": "Gallinas organizadas",
       "Já está organizado": "Ya está organizado",
+      "Acerta toda raposa e todo {ladrao} enquanto estiver no posto. Contrate por alguns dias e renove quando acabar.": "Acierta a todo zorro y todo {ladrao} mientras está en su puesto. Contrátalo por unos días y renueva cuando termine.",
+      "As 10 Míticas": "Las 10 Míticas",
+      "Cansada demais para mudar de celeiro": "Demasiado cansada para cambiar de gallinero",
+      "Cansaço e descanso": "Cansancio y descanso",
+      "Com caçador: foge sem nada": "Con cazador: huye sin nada",
+      "Energia": "Energía",
+      "Guarda os nuggets até você chamar o caminhão. Cheia, as galinhas param. Caixa maior aguenta mais tempo longe.": "Guarda los nuggets hasta que llames al camión. Llena, las gallinas paran. Una caja mayor aguanta más tiempo fuera.",
+      "Junte galinhas iguais para tentar uma da raridade seguinte.": "Junta gallinas iguales para intentar una de la rareza siguiente.",
+      "O caçador terminou o turno.": "El cazador terminó su turno.",
+      "Quanto trabalha e quanto dorme": "Cuánto trabaja y cuánto duerme",
+      "Sai na 1ª compra": "Se libera con tu primera compra",
+      "Sem caçador": "Sin cazador",
+      "Sem caçador: leva uma galinha": "Sin cazador: se lleva una gallina",
+      "Trabalha {a} e dorme {b}": "Trabaja {a} y duerme {b}",
+      "Trabalhando, a energia cai até 0% e ela dorme. Dormindo, ela não produz e a energia volta. Sem galo, dorme até 100%, ou você toca em Acordar depois de 50%. Com galo, acorda sozinha em 50%. Cansada ou dormindo, não troca de celeiro.": "Trabajando, la energía baja hasta 0% y duerme. Durmiendo, no produce y la energía vuelve. Sin gallo, duerme hasta 100%, o tocas Despertar después del 50%. Con gallo, despierta sola al 50%. Cansada o durmiendo, no cambia de gallinero.",
+      "com galo, {d}": "con gallo, {d}",
+      "dia": "día",
+      "ladrão": "ladrón",
+      "{n} cansadas ficaram onde estavam": "{n} cansadas se quedaron donde estaban",
+      "{n} dias": "{n} días",
+      "1 de cada": "1 de cada",
+      "+1 pato": "+1 pato",
+      "+{h} h de proteção, em média": "+{h} h de protección, en promedio",
+      "A raposa vem em média a cada {h} h. Cada pato atrai uma para a mata e é gasto: {n} patos protegem por cerca de {t} h. Não engana o {ladrao}, que só aparece com mais de 10 galinhas.": "El zorro viene en promedio cada {h} h. Cada pato atrae a uno al bosque y se gasta: {n} patos protegen unas {t} h. No engaña al {ladrao}, que solo aparece con más de 10 gallinas.",
+      "Cerca de {h} h sem raposa": "Unas {h} h sin zorro",
+      "Encher os {n}": "Llenar los {n}",
+      "Foi para o dev": "Fue al dev",
+      "Protegem por cerca de {h} h": "Protegen unas {h} h",
+      "Sem proteção": "Sin protección",
+      "Só aparece com mais de 10 galinhas e mais de um celeiro, mais ou menos uma vez por dia. Sem caçador, ele leva uma galinha. Pato não engana ladrão.": "Solo aparece con más de 10 gallinas y más de un gallinero, más o menos una vez al día. Sin cazador, se lleva una gallina. El pato no engaña al ladrón.",
+      "cada": "cada uno",
     },
     ar: {
-      "1 ovo": "بيضة واحدة",
       "A fusão falhou": "فشل الدمج",
       "A galinha bota no celeiro. Choque para ter outra, ou venda.": "الدجاجة تبيض في الحظيرة. فقس للحصول على أخرى، أو بع.",
       "Abrindo o ovo…": "جار فتح البيضة…",
@@ -1332,7 +1357,6 @@ window.GRANJA_I18N = (function () {
       "Enquanto você estava fora": "أثناء غيابك",
       "Esteira": "سير ناقل",
       "Faltam": "ينقصك",
-      "Faxineiro": "عامل نظافة",
       "Fechar": "إغلاق",
       "Frutas": "فواكه",
       "Fundindo": "جار الدمج",
@@ -1360,15 +1384,11 @@ window.GRANJA_I18N = (function () {
       "Maquete": "مجسم",
       "Mercado": "السوق",
       "Milho": "ذرة",
-      "Motorista": "سائق",
       "Mítica": "خرافية",
-      "Na pool": "في المجمع",
       "Ninho cheio": "العش ممتلئ",
       "O caçador errou.": "أخطأ الصياد.",
-      "O faxineiro terminou o turno.": "انتهت مناوبة عامل النظافة.",
       "O ladrão fugiu.": "هرب اللص.",
       "O ladrão levou uma galinha": "سرق اللص دجاجة",
-      "O motorista terminou o turno.": "انتهت مناوبة السائق.",
       "O ovo chocou!": "فقست البيضة!",
       "O pato levou a raposa embora.": "أخذت البطة الثعلب بعيدا.",
       "Os nuggets enchem a caixa. Chame o caminhão antes que ela lote.": "الناجتس تملأ الصندوق. استدع الشاحنة قبل أن يمتلئ.",
@@ -1397,7 +1417,6 @@ window.GRANJA_I18N = (function () {
       "Reiniciar": "إعادة البدء",
       "Rejeitar": "رفض",
       "SOL investido": "SOL مستثمر",
-      "Sai na 1ª compra em SOL": "يفتح عند أول شراء بـ SOL",
       "Saldo": "الرصيد",
       "Sem SOL": "بدون SOL",
       "Sem vaga": "لا مكان",
@@ -1455,7 +1474,6 @@ window.GRANJA_I18N = (function () {
       "Raposa!": "ثعلب!",
       "4 canteiros": "4 أحواض",
       "A galinha bota no celeiro dela. Venda na hora, ou choque na chocadeira do celeiro para ganhar uma galinha nova. Comprado, o ovo abre na hora.": "الدجاجة تبيض في حظيرتها. بع البيضة فورا، أو فقسها في حاضنة الحظيرة لتحصل على دجاجة جديدة. البيضة المشتراة تفتح فورا.",
-      "Abre na hora": "يفتح فورا",
       "Acelerar": "تسريع",
       "Acerta raposa e ladrão": "يصيب الثعلب واللص",
       "Acorda as galinhas sozinho": "يوقظ الدجاجات تلقائيا",
@@ -1468,8 +1486,6 @@ window.GRANJA_I18N = (function () {
       "Cada canteiro colhido soma o bônus dele nos nuggets por {h} h. Colher de novo soma horas, até {m} h.": "كل حوض تحصده يضيف مكافأته إلى الناجتس لمدة {h} س. الحصاد مرة أخرى يضيف ساعات، حتى {m} س.",
       "Cada galinha nasce com uma produção sorteada dentro da faixa da raridade. Quanto mais rara, mais produz e mais tempo trabalha antes de cansar. A Mítica tem 10 versões únicas.": "تولد كل دجاجة بإنتاج عشوائي ضمن نطاق ندرتها. كلما كانت أندر زاد إنتاجها وطال عملها قبل أن تتعب. الخرافية لها 10 نسخ فريدة.",
       "Cada reforma dá mais camas a este celeiro, garantido.": "كل تجديد يمنح هذه الحظيرة أسرة إضافية، بشكل مضمون.",
-      "Chama o caminhão sozinho": "يستدعي الشاحنة تلقائيا",
-      "Chama o caminhão sozinho a cada {h} h de produção, mesmo com você fora. Cobra {p}% a mais de frete.": "يستدعي الشاحنة تلقائيا كل {h} س من الإنتاج، حتى وأنت غائب. يأخذ {p}% زيادة في أجرة الشحن.",
       "Come os pintinhos da esteira": "يأكل الكتاكيت على السير",
       "Contorno no que é útil": "حدود على ما هو مفيد",
       "Cresce em {d}": "ينمو خلال {d}",
@@ -1483,13 +1499,8 @@ window.GRANJA_I18N = (function () {
       "Gelo": "جليد",
       "Grátis": "مجانا",
       "Guarda os nuggets": "يخزن الناجتس",
-      "Guarda os nuggets até o caminhão buscar. Cheia, as galinhas param. Caixa maior aguenta mais tempo longe, mas a parte acima de 4 h paga frete maior.": "تحفظ الناجتس حتى تأتي الشاحنة. عندما تمتلئ تتوقف الدجاجات. الصندوق الأكبر يتحمل غيابك لفترة أطول، لكن الجزء فوق 4 س يدفع أجرة شحن أعلى.",
-      "Junta galinhas numa mais rara": "يدمج الدجاجات في دجاجة أندر",
-      "Junte de {a} a {b} galinhas iguais para tentar uma da raridade seguinte. Mais galinhas, mais chance. Falhou, perde uma delas e a taxa.": "اجمع من {a} إلى {b} من الدجاجات المتطابقة لتحاول الحصول على واحدة من الندرة التالية. كلما زاد العدد زادت الفرصة. إذا فشل الدمج تخسر واحدة منها والرسوم.",
-      "Leva galinhas de granja grande": "يسرق دجاجات المزارع الكبيرة",
       "Leva os pintinhos ao abatedouro": "ينقل الكتاكيت إلى المسلخ",
       "Mais galinhas neste celeiro": "المزيد من الدجاجات في هذه الحظيرة",
-      "Mantém os celeiros limpos": "يحافظ على نظافة الحظائر",
       "Máximo": "أقصى",
       "Na hora": "فورا",
       "Na horta": "في البستان",
@@ -1501,10 +1512,7 @@ window.GRANJA_I18N = (function () {
       "Quanto cada uma rende": "كم تنتج كل واحدة",
       "Rainha": "ملكة",
       "Robô": "روبوت",
-      "Sem ele, um celeiro chega ao piso em {h} h e rende {p}%. Enquanto ele trabalha, nada suja.": "بدونه تصل الحظيرة إلى الحد الأدنى خلال {h} س وتنتج {p}%. وأثناء عمله لا شيء يتسخ.",
-      "Sem faxineiro": "بلا عامل نظافة",
       "Sem galo, a galinha dorme até 100%, ou até você tocar em Acordar depois da metade do descanso. Com galo, ele canta na metade e ela volta sozinha.": "بدون ديك تنام الدجاجة حتى 100%، أو حتى تضغط إيقاظ بعد منتصف الراحة. مع الديك يصيح عند المنتصف وتعود هي من تلقاء نفسها.",
-      "Sem motorista": "بلا سائق",
       "Transforma cada pintinho em nuggets. Cada nível é um prédio novo, que paga mais por pintinho.": "يحول كل كتكوت إلى ناجتس. كل مستوى مبنى جديد يدفع أكثر لكل كتكوت.",
       "Transforma pintinhos em nuggets": "يحول الكتاكيت إلى ناجتس",
       "Vender, chocar e comprar": "بيع وتفقيس وشراء",
@@ -1518,7 +1526,6 @@ window.GRANJA_I18N = (function () {
       "Caçador": "صياد",
       "Bônus": "مكافأة",
       "Cada celeiro novo é melhor que o anterior e já vem com a esteira e as camas do nível dele. As vagas extras só abrem depois do último.": "كل حظيرة جديدة أفضل من السابقة وتأتي مع السير والأسرّة الخاصة بمستواها. الأماكن الإضافية تفتح بعد آخر حظيرة فقط.",
-      "Cada pato atrai uma raposa para a mata e é gasto. Com caçador, não faz falta.": "كل بطة تجذب ثعلبًا إلى الغابة وتُستهلك. مع الصياد لا حاجة إليها.",
       "Cansando": "تتعب",
       "Celeiro {n} em obra": "الحظيرة {n} قيد البناء",
       "Celeiro {n} pronto": "الحظيرة {n} جاهزة",
@@ -1529,22 +1536,17 @@ window.GRANJA_I18N = (function () {
       "Em obra": "قيد البناء",
       "Espera a obra": "تنتظر البناء",
       "Fazendeiro": "مزارع",
-      "Fica com você para sempre e acerta toda raposa e todo ladrão.": "يبقى معك إلى الأبد ويصيب كل ثعلب وكل لص.",
-      "Leva a caixa inteira e a venda é na hora: o saldo sobe no toque. Parte da carga fica de frete e é queimada.": "يأخذ الصندوق كله ويبيعه فورًا: يرتفع رصيدك عند النقر. جزء من الحمولة يذهب أجرة شحن ويُحرق.",
       "Leva os pintinhos do celeiro até o abatedouro. Cada celeiro já vem com a sua, e o que passa do limite fica parado no celeiro.": "ينقل الكتاكيت من الحظيرة إلى المسلخ. كل حظيرة تأتي مع سيرها، وما يزيد عن الحد يبقى في الحظيرة.",
       "Limpeza": "النظافة",
       "Metal": "معدن",
-      "No posto": "في موقعه",
       "O galo terminou o turno.": "انتهت نوبة الديك.",
       "O que cada nível traz": "ماذا يقدم كل مستوى",
       "Pedra": "حجر",
       "Rende": "يربح",
       "Sem galo": "بلا ديك",
       "Sujo": "متسخ",
-      "Só vem com mais de um celeiro e mais de 10 galinhas. Sem caçador, ele leva uma galinha. Pato não engana ladrão.": "يأتي فقط مع أكثر من حظيرة وأكثر من 10 دجاجات. بلا صياد يأخذ دجاجة. البطة لا تخدع اللص.",
       "Taxa para abrir": "رسوم الفتح",
       "Trabalhando": "تعمل",
-      "Vende a caixa na hora": "يبيع الصندوق فورًا",
       "acelerar": "تسريع",
       "acorda em {d}": "تستيقظ بعد {d}",
       "cansa em {d}": "تتعب بعد {d}",
@@ -1566,9 +1568,39 @@ window.GRANJA_I18N = (function () {
       "Organizar": "نظّم",
       "Galinhas organizadas": "تم تنظيم الدجاج",
       "Já está organizado": "منظّم بالفعل",
+      "Acerta toda raposa e todo {ladrao} enquanto estiver no posto. Contrate por alguns dias e renove quando acabar.": "يصيب كل ثعلب وكل {ladrao} ما دام في موقعه. استأجره لبضعة أيام وجدد عند الانتهاء.",
+      "As 10 Míticas": "الأسطوريات العشر",
+      "Cansada demais para mudar de celeiro": "متعبة جدًا لتغيير الحظيرة",
+      "Cansaço e descanso": "التعب والراحة",
+      "Com caçador: foge sem nada": "مع الصياد: يهرب بلا شيء",
+      "Energia": "الطاقة",
+      "Guarda os nuggets até você chamar o caminhão. Cheia, as galinhas param. Caixa maior aguenta mais tempo longe.": "يحفظ النقود حتى تستدعي الشاحنة. عند امتلائه تتوقف الدجاجات. الصندوق الأكبر يصمد وقتًا أطول في غيابك.",
+      "Junte galinhas iguais para tentar uma da raridade seguinte.": "اجمع دجاجات متماثلة لتجربة الندرة التالية.",
+      "O caçador terminou o turno.": "انتهت نوبة الصياد.",
+      "Quanto trabalha e quanto dorme": "كم تعمل وكم تنام",
+      "Sai na 1ª compra": "يُفتح مع أول شراء",
+      "Sem caçador": "بلا صياد",
+      "Sem caçador: leva uma galinha": "بلا صياد: يأخذ دجاجة",
+      "Trabalha {a} e dorme {b}": "تعمل {a} وتنام {b}",
+      "Trabalhando, a energia cai até 0% e ela dorme. Dormindo, ela não produz e a energia volta. Sem galo, dorme até 100%, ou você toca em Acordar depois de 50%. Com galo, acorda sozinha em 50%. Cansada ou dormindo, não troca de celeiro.": "أثناء العمل تنخفض الطاقة حتى 0% فتنام. أثناء النوم لا تنتج وتعود الطاقة. بلا ديك تنام حتى 100% أو توقظها بعد 50%. مع الديك تستيقظ وحدها عند 50%. المتعبة أو النائمة لا تغير الحظيرة.",
+      "com galo, {d}": "مع الديك، {d}",
+      "dia": "يوم",
+      "ladrão": "اللص",
+      "{n} cansadas ficaram onde estavam": "{n} متعبة بقيت مكانها",
+      "{n} dias": "{n} أيام",
+      "1 de cada": "واحدة من كل نوع",
+      "+1 pato": "+1 بطة",
+      "+{h} h de proteção, em média": "+{h} س حماية في المتوسط",
+      "A raposa vem em média a cada {h} h. Cada pato atrai uma para a mata e é gasto: {n} patos protegem por cerca de {t} h. Não engana o {ladrao}, que só aparece com mais de 10 galinhas.": "يأتي الثعلب في المتوسط كل {h} س. كل بطة تجذب واحدًا إلى الغابة وتُستهلك: {n} بطات تحميك نحو {t} س. لا تخدع {ladrao} الذي يظهر فقط مع أكثر من 10 دجاجات.",
+      "Cerca de {h} h sem raposa": "نحو {h} س بلا ثعلب",
+      "Encher os {n}": "املأ الـ {n}",
+      "Foi para o dev": "ذهب إلى المطوّر",
+      "Protegem por cerca de {h} h": "تحميك نحو {h} س",
+      "Sem proteção": "بلا حماية",
+      "Só aparece com mais de 10 galinhas e mais de um celeiro, mais ou menos uma vez por dia. Sem caçador, ele leva uma galinha. Pato não engana ladrão.": "يظهر فقط مع أكثر من 10 دجاجات وأكثر من حظيرة، مرة في اليوم تقريبًا. بلا صياد يأخذ دجاجة. البطة لا تخدع اللص.",
+      "cada": "لكل واحدة",
     },
     ru: {
-      "1 ovo": "1 яйцо",
       "A fusão falhou": "Слияние не удалось",
       "A galinha bota no celeiro. Choque para ter outra, ou venda.": "Курица несётся в курятнике. Выведи новую или продай.",
       "Abrindo o ovo…": "Открываем яйцо…",
@@ -1618,7 +1650,6 @@ window.GRANJA_I18N = (function () {
       "Enquanto você estava fora": "Пока тебя не было",
       "Esteira": "Конвейер",
       "Faltam": "Не хватает",
-      "Faxineiro": "Уборщик",
       "Fechar": "Закрыть",
       "Frutas": "Фрукты",
       "Fundindo": "Сливаем",
@@ -1646,15 +1677,11 @@ window.GRANJA_I18N = (function () {
       "Maquete": "Диорама",
       "Mercado": "Рынок",
       "Milho": "Кукуруза",
-      "Motorista": "Водитель",
       "Mítica": "Мифическая",
-      "Na pool": "В пуле",
       "Ninho cheio": "Гнездо полно",
       "O caçador errou.": "Охотник промахнулся.",
-      "O faxineiro terminou o turno.": "Уборщик закончил смену.",
       "O ladrão fugiu.": "Вор сбежал.",
       "O ladrão levou uma galinha": "Вор украл курицу",
-      "O motorista terminou o turno.": "Водитель закончил смену.",
       "O ovo chocou!": "Яйцо вылупилось!",
       "O pato levou a raposa embora.": "Утка увела лису.",
       "Os nuggets enchem a caixa. Chame o caminhão antes que ela lote.": "Наггетсы наполняют ящик. Вызови грузовик, пока он не заполнился.",
@@ -1683,7 +1710,6 @@ window.GRANJA_I18N = (function () {
       "Reiniciar": "Сбросить",
       "Rejeitar": "Отклонить",
       "SOL investido": "Вложено SOL",
-      "Sai na 1ª compra em SOL": "Откроется после 1-й покупки за SOL",
       "Saldo": "Баланс",
       "Sem SOL": "Нет SOL",
       "Sem vaga": "Нет места",
@@ -1741,7 +1767,6 @@ window.GRANJA_I18N = (function () {
       "Raposa!": "Лиса!",
       "4 canteiros": "4 грядки",
       "A galinha bota no celeiro dela. Venda na hora, ou choque na chocadeira do celeiro para ganhar uma galinha nova. Comprado, o ovo abre na hora.": "Курица несётся в своём курятнике. Продай яйцо сразу или высиди его в инкубаторе курятника, чтобы получить новую курицу. Купленное яйцо открывается сразу.",
-      "Abre na hora": "Открывается сразу",
       "Acelerar": "Ускорить",
       "Acerta raposa e ladrão": "Бьёт лису и вора",
       "Acorda as galinhas sozinho": "Сам будит куриц",
@@ -1754,8 +1779,6 @@ window.GRANJA_I18N = (function () {
       "Cada canteiro colhido soma o bônus dele nos nuggets por {h} h. Colher de novo soma horas, até {m} h.": "Каждая собранная грядка добавляет свой бонус к наггетсам на {h} ч. Новый сбор добавляет часы, максимум {m} ч.",
       "Cada galinha nasce com uma produção sorteada dentro da faixa da raridade. Quanto mais rara, mais produz e mais tempo trabalha antes de cansar. A Mítica tem 10 versões únicas.": "Каждая курица появляется со случайной выработкой в пределах своей редкости. Чем реже, тем больше она даёт и дольше работает, прежде чем устанет. У Мифической 10 уникальных версий.",
       "Cada reforma dá mais camas a este celeiro, garantido.": "Каждое улучшение гарантированно добавляет этому курятнику кровати.",
-      "Chama o caminhão sozinho": "Сам вызывает грузовик",
-      "Chama o caminhão sozinho a cada {h} h de produção, mesmo com você fora. Cobra {p}% a mais de frete.": "Сам вызывает грузовик каждые {h} ч выработки, даже когда тебя нет. Берёт на {p}% больше за перевозку.",
       "Come os pintinhos da esteira": "Ест цыплят на конвейере",
       "Contorno no que é útil": "Контур на полезном",
       "Cresce em {d}": "Вырастет через {d}",
@@ -1769,13 +1792,8 @@ window.GRANJA_I18N = (function () {
       "Gelo": "Лёд",
       "Grátis": "Бесплатно",
       "Guarda os nuggets": "Хранит наггетсы",
-      "Guarda os nuggets até o caminhão buscar. Cheia, as galinhas param. Caixa maior aguenta mais tempo longe, mas a parte acima de 4 h paga frete maior.": "Хранит наггетсы, пока их не заберёт грузовик. Когда ящик полон, курицы останавливаются. Ящик побольше дольше выдерживает твоё отсутствие, но часть сверх 4 ч стоит дороже за перевозку.",
-      "Junta galinhas numa mais rara": "Объединяет куриц в более редкую",
-      "Junte de {a} a {b} galinhas iguais para tentar uma da raridade seguinte. Mais galinhas, mais chance. Falhou, perde uma delas e a taxa.": "Объедини от {a} до {b} одинаковых куриц, чтобы попробовать получить курицу следующей редкости. Больше куриц — выше шанс. При неудаче пропадает одна курица и комиссия.",
-      "Leva galinhas de granja grande": "Крадёт куриц с больших ферм",
       "Leva os pintinhos ao abatedouro": "Везёт цыплят на бойню",
       "Mais galinhas neste celeiro": "Больше куриц в этом курятнике",
-      "Mantém os celeiros limpos": "Держит курятники чистыми",
       "Máximo": "Макс",
       "Na hora": "Сразу",
       "Na horta": "На огороде",
@@ -1787,10 +1805,7 @@ window.GRANJA_I18N = (function () {
       "Quanto cada uma rende": "Сколько приносит каждая",
       "Rainha": "Королева",
       "Robô": "Робот",
-      "Sem ele, um celeiro chega ao piso em {h} h e rende {p}%. Enquanto ele trabalha, nada suja.": "Без него курятник доходит до минимума за {h} ч и приносит {p}%. Пока он работает, ничего не пачкается.",
-      "Sem faxineiro": "Нет уборщика",
       "Sem galo, a galinha dorme até 100%, ou até você tocar em Acordar depois da metade do descanso. Com galo, ele canta na metade e ela volta sozinha.": "Без петуха курица спит до 100% или пока ты не нажмёшь Разбудить после половины отдыха. С петухом он поёт на половине, и она встаёт сама.",
-      "Sem motorista": "Нет водителя",
       "Transforma cada pintinho em nuggets. Cada nível é um prédio novo, que paga mais por pintinho.": "Превращает каждого цыплёнка в наггетсы. Каждый уровень — новое здание, которое платит больше за цыплёнка.",
       "Transforma pintinhos em nuggets": "Превращает цыплят в наггетсы",
       "Vender, chocar e comprar": "Продать, вывести и купить",
@@ -1804,7 +1819,6 @@ window.GRANJA_I18N = (function () {
       "Caçador": "Охотник",
       "Bônus": "Бонус",
       "Cada celeiro novo é melhor que o anterior e já vem com a esteira e as camas do nível dele. As vagas extras só abrem depois do último.": "Каждый новый курятник лучше предыдущего и сразу идёт с конвейером и лежанками своего уровня. Доп. места открываются только после последнего.",
-      "Cada pato atrai uma raposa para a mata e é gasto. Com caçador, não faz falta.": "Каждая утка уводит одну лису в лес и расходуется. С охотником она не нужна.",
       "Cansando": "Устаёт",
       "Celeiro {n} em obra": "Курятник {n} строится",
       "Celeiro {n} pronto": "Курятник {n} готов",
@@ -1815,22 +1829,17 @@ window.GRANJA_I18N = (function () {
       "Em obra": "Строится",
       "Espera a obra": "Ждёт стройку",
       "Fazendeiro": "Фермер",
-      "Fica com você para sempre e acerta toda raposa e todo ladrão.": "Остаётся с вами навсегда и попадает в каждую лису и каждого вора.",
-      "Leva a caixa inteira e a venda é na hora: o saldo sobe no toque. Parte da carga fica de frete e é queimada.": "Забирает весь ящик и продаёт сразу: баланс растёт по нажатию. Часть груза уходит на доставку и сжигается.",
       "Leva os pintinhos do celeiro até o abatedouro. Cada celeiro já vem com a sua, e o que passa do limite fica parado no celeiro.": "Везёт цыплят из курятника на бойню. Каждый курятник идёт со своим, а всё сверх лимита ждёт в курятнике.",
       "Limpeza": "Чистота",
       "Metal": "Металл",
-      "No posto": "На посту",
       "O galo terminou o turno.": "Смена петуха закончилась.",
       "O que cada nível traz": "Что даёт каждый уровень",
       "Pedra": "Камень",
       "Rende": "Приносит",
       "Sem galo": "Без петуха",
       "Sujo": "Грязно",
-      "Só vem com mais de um celeiro e mais de 10 galinhas. Sem caçador, ele leva uma galinha. Pato não engana ladrão.": "Приходит только при нескольких курятниках и более чем 10 курах. Без охотника уносит курицу. Утка вора не обманет.",
       "Taxa para abrir": "Плата за открытие",
       "Trabalhando": "Работает",
-      "Vende a caixa na hora": "Продаёт ящик сразу",
       "acelerar": "ускорить",
       "acorda em {d}": "проснётся через {d}",
       "cansa em {d}": "устанет через {d}",
@@ -1852,6 +1861,37 @@ window.GRANJA_I18N = (function () {
       "Organizar": "Расставить",
       "Galinhas organizadas": "Куры расставлены",
       "Já está organizado": "Уже расставлены",
+      "Acerta toda raposa e todo {ladrao} enquanto estiver no posto. Contrate por alguns dias e renove quando acabar.": "Попадает в каждую лису и каждого {ladrao}, пока на посту. Наймите на несколько дней и продлите, когда закончится.",
+      "As 10 Míticas": "10 Мифических",
+      "Cansada demais para mudar de celeiro": "Слишком устала, чтобы сменить курятник",
+      "Cansaço e descanso": "Усталость и отдых",
+      "Com caçador: foge sem nada": "С охотником: убегает ни с чем",
+      "Energia": "Энергия",
+      "Guarda os nuggets até você chamar o caminhão. Cheia, as galinhas param. Caixa maior aguenta mais tempo longe.": "Хранит наггетсы, пока вы не вызовете грузовик. Полный — куры останавливаются. Ящик побольше дольше держится без вас.",
+      "Junte galinhas iguais para tentar uma da raridade seguinte.": "Соедините одинаковых кур, чтобы попробовать следующую редкость.",
+      "O caçador terminou o turno.": "Смена охотника закончилась.",
+      "Quanto trabalha e quanto dorme": "Сколько работает и сколько спит",
+      "Sai na 1ª compra": "Откроется после первой покупки",
+      "Sem caçador": "Без охотника",
+      "Sem caçador: leva uma galinha": "Без охотника: уносит курицу",
+      "Trabalha {a} e dorme {b}": "Работает {a}, спит {b}",
+      "Trabalhando, a energia cai até 0% e ela dorme. Dormindo, ela não produz e a energia volta. Sem galo, dorme até 100%, ou você toca em Acordar depois de 50%. Com galo, acorda sozinha em 50%. Cansada ou dormindo, não troca de celeiro.": "Во время работы энергия падает до 0%, и курица засыпает. Во сне она ничего не производит, а энергия восстанавливается. Без петуха спит до 100%, или нажмите «Разбудить» после 50%. С петухом просыпается сама на 50%. Уставшую или спящую курицу нельзя переселить.",
+      "com galo, {d}": "с петухом, {d}",
+      "dia": "день",
+      "ladrão": "вора",
+      "{n} cansadas ficaram onde estavam": "уставших осталось на месте: {n}",
+      "{n} dias": "дней: {n}",
+      "1 de cada": "По одной",
+      "+1 pato": "+1 утка",
+      "+{h} h de proteção, em média": "+{h} ч защиты в среднем",
+      "A raposa vem em média a cada {h} h. Cada pato atrai uma para a mata e é gasto: {n} patos protegem por cerca de {t} h. Não engana o {ladrao}, que só aparece com mais de 10 galinhas.": "Лиса приходит в среднем раз в {h} ч. Каждая утка уводит одну в лес и расходуется: {n} уток защищают примерно {t} ч. Не обманет {ladrao}, который приходит только при более чем 10 курах.",
+      "Cerca de {h} h sem raposa": "Около {h} ч без лис",
+      "Encher os {n}": "Заполнить все {n}",
+      "Foi para o dev": "Ушло разработчику",
+      "Protegem por cerca de {h} h": "Защищают примерно {h} ч",
+      "Sem proteção": "Без защиты",
+      "Só aparece com mais de 10 galinhas e mais de um celeiro, mais ou menos uma vez por dia. Sem caçador, ele leva uma galinha. Pato não engana ladrão.": "Приходит только при более чем 10 курах и нескольких курятниках, примерно раз в день. Без охотника уносит курицу. Утка вора не обманет.",
+      "cada": "за штуку",
     },
   };
   function pick() {
@@ -1959,7 +1999,22 @@ window.GRANJA_ART = (function () {
   };
   pics.corn = pics.milho;
   const mini = (name) => pics[name]().replace('class="pic', 'class="pic mini');
-  return { pic: (name) => (pics[name] ? pics[name]() : ''), hen, henOf, mini, defs };
+  // Filminho do ladrão, 8 s em loop: sem caçador ele pega uma galinha e foge com ela; com caçador, leva um tiro de aviso e foge sem nada.
+  function thiefClip(semCacador, comCacador) {
+    const anim = (attr, values, times, type) => '<animate' + (type ? 'Transform attributeName="transform" type="' + type + '"' : ' attributeName="' + attr + '"') + ' values="' + values + '" keyTimes="' + times + '" dur="8s" repeatCount="indefinite"/>';
+    const thief = C(0, -30, 7, '#e8b98d') + R(-8, -33, 16, 5, '#1d1a17', 2) + C(-3, -31, 1.3, '#fff') + C(3, -31, 1.3, '#fff') + P('M-8 -35q8-9 16 0z', '#1d1a17') + P('M-12 0c0-14 5-20 12-20s12 6 12 20z', '#2b2b33') + L('M-10 -8h20M-11 -4h22', '#e8e4d8', 1.6);
+    const hen = E(0, -8, 9, 7, '#efe8da') + C(6, -15, 5, '#efe8da') + P('M10 -16l5 1-5 2z', '#efa32f') + P('M3 -20c1-3 4-3 5 0z', '#d8392f') + C(7, -16, 1, '#2b211c');
+    const hunter = C(0, -30, 7, '#e8b98d') + P('M-10 -33h20l-3-6h-14z', '#4c6b3a') + R(-12, -34, 24, 2.4, '#3a5230') + P('M-11 0c0-14 5-19 11-19s11 5 11 19z', '#4c6b3a') + L('M-8 -18L-24 -26', '#3f2613', 2.6);
+    return '<svg viewBox="0 0 240 120" aria-hidden="true">' + R(0, 0, 240, 120, '#bfe6ff') + R(0, 98, 240, 22, '#7fbf5a') + R(0, 98, 240, 3, '#5ea344')
+      + P('M14 72L44 48l30 24v4H14z', '#b92f28') + R(20, 74, 48, 26, '#c98a4b') + R(38, 82, 12, 18, '#3f2613', 3)
+      + '<g>' + hen + anim('', '70 99;70 99;100 76;270 76;70 99;70 99', '0;0.2;0.24;0.38;0.47;1', 'translate') + anim('opacity', '1;1;0;0;1;1', '0;0.375;0.38;0.47;0.5;1') + '</g>'
+      + '<g>' + thief + anim('', '270 100;100 100;100 100;270 100;270 100;100 100;100 100;-40 100;-40 100', '0;0.15;0.24;0.38;0.5;0.62;0.68;0.85;1', 'translate') + '</g>'
+      + '<g transform="translate(212 100)">' + hunter + anim('opacity', '0;0;1;1;0', '0;0.5;0.53;0.97;1') + '</g>'
+      + '<path d="M188 74L106 80" stroke="#fff3b0" stroke-width="3" opacity="0">' + anim('opacity', '0;0;1;0;0', '0;0.655;0.66;0.69;1') + '</path>'
+      + '<text x="120" y="20" text-anchor="middle" font-size="13" font-weight="800" fill="#2b211c">' + semCacador + anim('opacity', '1;1;0;0', '0;0.45;0.5;1') + '</text>'
+      + '<text x="120" y="20" text-anchor="middle" font-size="13" font-weight="800" fill="#2b211c" opacity="0">' + comCacador + anim('opacity', '0;0;1;1;0', '0;0.5;0.53;0.97;1') + '</text></svg>';
+  }
+  return { pic: (name) => (pics[name] ? pics[name]() : ''), hen, henOf, mini, defs, thiefClip };
 })();
 </script>
 <script>
@@ -1973,20 +2028,20 @@ window.GRANJA_ART = (function () {
   // por minuto trabalhando. As faixas quase não se cruzam: uma raridade acima quase sempre produz mais. gold: chance de cada pintinho sair dourado.
   // A Mítica só sai do ovo, e muito raramente; não há fusão para ela. tire: minutos de trabalho, descansada, até cansar: a mais rara aguenta mais.
   const RAR = [
-    { id: 'comum',    nome: 'Comum',    chance: 50,   min: 1,  max: 10, gold: 0,     tire: 80,  cor: '#efe8da', chick: '#ffd84d' },
-    { id: 'incomum',  nome: 'Incomum',  chance: 28,   min: 8,  max: 14, gold: 0.002, tire: 100, cor: '#5fcf6a', chick: '#b4f0a0' },
-    { id: 'rara',     nome: 'Rara',     chance: 14,   min: 12, max: 20, gold: 0.005, tire: 120, cor: '#4aa8ff', chick: '#8fd0ff' },
-    { id: 'epica',    nome: 'Épica',    chance: 6,    min: 18, max: 34, gold: 0.01,  tire: 140, cor: '#b56bff', chick: '#d2a8ff' },
-    { id: 'lendaria', nome: 'Lendária', chance: 1.96, min: 30, max: 45, gold: 0.02,  tire: 170, cor: '#ffc53d', chick: '#ff9f1c' },
-    { id: 'mitica',   nome: 'Mítica',   chance: 0.04, min: 45, max: 80, gold: 0.03,  tire: 200, cor: '#ff5cc8', chick: '#ff8fd8' },
+    { id: 'comum',    nome: 'Comum',    chance: 50,   min: 1,   max: 6,   gold: 0,     tire: 80,  cor: '#efe8da', chick: '#ffd84d' },
+    { id: 'incomum',  nome: 'Incomum',  chance: 28,   min: 6,   max: 12,  gold: 0.002, tire: 100, cor: '#5fcf6a', chick: '#b4f0a0' },
+    { id: 'rara',     nome: 'Rara',     chance: 14,   min: 12,  max: 20,  gold: 0.005, tire: 120, cor: '#4aa8ff', chick: '#8fd0ff' },
+    { id: 'epica',    nome: 'Épica',    chance: 6,    min: 30,  max: 50,  gold: 0.01,  tire: 140, cor: '#b56bff', chick: '#d2a8ff' },
+    { id: 'lendaria', nome: 'Lendária', chance: 1.96, min: 90,  max: 140, gold: 0.02,  tire: 170, cor: '#ffc53d', chick: '#ff9f1c' },
+    { id: 'mitica',   nome: 'Mítica',   chance: 0.04, min: 300, max: 450, gold: 0.03,  tire: 200, cor: '#ff5cc8', chick: '#ff8fd8' },
   ];
   // O nível de um celeiro é a posição dele, e ele já vem com a esteira e as camas daquele nível, sem compra à parte.
   // hens: quantas galinhas ao todo liberam o celeiro. hours: horas de obra; rush: $NUGGET para terminar na hora; sol: taxa no lugar da obra; bonus: produção a mais.
   const COOPS = [
     { nome: 'Madeira' },
-    { nome: 'Pedra', hens: 11, hours: 12, rush: 50000 },
-    { nome: 'Metal', hens: 21, hours: 24, rush: 100000 },
-    { nome: 'Diamante', hens: 31, sol: 0.05, bonus: 0.1 },
+    { nome: 'Pedra', hens: 11, hours: 12, rush: 90000, bonus: 0.08 },
+    { nome: 'Metal', hens: 21, hours: 24, rush: 180000, bonus: 0.16 },
+    { nome: 'Diamante', hens: 31, sol: 0.1, bonus: 0.3 },
   ];
   // Camas: quanto descansa por minuto (%). Esteira: quantos pintinhos por minuto leva e a velocidade na cena. Abatedouro: quantos nuggets cada pintinho vira;
   // cada nível é um prédio novo, do açougue à usina, um nível por vez.
@@ -2003,23 +2058,25 @@ window.GRANJA_ART = (function () {
     { nome: 'Diamante', cap: 500, speed: 16 },
   ];
   const ABATS = [
-    { nome: 'Açougue', mult: 1, nug: 0 },
-    { nome: 'Empresinha', mult: 1.15, nug: 35000 },
-    { nome: 'Indústria', mult: 1.25, nug: 100000 },
-    { nome: 'Usina Nuclear', mult: 1.5, nug: 250000 },
+    { nome: 'Açougue', mult: 1, sol: 0 },
+    { nome: 'Empresinha', mult: 1.15, sol: 0.1 },
+    { nome: 'Indústria', mult: 1.3, sol: 0.2 },
+    { nome: 'Usina Nuclear', mult: 1.75, sol: 0.3 },
   ];
   const CFG = {
-    chickNug: 4,                                            // cada pintinho vira 4 nuggets no abatedouro
-    goldMult: 10,                                           // pintinho dourado vale 10 (40 nuggets)
-    mintSol: 0.05, netFee: 0.000005,                        // comprar um ovo, que revela na hora
-    poolShare: 0.75,                                        // de todo SOL gasto: 75% vai para a pool de recompensas, 25% para o time
-    vaultHours: 4, collectBurn: 0.10,                       // a caixa guarda 4 h; 10% do que o caminhão leva vira frete
-    // Caixa maior, paga em $NUGGET (queima): guarda mais horas, e a parte que passa de 4 h paga frete maior.
-    vaultLv: [4, 6, 8, 12], vaultNug: [0, 7000, 20000, 50000],
-    freight: [[4, 0.10], [6, 0.15], [8, 0.20], [12, 0.25]],  // [até quantas horas de produção, frete dessa fatia]
-    // Serviços de 24 h de jogo, pagos em $NUGGET. Preço fixo: pesa para quem começa e quase nada para granja grande.
-    driverHours: 24, driverNug: 15000, driverAt: 4, driverExtra: 0.05,   // motorista: entrega a cada 4 h de produção, com +5% de frete
-    cleanerHours: 24, cleanerNug: 10000,                                // faxineiro: os celeiros não sujam
+    chickNug: 3.5,                                          // cada pintinho vira 3,5 nuggets no abatedouro
+    goldMult: 10,                                           // pintinho dourado vale 10 (35 nuggets)
+    // Ovo em $NUGGET (queimado), que revela na hora. Preço de cada ovo pelo tamanho do pacote: quem compra pouco paga mais por galinha.
+    eggPacks: { 1: 65000, 5: 60000, 10: 55000 }, netFee: 0.000005,
+    // Todo SOL gasto vai para a carteira do dev (recompra, atualizações); o que se paga em $NUGGET é queimado.
+    collectBurn: 0.10,                                      // 10% do que o caminhão leva vira frete
+    // A caixa guarda 4 h de produção: quem fica longe perde produção, ou compra caixa maior, paga em $NUGGET (queima).
+    vaultLv: [4, 6, 10, 16], vaultNug: [0, 50000, 75000, 120000],
+    freight: [[16, 0.10]],                                  // [até quantas horas de produção, frete dessa fatia]
+    // Galo e caçador: contratados em SOL por alguns dias. Acabou, precisa renovar; dá para somar até planMax dias.
+    // O galo rende +10 a 25% para quem entra a cada 4 h; quem deixa a caixa encher ganha pouco com ele. O caçador salva as galinhas do ladrão.
+    roosterPlans: [{ days: 3, sol: 0.05 }, { days: 7, sol: 0.1 }],
+    hunterPlans: [{ days: 7, sol: 0.12 }], planMax: 14,
     slotsPerPen: 10, maxPens: 4,
     // Vagas extras: +2 num celeiro por nível, garantido, pago em $NUGGET (queima). Só depois do 4º celeiro.
     slotStep: 2, slotNug: [35000, 70000, 130000],
@@ -2033,35 +2090,37 @@ window.GRANJA_ART = (function () {
     ],
     fuseMin: 2, fuseMax: 10, fuseCap: 0.95,
     foxEvery: 2, foxStay: 40 / 60, firstFox: 5,             // em horas de jogo: a 1ª raposa vem com 5 h; depois ~1 a cada 2 h, e fica 40 min
-    // Só o sênior, que acerta todas. O nível 2 é o desenho dele nos visuais.
-    hunters: [null, null, { nome: 'Caçador sênior', sol: 0.15, kill: 1 }],
-    // Ladrão: ~1 a cada 160 h, só com mais de um celeiro e mais de 10 galinhas. Com caçador, leva tiro; sem caçador, leva uma galinha.
-    thiefEvery: 160, thiefPens: 2, thiefMin: 11,
-    // Começa sem $NUGGET e sem pato. A galinha do começo é grátis e produz 1: não bota ovo, não entra em fusão,
-    // e o que ela produz só sai da caixa depois da primeira compra em SOL. startSol é a carteira demo (no jogo, a do jogador).
-    startNug: 0, startSol: 3, startDucks: 0, startP: 1,
+    // Só o sênior, que acerta todas enquanto estiver no posto. O nível 2 é o desenho dele nos visuais.
+    hunters: [null, null, { nome: 'Caçador sênior', kill: 1 }],
+    // Ladrão: ~1 por dia, só com mais de um celeiro e mais de 10 galinhas. Com caçador, leva tiro; sem caçador, leva uma galinha.
+    thiefEvery: 24, thiefPens: 2, thiefMin: 11,
+    // A galinha do começo é grátis e produz 1: não bota ovo, não entra em fusão, e o que ela produz só sai da caixa depois da primeira compra.
+    // startNug e startSol são a carteira demo (no jogo, o que o jogador traz).
+    startNug: 400000, startSol: 3, startDucks: 0, startP: 1,
     // Ovos: cada galinha bota ~1 a cada 5 dias de jogo enquanto produz. Vender para a cooperativa é na hora.
     // Chocar custa $NUGGET: cada celeiro tem a sua chocadeira, e em 12 h ela solta uma galinha com as chances do ovo comprado.
     // Os dois primeiros saem cedo (com 2 h e 4 h depois), para o iniciante provar vender e chocar.
-    eggEvery: 120, eggSell: 7000, hatchNug: 20000, hatchHours: 12, nestMax: 12, firstEgg: 2, secondEgg: 4,
+    eggEvery: 120, eggSell: 15000, hatchNug: 30000, hatchHours: 12, nestMax: 12, firstEgg: 2, secondEgg: 4,
     // Galo: a galinha cansada só precisa descansar até wakeMin; ele canta e ela volta inteira. Sem galo, descansa até 100% ou espera o seu toque.
-    roosterNug: 10000, roosterHours: 24, wakeMin: 0.5,
-    // Sujeira: em 12 h um celeiro com galinhas chega ao piso, rendendo 60%. dirtWarn é o rendimento que já acende o aviso; até dirtShow de sujeira o celeiro ainda conta como limpo.
-    dirtHours: 12, dirtFloor: 0.6, dirtWarn: 0.8, dirtShow: 0.25,
+    // moveMin: com menos energia que isso, cansada ou dormindo, a galinha não troca de celeiro (senão dava para mandar quem vai dormir para a cama melhor).
+    wakeMin: 0.5, moveMin: 0.3,
+    // Sujeira: em 24 h um celeiro com galinhas chega ao piso, rendendo 70%. dirtWarn é o rendimento que já acende o aviso; até dirtShow de sujeira o celeiro ainda conta como limpo.
+    dirtHours: 24, dirtFloor: 0.7, dirtWarn: 0.85, dirtShow: 0.25,
     // Patos: comprados em $NUGGET, nadam no açude. Cada um atrai uma raposa para a mata e é gasto.
     duckNug: 5000, duckMax: 6,
-    // Horta: 4 canteiros, uma semente em cada. Colhido, o canteiro soma o bônus dele por 12 h: 4 canteiros de frutas dão +20%. Colher de novo soma horas, até 48.
+    // Horta: 4 canteiros, uma semente em cada. Colhido, o canteiro soma o bônus dele por 24 h: 4 canteiros de frutas dão +40%. Colher de novo soma horas, até 48.
+    // O bônus é em porcentagem, então rende muito para a baleia, pouco a mais do que custa para o jogador médio e não paga para a sardinha.
     seeds: {
-      milho: { nome: 'Milho', grow: 4, nug: 3000, hours: 12, boost: 0.02, cor: '#e8c64a' },
-      girassol: { nome: 'Girassol', grow: 6, nug: 7000, hours: 12, boost: 0.03, cor: '#ffcf1a' },
-      frutas: { nome: 'Frutas', grow: 8, nug: 15000, hours: 12, boost: 0.05, cor: '#e8343c' },
+      milho: { nome: 'Milho', grow: 4, nug: 15000, hours: 24, boost: 0.04, cor: '#e8c64a' },
+      girassol: { nome: 'Girassol', grow: 6, nug: 22000, hours: 24, boost: 0.06, cor: '#ffcf1a' },
+      frutas: { nome: 'Frutas', grow: 8, nug: 37000, hours: 24, boost: 0.10, cor: '#e8343c' },
     },
     zones: 4, buffMax: 48,
     // Fazendeiro, um só para os 4 canteiros: rega (cresce 2x mais rápido), colhe, planta de novo e não deixa passarinho comer.
-    workerNug: 10000, workerGrow: 2,
+    workerNug: 300000, workerGrow: 2,
     // Passarinhos: ~1 bando a cada 3 h, sem fazendeiro, atrasam um canteiro em 1h30.
     birdEvery: 3, birdSet: 1.5,
-    rushNug: 3000,                                          // acelerar a chocadeira: por hora que falta
+    rushNug: 5000,                                          // acelerar a chocadeira: por hora que falta
     goldGap: 20,                                            // segundos entre dois avisos de pintinho dourado
     testnet: true,                                          // false esconde a aba Testnet
   };
@@ -2151,20 +2210,20 @@ window.GRANJA_ART = (function () {
   const noChoc = () => [null, null, null, null];
   function fresh() {
     return { v: 9, nug: CFG.startNug, sol: CFG.startSol, burned: 0, earned: 0, invested: 0, eaten: 0, pens: 1, hunter: 0,
-      hens: [{ id: 1, r: 0, pen: 0, p: CFG.startP, e: 1, k: 1, rest: false, free: true }], got: 1, vault: 0, speed: 1, t: Date.now(), ids: 2,
+      hens: [{ id: 1, r: 0, pen: 0, p: CFG.startP, e: 1, rest: false, free: true }], got: 1, hunterDays: 1, vault: 0, speed: 1, t: Date.now(), ids: 2,
       eggs: [], eggIds: 1, choc: noChoc(), firstEgg: CFG.firstEgg, eggGift: 2, sold: 0, hatched: 0,
       ducks: CFG.startDucks, rooster: 0, dirt: [0, 0, 0, 0],
       foxes: 0, nextFox: CFG.firstFox, tutSeen: {}, todPref: 'dia', maqPix: false, ...extras() };
   }
   const zone = (o) => Object.assign({ seed: null, left: 0, last: 'milho', feed: 0, boost: 0 }, o);
   // Melhorias, celeiro em obra, horta e ladrão.
-  const extras = () => ({ vaultLv: 0, driver: 0, cleaner: 0, penLv: [0, 0, 0, 0], abat: 0, build: null,
+  const extras = () => ({ vaultLv: 0, penLv: [0, 0, 0, 0], abat: 0, build: null,
     zones: [0, 1, 2, 3].map(() => zone()), farmer: false, nextBird: CFG.birdEvery, nextThief: CFG.thiefEvery,
     thieves: 0, thiefShot: 0, stolen: 0, birdsIn: 0, pool: 0, team: 0, fused: 0, fuseFail: 0, guide: 0, contour: true });
   // Galinha nova: produção sorteada na faixa da raridade; e é o quanto está descansada, k o quanto cansa (cada uma tem seu ritmo).
   const rollP = (r) => RAR[r].min + Math.floor(Math.random() * (RAR[r].max - RAR[r].min + 1));
   const rollSkin = () => Math.floor(Math.random() * SKINS.length);
-  const newHen = (r, pen, p) => Object.assign({ id: S.ids++, r, pen, p: p || rollP(r), e: 1, k: rnd(0.85, 1.15), rest: false }, r === 5 ? { skin: rollSkin() } : null);
+  const newHen = (r, pen, p) => Object.assign({ id: S.ids++, r, pen, p: p || rollP(r), e: 1, rest: false }, r === 5 ? { skin: rollSkin() } : null);
   // Granja de exemplo: as raras ficam juntas no celeiro 3, o de caminho mais curto entre os três, para mostrar a estratégia.
   function vitrine() {
     const hens = [];
@@ -2178,7 +2237,7 @@ window.GRANJA_ART = (function () {
     // um celeiro no piso, dois patos no açude, horta com milho quase pronto e frutas para colher
     return { v: 9, nug: 400000, sol: CFG.startSol, burned: 21000, earned: 190000, invested: 2.15, eaten: 12000, pens: 3, hunter: 0,
       hens, got: 23, vault: -1, speed: 60, t: Date.now(), ids: 40, eggs, eggIds: 4, choc: [{ left: 0.06 }, null, null, null], firstEgg: -1, eggGift: 0, sold: 0, hatched: 0,
-      ducks: 2, rooster: CFG.roosterHours, dirt: [1, 0.2, 0, 0], foxes: 1, nextFox: 0.15, tutSeen: {}, todPref: 'dia', maqPix: false,
+      ducks: 2, rooster: 72, hunter: 72, dirt: [1, 0.2, 0, 0], foxes: 1, nextFox: 0.15, tutSeen: {}, todPref: 'dia', maqPix: false,
       ...extras(), abat: 1, farmer: true, pool: 1.61, team: 0.54,
       zones: [zone({ seed: 'milho', left: 0.4 }), zone({ seed: 'girassol', left: 3, last: 'girassol' }),
         zone({ seed: 'frutas', left: 0, last: 'frutas', feed: 6, boost: 0.05 }), zone()] };
@@ -2200,10 +2259,17 @@ window.GRANJA_ART = (function () {
     if (s.trip) { s.nug += s.trip.net; s.burned += s.trip.burn; s.earned += s.trip.net; }
     s.farmer = (s.zones || []).some((z) => z.worker);
     for (const z of s.zones || []) delete z.worker;
-    s.rooster = s.rooster ? CFG.roosterHours : 0;
+    s.rooster = s.rooster ? 24 : 0;
     s.got = s.hens.length;
     for (const k of ['beds', 'belts', 'truck', 'trip', 'scare', 'ammo', 'birdsOff']) delete s[k];
     s.v = 9;
+    return s;
+  }
+  // Dentro do formato 9: o caçador comprado para sempre vira uma semana no posto; motorista e faxineiro saíram do jogo.
+  function upgrade10(s) {
+    if (s.hunter === 2 && !s.hunterDays) s.hunter = 7 * 24;
+    s.hunterDays = 1;
+    for (const k of ['driver', 'cleaner']) delete s[k];
     return s;
   }
   function load() {
@@ -2212,10 +2278,11 @@ window.GRANJA_ART = (function () {
       if (s && s.v === 7) s = upgrade(s);
       if (s && s.v === 8 && Array.isArray(s.hens)) s = upgrade9(s);
       if (s && s.v === 9 && Array.isArray(s.hens)) {
+        upgrade10(s);
         const x = extras();
         for (const k in x) if (s[k] == null) s[k] = x[k];
         if (!s.tutSeen) s.tutSeen = {};
-        for (const h of s.hens) if (h.r === 5 && h.skin == null) h.skin = rollSkin();
+        for (const h of s.hens) { if (h.r === 5 && h.skin == null) h.skin = rollSkin(); delete h.k; }
         return s;
       }
     } catch (e) { /* sem storage: começa do zero */ }
@@ -2248,7 +2315,7 @@ window.GRANJA_ART = (function () {
       W.penCount[pen]++;
       return h;
     });
-    W.pens = S.pens; W.hunter = S.hunter;
+    W.pens = S.pens; W.hunter = S.hunter > 0 ? 2 : 0;
     // o galo fica parado no poleiro; sem galo o poleiro aparece vazio
     if (S.rooster > 0) { if (!W.rooster) W.rooster = { x: MAP.perch[0], z: MAP.perch[1], dir: 1, state: 'idle', phase: 0, layAnim: 0, crow: 0, zz: false }; }
     else W.rooster = null;
@@ -2286,7 +2353,7 @@ window.GRANJA_ART = (function () {
   // Nuggets: cada pintinho vale 4 (dourado vale 40) × bônus da horta × nível do abatedouro.
   const abatMult = () => ABATS[S.abat].mult * CFG.chickNug;
   const beltCap = (i) => BELTS[i].cap * 60;                                     // pintinhos por hora que a esteira de um celeiro leva
-  const coopK = (i) => 1 + (COOPS[i].bonus || 0);                               // o último celeiro rende a mais
+  const coopK = (i) => 1 + (COOPS[i].bonus || 0);                               // cada celeiro novo rende mais que o anterior
   const goldK = (r) => 1 + RAR[r].gold * (CFG.goldMult - 1);                    // o bônus médio do pintinho dourado
   // Cada canteiro soma o seu bônus enquanto estiver alimentando: 4 de frutas dão +20%.
   const foodBoost = () => S.zones.reduce((a, z) => a + (z.feed > 0 ? z.boost : 0), 0);
@@ -2308,7 +2375,7 @@ window.GRANJA_ART = (function () {
   // Sem galo, descansa até 100%. Com galo, só até wakeMin: ele canta e ela volta inteira. Sem poder trabalhar (caixa cheia), fica parada sem cansar. Devolve as horas trabalhadas.
   const restGoal = () => (S.rooster > 0 ? CFG.wakeMin : 1);
   const restMin = (b) => 100 / BEDS[b].rest;                                    // minutos da cama até 100%
-  const healOf = (d) => BEDS[d.pen].rest * 0.6, drainOf = (d) => 60 / RAR[d.r].tire * (d.k || 1);    // quanto recupera e quanto gasta por hora
+  const healOf = (d) => BEDS[d.pen].rest * 0.6, drainOf = (d) => 60 / RAR[d.r].tire;    // quanto recupera e quanto gasta por hora
   let crowed = 0;
   function tireHen(d, gh, work) {
     const heal = healOf(d), drain = drainOf(d), goal = restGoal();
@@ -2332,15 +2399,11 @@ window.GRANJA_ART = (function () {
   const zoneRate = () => (S.farmer ? CFG.workerGrow : 1);
   // Preços em $NUGGET, fixos: quem tem granja maior paga a mesma coisa e sobra mais.
   // A galinha grátis do começo não bota e não funde; o que ela produz só sai da caixa depois da primeira compra em SOL.
-  const paid = () => S.invested > 0;
+  const paid = () => S.got > 1 || S.invested > 0;
   const layers = (list) => list.filter((h) => !(h.d || h).free);
   const duckPrice = () => CFG.duckNug;
-  const driverPrice = () => CFG.driverNug;
-  const cleanerPrice = () => CFG.cleanerNug;
   const seedPrice = (id) => CFG.seeds[id].nug;
   const rushPrice = (i) => (S.choc[i] ? Math.max(1, Math.ceil(S.choc[i].left)) * CFG.rushNug : 0);
-  // o motorista não espera a caixa grande encher: entrega a cada 4 h de produção, na faixa de frete mais barata
-  const driverTop = () => Math.min(cap(), Math.max(500, gross() * CFG.driverAt));
   // Frete por faixa: até 4 h de produção paga 10%; o que passa disso paga mais. É o preço de ficar muito tempo longe.
   function freight(v, extra) {
     const hr = gross();
@@ -2427,11 +2490,9 @@ window.GRANJA_ART = (function () {
       for (const c of S.choc) if (c && c.left > 0) c.left = Math.max(0, c.left - h);
       hortaStep(h, true);
       buildStep(h, true);
-      const drove = S.driver > 0, swept = S.cleaner > 0;
-      S.driver = Math.max(0, S.driver - h); S.cleaner = Math.max(0, S.cleaner - h); S.rooster = Math.max(0, S.rooster - h);
+      S.rooster = Math.max(0, S.rooster - h);
       foxLeft -= h;
-      if (swept) S.dirt.fill(0);
-      else for (let i = 0; i < S.pens; i++) if (countIn(i)) S.dirt[i] = Math.min(1, S.dirt[i] + h / CFG.dirtHours);
+      for (let i = 0; i < S.pens; i++) if (countIn(i)) S.dirt[i] = Math.min(1, S.dirt[i] + h / CFG.dirtHours);
       // só vem raposa com caixa com vaga; o caçador atira primeiro, sem ele vai um pato, e sem pato ela come
       const room = S.vault + W.inflightV < top - 0.5;
       if (foxLeft <= 0 && S.hens.length && room) {
@@ -2456,7 +2517,7 @@ window.GRANJA_ART = (function () {
       // ovos só nas horas em que produziram: com a caixa cheia elas param de botar
       eggAcc += layers(S.hens.filter((d) => d.pen < S.pens)).length * h * k / CFG.eggEvery;
       if (S.eggGift > 0) { S.firstEgg -= h * k; if (S.firstEgg <= 0) { nextGift(); gifts++; } }
-      if (drove && paid() && S.vault >= driverTop() - 0.5) fora.driven += deliver(true).net;
+      S.hunter = Math.max(0, S.hunter - h);
     }
     crowed = 0;
     S.eaten += lost;
@@ -2680,7 +2741,7 @@ window.GRANJA_ART = (function () {
     S.foxes++;
     const arm = armed();
     const fx = W.fox = { state: 'come', route, x: MAP.foxIn[0], z: MAP.foxIn[1], t: 0, left: CFG.foxStay, eaten: 0, ph: 0, dir: -1, armed: arm, shot: false, aimed: false,
-      dies: arm && Math.random() < CFG.hunters[S.hunter].kill };
+      dies: arm && Math.random() < CFG.hunters[2].kill };
     emit('fox', { state: 'come', fox: fx });
   }
   // Um pato parte do açude até a raposa: na chegada, depois de um tiro errado ou na compra durante o eat.
@@ -2804,12 +2865,11 @@ window.GRANJA_ART = (function () {
     W.rooster.crow = 1;
     emit('crow', { rooster: W.rooster });
   }
-  // Horta, obra, motorista, faxineiro e galo contam o tempo todo.
+  // Horta, obra, galo e caçador contam o tempo todo.
   function tickServices(gh) {
     hortaStep(gh, false);
     buildStep(gh, false);
-    if (S.driver > 0) { S.driver = Math.max(0, S.driver - gh); if (!S.driver) toast(t('O motorista terminou o turno.')); }
-    if (S.cleaner > 0) { S.cleaner = Math.max(0, S.cleaner - gh); if (!S.cleaner) toast(t('O faxineiro terminou o turno.')); }
+    if (S.hunter > 0) { S.hunter = Math.max(0, S.hunter - gh); if (!S.hunter) { syncHens(); toast(t('O caçador terminou o turno.')); } }
     if (S.rooster > 0) { S.rooster = Math.max(0, S.rooster - gh); if (!S.rooster) { syncHens(); toast(t('O galo terminou o turno.')); } }
   }
 
@@ -2828,9 +2888,8 @@ window.GRANJA_ART = (function () {
     thiefClock(gh, false);
     tickServices(gh);
     syncClock();
-    // só suja celeiro com galinha; com faxineiro, nada suja
-    if (S.cleaner > 0) S.dirt.fill(0);
-    else for (let i = 0; i < S.pens; i++) if (W.penCount[i]) S.dirt[i] = Math.min(1, S.dirt[i] + gh / CFG.dirtHours);
+    // só suja celeiro com galinha
+    for (let i = 0; i < S.pens; i++) if (W.penCount[i]) S.dirt[i] = Math.min(1, S.dirt[i] + gh / CFG.dirtHours);
     const c = cap();
     const full = S.vault + W.inflightV >= c - 0.5;
     if (full !== W.full) { W.full = full; emit(full ? 'full' : 'unfull'); }
@@ -2873,7 +2932,6 @@ window.GRANJA_ART = (function () {
     });
     W.eggs = S.eggs;
     moveChicks(dt);
-    if (S.driver > 0 && paid() && S.vault >= driverTop() - 0.5) driverRun();
     foxStep(dt, gh);
     thiefStep(dt);
     if (W.birds && (W.birds.t += dt) > 5) W.birds = null;
@@ -2889,9 +2947,9 @@ window.GRANJA_ART = (function () {
 
   // ---------- ações do jogador
 
-  // O caminhão leva a caixa inteira e a venda é na hora: o saldo sobe no toque, menos o frete, que é queimado. Com o motorista o frete sobe.
-  function deliver(driver) {
-    const v = Math.floor(S.vault), burn = freight(v, driver ? CFG.driverExtra : 0), net = v - burn;
+  // O caminhão leva a caixa inteira e a venda é na hora: o saldo sobe no toque, menos o frete, que é queimado.
+  function deliver() {
+    const v = Math.floor(S.vault), burn = freight(v), net = v - burn;
     S.vault -= v;
     S.nug += net; S.burned += burn; S.earned += net;
     return { v, net, burn };
@@ -2900,21 +2958,13 @@ window.GRANJA_ART = (function () {
     if (busy) return;
     const fill = (S.vault + W.inflightV) / cap();
     if (Math.floor(S.vault) < 1) { toast(t('Caixa vazia')); emit('error'); return; }
-    if (!paid()) { toast(t('Sai na 1ª compra em SOL')); emit('error'); return; }
-    const { net, burn } = deliver(false);
+    if (!paid()) { toast(t('Sai na 1ª compra')); emit('error'); return; }
+    const { net, burn } = deliver();
     emit('collect', { net, burn, frac: fill });
     emit('delivered', { net });
     bump();
     toast('<b>+' + fmt(net) + '</b>');
     save(); ui();
-  }
-  function driverRun() {
-    if (Math.floor(S.vault) < 1) return;
-    const fill = (S.vault + W.inflightV) / cap(), { net } = deliver(true);
-    emit('collect', { net, frac: fill });
-    emit('delivered', { net });
-    bump();
-    save();
   }
   function buyVault() {
     if (busy) return;
@@ -2926,18 +2976,6 @@ window.GRANJA_ART = (function () {
     celebrate();
     save(); ui();
   }
-  function hireDriver() {
-    if (busy || !spend(driverPrice())) return;
-    S.driver = Math.min(S.driver + CFG.driverHours, CFG.driverHours * 3);
-    save(); ui();
-  }
-  function hireCleaner() {
-    if (busy || !spend(cleanerPrice())) return;
-    S.cleaner = Math.min(S.cleaner + CFG.cleanerHours, CFG.cleanerHours * 3);
-    for (let i = 0; i < S.pens; i++) if (S.dirt[i] > 0) { S.dirt[i] = 0; emit('clean', { pen: i }); }
-    save(); ui();
-  }
-
   // O celeiro com taxa em SOL: liberado pelas galinhas, abre na hora em que o jogador paga.
   function buyPen() {
     const i = S.pens, c = COOPS[i];
@@ -2957,29 +2995,23 @@ window.GRANJA_ART = (function () {
     if (th && th.state === 'come' && !th.armed && armed()) { th.armed = true; th.t = 0; th.aimed = false; }
     const fx = W.fox;
     if (!fx || fx.shot && fx.armed || !armed() || !(fx.state === 'come' || fx.state === 'eat')) return;
-    fx.armed = true; fx.shot = false; fx.dies = Math.random() < CFG.hunters[S.hunter].kill; fx.t = 0; fx.aimed = false;
+    fx.armed = true; fx.shot = false; fx.dies = Math.random() < CFG.hunters[2].kill; fx.t = 0; fx.aimed = false;
   }
-  function buyHunter(level) {
-    if (busy || S.hunter >= level) return;
-    const h = CFG.hunters[level];
-    openTx({ action: t(h.nome), sol: h.sol, onDone: () => {
-      S.hunter = level; S.invested += h.sol; W.hunter = level;
-      armFox();
-      emit('hunter', { level });
+  // Galo e caçador: contratados por alguns dias, renováveis antes de acabar, até planMax dias juntos. O plano diz se é em SOL (sol) ou em $NUGGET (nug).
+  const planName = (kind) => (kind === 'rooster' ? t('Galo') : t(CFG.hunters[2].nome));
+  function buyPlan(kind, k) {
+    const plan = CFG[kind + 'Plans'][k];
+    if (busy || !plan || S[kind] + plan.days * 24 > CFG.planMax * 24) return;
+    const done = () => {
+      const was = S[kind] > 0;
+      S[kind] += plan.days * 24;
+      syncHens();
+      if (kind === 'rooster') { emit('rooster'); crow(); } else { if (!was) emit('hunter', { level: 2 }); armFox(); }
       celebrate();
       busy = false; save(); ui();
-    } });
-  }
-
-  // Baratinho e por dia, como os outros serviços: dá para juntar até 3 dias.
-  function buyRooster() {
-    if (busy || S.rooster > CFG.roosterHours * 2 || !spend(CFG.roosterNug)) return;
-    S.rooster += CFG.roosterHours;
-    syncHens();
-    emit('rooster');
-    crow();
-    celebrate();
-    save(); ui();
+    };
+    if (plan.nug) { if (spend(plan.nug)) done(); return; }
+    openTx({ action: planName(kind) + ' · ' + t('{n} dias', { n: plan.days }), sol: plan.sol, onDone: () => { S.invested += plan.sol; done(); } });
   }
   // Tudo o que se paga em $NUGGET é queimado. pay é o gasto automático (trabalhador replantando): sem aviso.
   function pay(v) {
@@ -3049,16 +3081,17 @@ window.GRANJA_ART = (function () {
     save(); ui();
   }
 
-  // Melhoria paga em $NUGGET (queima): o abatedouro, um nível por vez.
+  // O abatedouro, pago em SOL, um nível por vez; o último é o que mais rende.
   const num = (v) => v.toLocaleString(LOC, { maximumFractionDigits: 2 });
   function buyAbat() {
-    if (busy) return;
     const a = ABATS[S.abat + 1];
-    if (!a || !spend(a.nug)) return;
-    S.abat++;
-    emit('abat', { lv: S.abat });
-    celebrate();
-    save(); ui();
+    if (busy || !a) return;
+    openTx({ action: t(a.nome), sol: a.sol, onDone: () => {
+      S.abat++; S.invested += a.sol;
+      emit('abat', { lv: S.abat });
+      celebrate();
+      busy = false; save(); ui();
+    } });
   }
   function hireWorker() {
     if (busy || S.farmer || !spend(CFG.workerNug)) return;
@@ -3101,8 +3134,8 @@ window.GRANJA_ART = (function () {
     save(); ui();
   }
 
-  // Comprar 1, 5 ou 10 ovos de uma vez, sem desconto: o preço é o de um ovo vezes n. Vários abrem juntos numa tela só.
-  const mintCost = (n) => Math.round(CFG.mintSol * n * 1e6) / 1e6;
+  // Comprar 1, 5 ou 10 ovos de uma vez, em $NUGGET e sem desconto: o preço é o de um ovo vezes n. Vários abrem juntos numa tela só.
+  const mintCost = (n) => CFG.eggPacks[n] * n;
   function mint(n) {
     n = n || 1;
     if (busy) return;
@@ -3113,16 +3146,14 @@ window.GRANJA_ART = (function () {
       toast(t('Sem vaga'), 'bad');
       return;
     }
-    const sol = mintCost(n);
-    openTx({ action: n > 1 ? t('{n} ovos', { n }) : t('1 ovo'), sol, odds: true, onDone: () => {
-      const got = [];
-      for (let i = 0; i < n; i++) { const h = newHen(roll(), freePen()); S.hens.push(h); got.push(h); }
-      S.invested += sol; S.got += n;
-      coopCheck();
-      emit('buy');
-      save();
-      if (n > 1) startMulti(got); else startReveal(got[0].r);
-    } });
+    if (!spend(mintCost(n))) return;
+    const got = [];
+    for (let i = 0; i < n; i++) { const h = newHen(roll(), freePen()); S.hens.push(h); got.push(h); }
+    S.got += n;
+    coopCheck();
+    emit('buy');
+    busy = true; save();
+    if (n > 1) startMulti(got); else startReveal(got[0].r);
   }
 
   // Carteira simulada: ovo, celeiro e caçador passam por aqui.
@@ -3158,7 +3189,7 @@ window.GRANJA_ART = (function () {
       el.wBusyTxt.textContent = t('Confirmada') + ' · ' + fakeSig();
       // cobrança e entrega no mesmo passo: fechar a página aqui no meio não paga sem levar. O SOL se divide entre a pool e o time.
       setTimeout(() => {
-        S.sol -= tx.sol + CFG.netFee; S.pool += tx.sol * CFG.poolShare; S.team += tx.sol * (1 - CFG.poolShare);
+        S.sol -= tx.sol + CFG.netFee; S.team += tx.sol;
         el.ovWallet.hidden = true; pendingTx = null; tx.onDone(); ui();
       }, 700);
     }, 1100);
@@ -3446,7 +3477,7 @@ window.GRANJA_ART = (function () {
   const at = (s, fn) => demo.plan.push([s, fn]);
   const say = (x, z, txt) => { if (R.say) R.say(x, z, txt); };
   const demoSleep = (e) => { for (const d of S.hens) { d.rest = true; d.e = e; } };
-  const demoHunter = (lv) => { S.hunter = W.hunter = lv; emit('hunter', { level: lv }); };
+  const demoHunter = (lv) => { S.hunter = lv ? 24 : 0; W.hunter = lv; emit('hunter', { level: lv }); };
   const GUIDE = [
     { t: 'Suas galinhas', pic: 'hen', cam: [24, 42, 2.8], lit: ['pens', 'belts'], txt: 'Elas soltam pintinhos. Quanto mais rara a galinha, mais ela produz.', loop: 5.4,
       on() { W.hens.forEach((h, i) => at(0.5 + i * 1.5, () => say(h.x, h.z, t(RAR[h.r].nome) + ' ' + h.d.p + '/min'))); } },
@@ -3653,9 +3684,10 @@ window.GRANJA_ART = (function () {
   function henSlot(h) {
     const nap = !!h.rest, low = !nap && h.e < 0.3, left = nap ? Math.max(0, restGoal() - h.e) / healOf(h) : h.e / drainOf(h);
     const st = nap ? t('Dormindo') : W.full ? t('Caixa cheia') : low ? t('Cansando') : t('Trabalhando'), when = nap ? t('acorda em {d}', { d: durTxt(left) }) : W.full ? '' : t('cansa em {d}', { d: durTxt(left) });
-    const moves = h.id === selHen ? PENS.slice(0, S.pens).map((p, j) => (j !== h.pen && countIn(j) < perPen(j) ? pBtn('move', j, '→ ' + (j + 1), false, 'ghost') : '')).join('') : '';
+    const moves = h.id !== selHen ? '' : !movable(h) ? '<small>' + t('Cansada demais para mudar de celeiro') + '</small>'
+      : PENS.slice(0, S.pens).map((p, j) => (j !== h.pen && countIn(j) < perPen(j) ? pBtn('move', j, '→ ' + (j + 1), false, 'ghost') : '')).join('');
     return '<button type="button" class="slot' + (nap ? ' nap' : low ? ' low' : '') + (h.id === selHen ? ' sel' : '') + '" data-a="hen" data-v="' + h.id + '" style="--c:' + RAR[h.r].cor + '">' + henPic(h, nap) + (nap ? '<i class="nap-z">z</i>' : '')
-      + '<span class="t-txt"><b>' + henName(h) + '</b><span>' + perMin(h.p) + ' · ' + perHourTxt(h) + '/' + t('h') + '</span><span class="h-st">' + st + '</span>' + (when ? '<span>' + when + '</span>' : '') + '<span class="bar"><i style="width:' + Math.round(h.e * 100) + '%"></i></span></span></button>'
+      + '<span class="t-txt"><b>' + henName(h) + '</b><span>' + perMin(h.p) + ' · ' + perHourTxt(h) + '/' + t('h') + '</span><span class="h-st">' + st + '</span><span class="h-en"><span>' + t('Energia') + ' ' + Math.round(h.e * 100) + '%</span><span class="bar"><i style="width:' + Math.round(h.e * 100) + '%"></i></span></span>' + (when ? '<span>' + when + '</span>' : '') + '</span></button>'
       + (moves ? '<div class="t-btns h-move">' + moves + '</div>' : '');
   }
   // O celeiro aberto: os números dele, o que dá para fazer nele e um slot por vaga, ocupado ou livre. Galo, faxineiro, fusão e comprar ovo ficam na visão geral.
@@ -3679,6 +3711,7 @@ window.GRANJA_ART = (function () {
     const over = penChicks(i) > BELTS[i].cap ? ' · <em class="bad">' + t('Produz') + ' ' + perMin(Math.round(penChicks(i))) + '</em>' : '';
     out.push(rows(lvRow(t('Ovos'), eggs.length ? t('{n} ovos', { n: eggs.length }) : t('Nenhum'), 'later') + lvRow(t('Chocadeira'), incub, 'later') + lvRow(t('Esteira'), t(BELTS[i].nome) + ' · ' + perMin(BELTS[i].cap) + over, 'later') + lvRow(t('Cama'), t(BEDS[i].nome) + ' · ' + t('Descansa em {d}', { d: durTxt(restMin(i) / 60) }), 'later')
       + (COOPS[i].bonus ? lvRow(t('Bônus'), '+' + Math.round(COOPS[i].bonus * 100) + '%', 'later') : '')));
+    out.push(infoRow('cansaco', 'bed', t('Cansaço e descanso'), t('Quanto trabalha e quanto dorme')));
     if (S.pens >= CFG.maxPens) out.push(infoRow('vagas', 'slots', t('Vagas'), t('Mais galinhas neste celeiro') + ' ' + pips(S.penLv[i], CFG.slotNug.length + 1)));
     setHTML(el.pBarn, out.join(''));
     live(el.pBarn, { y: fmt(penRate(i, false, true) * burnK) });
@@ -3692,10 +3725,9 @@ window.GRANJA_ART = (function () {
     out.push('<div class="coops">' + PENS.map((p, i) => coopCard(i)).join('') + '</div>');
     if (S.pens > 1) out.push(tile('', 'coop' + (S.pens - 1), t('Auto organizar'), t('Melhores galinhas nos melhores celeiros'), pBtn('autoPens', null, t('Organizar'), false, 'gold')));
     out.push('<section class="tile buy" data-foco="buy">' + ART.pic('egg') + '<div class="t-txt"><b>' + t('Comprar ovo') + '</b></div><div class="t-btns">'
-      + [1, 5, 10].map((n) => pBtn('mint', n, n + '<small>' + solTxt(mintCost(n)) + '</small>', free < n)).join('') + '</div></section>');
+      + [1, 5, 10].map((n) => pBtn('mint', n, n + '<small>' + ICO.nug + fmtBig(mintCost(n)) + '</small>', free < n || S.nug < mintCost(n))).join('') + '</div></section>');
     out.push(infoRow('galo', 'rooster', t('Galo'), S.rooster > 0 ? durTxt(S.rooster) : t('Acorda as galinhas sozinho')));
-    out.push(infoRow('faxineiro', 'cleaner', t('Faxineiro'), S.cleaner > 0 ? durTxt(S.cleaner) : t('Mantém os celeiros limpos')));
-    out.push(infoRow('fusao', 'fusion', t('Fusão'), t('Junta galinhas numa mais rara')));
+    out.push(infoRow('fusao', 'fusion', t('Fusão'), t('Em breve')));
     out.push(infoRow('ovos', 'egg', t('Ovos'), S.eggs.length ? t('{n} ovos', { n: S.eggs.length }) : t('Vender, chocar e comprar')));
     out.push(infoRow('galinhas', 'hen', t('Galinhas'), t('Produção, descanso e raridade')));
     out.push(infoRow('celeiros', 'coop', t('Celeiros'), t('O que cada nível traz')));
@@ -3705,53 +3737,54 @@ window.GRANJA_ART = (function () {
   // Auto organizar: das que mais rendem para as que menos, enche o melhor celeiro aberto, depois o seguinte. Quem não couber continua esperando o próximo abrir.
   function autoPens() {
     if (busy) return;
-    // no empate, fica quem já está no celeiro melhor: apertar de novo não troca ninguém de lugar à toa
-    const seat = (d) => (d.pen < S.pens ? d.pen : -1), moved = [];
-    const best = S.hens.slice().sort((a, b) => b.p * goldK(b.r) - a.p * goldK(a.r) || b.r - a.r || seat(b) - seat(a));
+    // cansada ou dormindo fica onde está e segura a vaga dela; no empate, fica quem já está no celeiro melhor, para apertar de novo não trocar ninguém à toa
+    const locked = S.hens.filter((d) => d.pen < S.pens && !movable(d)), seat = (d) => (d.pen < S.pens ? d.pen : -1), moved = [];
+    const room = PENS.map((p, i) => perPen(i) - locked.filter((d) => d.pen === i).length);
+    const best = S.hens.filter((d) => !locked.includes(d)).sort((a, b) => b.p * goldK(b.r) - a.p * goldK(a.r) || b.r - a.r || seat(b) - seat(a));
     const put = (d, i) => { if (d.pen !== i) { d.pen = i; moved.push(d); } };
     let k = 0;
-    for (let i = S.pens - 1; i >= 0; i--) for (let n = perPen(i); n > 0 && k < best.length; n--) put(best[k++], i);
+    for (let i = S.pens - 1; i >= 0; i--) for (let n = room[i]; n > 0 && k < best.length; n--) put(best[k++], i);
     while (k < best.length) put(best[k++], S.pens);
     selHen = null;
     if (!moved.length) { toast(t('Já está organizado')); return; }
     syncHens();
     for (const d of moved) emit('move', { hen: W.hens.find((h) => h.id === d.id) });
     celebrate();
-    toast('<b>' + t('Galinhas organizadas') + '</b> ' + moved.length);
+    toast('<b>' + t('Galinhas organizadas') + '</b> ' + moved.length + (locked.length ? ' · ' + t('{n} cansadas ficaram onde estavam', { n: locked.length }) : ''));
     save(); ui();
   }
+  // Cansada ou dormindo não troca de celeiro: senão dava para mandar quem vai dormir para a cama mais rápida.
+  const movable = (d) => !d.rest && d.e >= CFG.moveMin;
   function moveHen(to) {
     const hen = S.hens.find((h) => h.id === selHen);
     if (!hen || countIn(to) >= perPen(to)) return;
+    if (!movable(hen)) { toast(t('Cansada demais para mudar de celeiro'), 'bad'); emit('error'); return; }
     hen.pen = to; selHen = null; barnView = to;
     syncHens();
     emit('move', { hen: W.hens.find((h) => h.id === hen.id) });
     save(); ui();
   }
-  // Produção, na ordem do caminho do pintinho: esteira, abatedouro, caixa, caminhão e motorista. Tocar abre os detalhes.
+  // Produção, na ordem do caminho do pintinho: esteira, abatedouro e caixa. O caminhão fica na cena: tocar nele vende a caixa. Tocar num item abre os detalhes.
   function renderProd() {
     const a = ABATS[S.abat];
     setHTML(el.pProd, '<p class="p-lead">+<span data-live="rate"></span>/' + t('h') + '</p>'
       + infoRow('belt', 'belt', t('Esteira'), t('Leva os pintinhos ao abatedouro'))
       + infoRow('abat', 'abat' + S.abat, t(a.nome), t('Transforma pintinhos em nuggets') + ' ' + pips(S.abat, ABATS.length))
-      + infoRow('caixa', 'crate', t('Caixa'), t('Guarda os nuggets') + ' ' + pips(S.vaultLv, CFG.vaultLv.length))
-      + infoRow('truck', 'truck', t('Caminhão'), t('Vende a caixa na hora'))
-      + infoRow('driver', 'driver', t('Motorista'), S.driver > 0 ? durTxt(S.driver) : t('Chama o caminhão sozinho')));
+      + infoRow('caixa', 'crate', t('Caixa'), t('Guarda os nuggets') + ' ' + pips(S.vaultLv, CFG.vaultLv.length)));
     live(el.pProd, { rate: fmt(rate() * burnK) });
   }
   function renderFox() {
     const fx = W.fox, th = W.thief, near = !!fx && fx.state !== 'flee' && fx.state !== 'die' && fx.state !== 'lure', out = [];
     if (near || (th && th.state === 'come')) out.push('<p class="p-lead bad">' + (th ? t('Ladrão de galinhas!') : t('Raposa comendo pintinhos!')) + '</p>');
     out.push(infoRow('raposa', 'fox', t('Raposa'), t('Come os pintinhos da esteira')));
-    out.push(infoRow('patos', 'duck', t('Patos') + ' ' + S.ducks + '/' + CFG.duckMax, t('Distrai a raposa')));
-    out.push(infoRow('cacador', 'hunter', t(CFG.hunters[2].nome), S.hunter ? t('No posto') : t('Acerta raposa e ladrão')));
-    out.push(infoRow('ladrao', 'thief', t('Ladrão'), t('Leva galinhas de granja grande')));
+    out.push(infoRow('patos', 'duck', t('Patos') + ' ' + S.ducks + '/' + CFG.duckMax, S.ducks ? t('Protegem por cerca de {h} h', { h: S.ducks * CFG.foxEvery }) : t('Distrai a raposa')));
+    out.push(infoRow('cacador', 'hunter', t(CFG.hunters[2].nome), S.hunter > 0 ? durTxt(S.hunter) : t('Acerta raposa e ladrão')));
     setHTML(el.pFox, out.join(''));
   }
   function renderStats() {
     const row = (a, v) => '<div class="p-row"><span>' + a + '</span><b>' + v + '</b></div>';
     setHTML(el.pStats, tile('', 'fire', fmt(S.burned), t('Queimado')) + '<section class="p-card">'
-      + row(t('SOL investido'), solTxt(Math.round(S.invested * 1000) / 1000)) + row(t('Na pool'), solTxt(Math.round(S.pool * 10000) / 10000))
+      + row(t('SOL investido'), solTxt(Math.round(S.invested * 1000) / 1000)) + row(t('Foi para o dev'), solTxt(Math.round(S.team * 1000) / 1000))
       + row(t('Raposas'), fmt(S.foxes)) + row(t('Comido pela raposa'), fmt(S.eaten)) + row(t('Ladrões'), fmt(S.thieves)) + row(t('Ovos chocados'), fmt(S.hatched)) + row(t('Fusões'), fmt(S.fused)) + '</section>');
   }
   // Horta: cada canteiro com a sua planta e o bônus que está dando.
@@ -3784,45 +3817,50 @@ window.GRANJA_ART = (function () {
       body: rows(PENS.map((p, i) => { const b = BELTS[i], over = i < S.pens && penChicks(i) > b.cap;
         return lvRow(t('Celeiro') + ' ' + (i + 1), t(b.nome) + ' · ' + perMin(b.cap) + (over ? ' · <em class="bad">' + t('Produz') + ' ' + perMin(Math.round(penChicks(i))) + '</em>' : ''), 'later'); }).join('')) }),
     abat: () => ({ pic: 'abat' + S.abat, nome: t(ABATS[S.abat].nome), txt: t('Transforma cada pintinho em nuggets. Cada nível é um prédio novo, que paga mais por pintinho.'),
-      body: lvTable(ABATS, S.abat, (a) => [t(a.nome), t('{n} nuggets por pintinho', { n: num(a.mult * CFG.chickNug) }), a.nug ? nugTxt(a.nug) : ''], (a) => nugBtn('abat', null, a.nug)) }),
-    caixa: () => ({ pic: 'crate', nome: t('Caixa'), txt: t('Guarda os nuggets até o caminhão buscar. Cheia, as galinhas param. Caixa maior aguenta mais tempo longe, mas a parte acima de 4 h paga frete maior.'),
-      body: rows(lvRow(t('Agora'), fmt(Math.floor(S.vault + W.inflightV)) + ' / ' + fmt(cap()), 'now')) + lvTable(CFG.vaultLv, S.vaultLv, (h, k) => [t('{n} h de produção', { n: h }), t('Frete') + ' ' + Math.round(CFG.freight[k][1] * 100) + '%', CFG.vaultNug[k] ? nugTxt(CFG.vaultNug[k]) : ''], (h, k) => nugBtn('vault', null, CFG.vaultNug[k])) }),
-    truck: () => ({ pic: 'truck', nome: t('Caminhão'), txt: t('Leva a caixa inteira e a venda é na hora: o saldo sobe no toque. Parte da carga fica de frete e é queimada.'),
-      body: rows(lvRow(t('Agora'), fmt(Math.floor(S.vault)) + ' / ' + fmt(cap()), 'now') + lvRow(t('Frete'), '', 'later', '<small>' + Math.round(CFG.collectBurn * 100) + '%</small>')) }),
-    driver: () => ({ pic: 'driver', nome: t('Motorista'), txt: t('Chama o caminhão sozinho a cada {h} h de produção, mesmo com você fora. Cobra {p}% a mais de frete.', { h: CFG.driverAt, p: Math.round(CFG.driverExtra * 100) }),
-      body: rows(lvRow(S.driver > 0 ? t('No turno') + ': ' + durTxt(S.driver) : t('Sem motorista'), '+' + CFG.driverHours + ' ' + t('h'), 'next', nugBtn('driver', null, driverPrice(), '', S.driver > CFG.driverHours * 2))) }),
+      body: lvTable(ABATS, S.abat, (a) => [t(a.nome), t('{n} nuggets por pintinho', { n: num(a.mult * CFG.chickNug) }), a.sol ? solTxt(a.sol) : ''], (a) => pBtn('abat', null, solTxt(a.sol), false, 'gold')) }),
+    caixa: () => ({ pic: 'crate', nome: t('Caixa'), txt: t('Guarda os nuggets até você chamar o caminhão. Cheia, as galinhas param. Caixa maior aguenta mais tempo longe.'),
+      body: rows(lvRow(t('Agora'), fmt(Math.floor(S.vault + W.inflightV)) + ' / ' + fmt(cap()), 'now')) + lvTable(CFG.vaultLv, S.vaultLv, (h, k) => [t('{n} h de produção', { n: h }), t('Frete') + ' ' + Math.round(CFG.collectBurn * 100) + '%', CFG.vaultNug[k] ? nugTxt(CFG.vaultNug[k]) : ''], (h, k) => nugBtn('vault', null, CFG.vaultNug[k])) }),
     galinhas: () => ({ pic: 'hen', nome: t('Galinhas'), txt: t('Cada galinha nasce com uma produção sorteada dentro da faixa da raridade. Quanto mais rara, mais produz e mais tempo trabalha antes de cansar. A Mítica tem 10 versões únicas.'),
-      body: rows(RAR.map((r, i) => '<div class="lv now">' + ART.henOf(i, i === 5 ? 2 : undefined, false, r.cor) + '<div class="t-txt"><b>' + t(r.nome) + '</b><span>' + rangeTxt(i) + '/' + t('min') + ' · ' + t('trabalha') + ' ' + durTxt(r.tire / 60) + '</span></div><small>' + pct(r.chance / 100) + '</small></div>').join('')) }),
+      body: rows(RAR.map((r, i) => '<div class="lv later">' + ART.henOf(i, i === 5 ? 2 : undefined, false, r.cor) + '<div class="t-txt"><b>' + t(r.nome) + '</b><span>' + rangeTxt(i) + '/' + t('min') + ' · ' + t('trabalha') + ' ' + durTxt(r.tire / 60) + '</span></div><small>' + pct(r.chance / 100) + '</small></div>').join(''))
+        + '<p class="p-lead">' + t('As 10 Míticas') + '</p><div class="skins">' + SKINS.map((k, i) => '<div class="skin">' + ART.henOf(5, i, false, RAR[5].cor) + '<small>' + t(k.nome) + '</small></div>').join('') + '</div>' }),
+    cansaco: () => { const i = Math.max(0, barnView), full = restMin(i) / 60;
+      return { pic: 'bed', nome: t('Cansaço e descanso'), txt: t('Trabalhando, a energia cai até 0% e ela dorme. Dormindo, ela não produz e a energia volta. Sem galo, dorme até 100%, ou você toca em Acordar depois de 50%. Com galo, acorda sozinha em 50%. Cansada ou dormindo, não troca de celeiro.'),
+        body: rows(lvRow(t(BEDS[i].nome), t('Descansa em {d}', { d: durTxt(full) }) + ' · ' + t('com galo, {d}', { d: durTxt(full * CFG.wakeMin) }), 'now') + RAR.map((r, k) => '<div class="lv later">' + ART.henOf(k, k === 5 ? 2 : undefined, false, r.cor) + '<div class="t-txt"><b>' + t(r.nome) + '</b><span>' + t('Trabalha {a} e dorme {b}', { a: durTxt(r.tire / 60), b: durTxt(full) }) + '</span></div></div>').join('')) }; },
     ovos: () => ({ pic: 'egg', nome: t('Ovos'), txt: t('A galinha bota no celeiro dela. Venda na hora, ou choque na chocadeira do celeiro para ganhar uma galinha nova. Comprado, o ovo abre na hora.'),
       body: rows(lvRow(t('Vender'), t('Na hora'), 'later', '<small>+' + nugTxt(CFG.eggSell) + '</small>') + lvRow(t('Chocar'), durTxt(CFG.hatchHours), 'later', '<small>' + nugTxt(CFG.hatchNug) + '</small>')
-        + lvRow(t('Acelerar'), t('Por hora que falta'), 'later', '<small>' + nugTxt(CFG.rushNug) + '</small>') + lvRow(t('Comprar ovo'), t('Abre na hora'), 'later', '<small>' + solTxt(CFG.mintSol) + '</small>')) + '<div class="odds">' + oddsHtml() + '</div>' }),
+        + lvRow(t('Acelerar'), t('Por hora que falta'), 'later', '<small>' + nugTxt(CFG.rushNug) + '</small>') + Object.keys(CFG.eggPacks).map((n) => lvRow(t('{n} ovos', { n }), nugTxt(CFG.eggPacks[n]) + ' ' + t('cada'), 'later', '<small>' + nugTxt(mintCost(+n)) + '</small>')).join('')) + '<div class="odds">' + oddsHtml() + '</div>' }),
     celeiros: () => ({ pic: 'coop', nome: t('Celeiros'), txt: t('Cada celeiro novo é melhor que o anterior e já vem com a esteira e as camas do nível dele. As vagas extras só abrem depois do último.'),
       body: rows(COOPS.map((c, i) => { const how = !i ? t('Grátis') : t('{n}ª galinha', { n: c.hens }) + ' · ' + (c.sol ? solTxt(c.sol) : t('{h} h de obra', { h: c.hours }) + ' · ' + t('acelerar') + ' ' + nugTxt(c.rush));
         return '<div class="lv ' + (i < S.pens ? 'now' : 'later') + '">' + ART.pic('coop' + i) + '<div class="t-txt"><b>' + coopName(i) + '</b><span>' + how + '</span><span>' + t(BELTS[i].nome) + ' ' + perMin(BELTS[i].cap) + ' · ' + t('Descansa em {d}', { d: durTxt(restMin(i) / 60) }) + (c.bonus ? ' · +' + Math.round(c.bonus * 100) + '%' : '') + '</span></div></div>'; }).join('')) }),
     vagas: () => ({ pic: 'slots', nome: t('Vagas'), txt: t('Cada reforma dá mais camas a este celeiro, garantido.'),
       body: lvTable([0].concat(CFG.slotNug), S.penLv[barnView], (n, k) => [t('{n} vagas', { n: CFG.slotsPerPen + k * CFG.slotStep }), '', n ? nugTxt(n) : ''], (n) => nugBtn('slots', barnView, n)) }),
     galo: () => ({ pic: 'rooster', nome: t('Galo'), txt: t('Sem galo, a galinha dorme até 100%, ou até você tocar em Acordar depois da metade do descanso. Com galo, ele canta na metade e ela volta sozinha.'),
-      body: rows(lvRow(S.rooster > 0 ? t('No turno') + ': ' + durTxt(S.rooster) : t('Sem galo'), '+' + CFG.roosterHours + ' ' + t('h'), 'next', nugBtn('rooster', null, CFG.roosterNug, '', S.rooster > CFG.roosterHours * 2))) }),
-    faxineiro: () => ({ pic: 'cleaner', nome: t('Faxineiro'), txt: t('Sem ele, um celeiro chega ao piso em {h} h e rende {p}%. Enquanto ele trabalha, nada suja.', { h: CFG.dirtHours, p: Math.round(CFG.dirtFloor * 100) }),
-      body: rows(lvRow(S.cleaner > 0 ? t('No turno') + ': ' + durTxt(S.cleaner) : t('Sem faxineiro'), '+' + CFG.cleanerHours + ' ' + t('h'), 'next', nugBtn('cleaner', null, cleanerPrice(), '', S.cleaner > CFG.cleanerHours * 2))) }),
-    fusao: () => ({ pic: 'fusion', nome: t('Fusão'), txt: t('Junte de {a} a {b} galinhas iguais para tentar uma da raridade seguinte. Mais galinhas, mais chance. Falhou, perde uma delas e a taxa.', { a: CFG.fuseMin, b: CFG.fuseMax }),
-      body: CFG.fusion.map((f, r) => { const have = layers(S.hens).filter((h) => h.r === r).length, n = fuseN[r];
-        return '<div class="fuse"><div class="f-row">' + ART.henOf(r, undefined, false, RAR[r].cor) + '<b>' + n + '</b><span>→</span>' + ART.henOf(r + 1, undefined, false, RAR[r + 1].cor) + '<em>' + pct(fuseChance(r, n)) + '</em><small>' + have + '</small></div>'
-          + '<div class="fuse-btns">' + pBtn('fuseN', r + ':-1', '−', n <= CFG.fuseMin, 'ghost') + pBtn('fuseN', r + ':1', '+', n >= CFG.fuseMax, 'ghost') + nugBtn('fuse', r, f.nug, '', have < n) + '</div></div>'; }).join('') }),
+      body: planRows('rooster') }),
+    fusao: () => ({ pic: 'fusion', nome: t('Fusão'), txt: t('Junte galinhas iguais para tentar uma da raridade seguinte.'), body: '<div class="soon">' + ART.pic('fusion') + t('Em breve') + '</div>' }),
     raposa: () => ({ pic: 'fox', nome: t('Raposa'), txt: t('Aparece a cada ~{h} h, escolhe um caminho e come os pintinhos da esteira por {m} min. Prefere os caminhos longos, e o caçador ou um pato resolvem.', { h: CFG.foxEvery, m: Math.round(CFG.foxStay * 60) }),
       body: rows(S.pens > 1 ? risks().slice(0, S.pens).map((q, i) => lvRow(t('Celeiro') + ' ' + (i + 1), '', 'later', '<small>' + Math.round(q * 100) + '%</small>')).join('') : '') }),
-    patos: () => ({ pic: 'duck', nome: t('Patos'), txt: t('Cada pato atrai uma raposa para a mata e é gasto. Com caçador, não faz falta.'),
-      body: rows(lvRow(t('Patos') + ' ' + S.ducks + '/' + CFG.duckMax, '', 'next', S.ducks < CFG.duckMax ? nugBtn('duck', null, duckPrice()) : '<i class="lv-now">' + t('Máximo') + '</i>')) }),
-    cacador: () => { const h = CFG.hunters[2]; return { pic: 'hunter', nome: t(h.nome), txt: t('Fica com você para sempre e acerta toda raposa e todo ladrão.'),
-      body: rows(lvRow(t(h.nome), S.hunter ? t('No posto') : '', 'next', S.hunter ? '<i class="lv-ok">✓</i>' : pBtn('hunter', 2, solTxt(h.sol)))) }; },
-    ladrao: () => ({ pic: 'thief', nome: t('Ladrão'), txt: t('Só vem com mais de um celeiro e mais de 10 galinhas. Sem caçador, ele leva uma galinha. Pato não engana ladrão.'),
-      body: rows(lvRow(t('Ladrões'), '', 'later', '<small>' + fmt(S.thieves) + '</small>') + lvRow(t('Galinhas levadas'), '', 'later', '<small>' + fmt(S.stolen) + '</small>')) }),
+    patos: () => ({ pic: 'duck', nome: t('Patos'), txt: t('A raposa vem em média a cada {h} h. Cada pato atrai uma para a mata e é gasto: {n} patos protegem por cerca de {t} h. Não engana o {ladrao}, que só aparece com mais de 10 galinhas.', { h: CFG.foxEvery, n: CFG.duckMax, t: CFG.duckMax * CFG.foxEvery, ladrao: mark('ladrao', t('ladrão')) }),
+      body: rows(lvRow(t('Patos') + ' ' + S.ducks + '/' + CFG.duckMax, S.ducks ? t('Protegem por cerca de {h} h', { h: S.ducks * CFG.foxEvery }) : t('Sem proteção'), 'now', '')
+        + lvRow(t('+1 pato'), t('+{h} h de proteção, em média', { h: CFG.foxEvery }), 'next', S.ducks < CFG.duckMax ? nugBtn('duck', null, duckPrice()) : '<i class="lv-now">' + t('Máximo') + '</i>')
+        + lvRow(t('Encher os {n}', { n: CFG.duckMax }), t('Cerca de {h} h sem raposa', { h: CFG.duckMax * CFG.foxEvery }), 'later', '<small>' + nugTxt(CFG.duckMax * duckPrice()) + '</small>')) }),
+    cacador: () => ({ pic: 'hunter', nome: t(CFG.hunters[2].nome), txt: t('Acerta toda raposa e todo {ladrao} enquanto estiver no posto. Contrate por alguns dias e renove quando acabar.', { ladrao: mark('ladrao', t('ladrão')) }),
+      body: planRows('hunter') }),
+    ladrao: () => ({ pic: 'thief', nome: t('Ladrão'), txt: t('Só aparece com mais de 10 galinhas e mais de um celeiro, mais ou menos uma vez por dia. Sem caçador, ele leva uma galinha. Pato não engana ladrão.'),
+      body: '<div class="clip">' + ART.thiefClip(t('Sem caçador: leva uma galinha'), t('Com caçador: foge sem nada')) + '</div>' + rows(lvRow(t('Ladrões'), '', 'later', '<small>' + fmt(S.thieves) + '</small>') + lvRow(t('Galinhas levadas'), '', 'later', '<small>' + fmt(S.stolen) + '</small>')) }),
     plantas: () => ({ pic: 'frutas', nome: t('Plantas'), txt: t('Cada canteiro colhido soma o bônus dele nos nuggets por {h} h. Colher de novo soma horas, até {m} h.', { h: CFG.seeds.milho.hours, m: CFG.buffMax }),
       body: rows(Object.keys(CFG.seeds).map((id) => { const s = CFG.seeds[id]; return '<div class="lv now">' + ART.pic(id) + '<div class="t-txt"><b>' + t(s.nome) + ' +' + Math.round(s.boost * 100) + '%</b><span>' + t('Cresce em {d}', { d: durTxt(s.grow) }) + ' · ' + t('4 canteiros') + ' +' + Math.round(s.boost * 400) + '%</span></div><small>' + nugTxt(s.nug) + '</small></div>'; }).join('')) }),
     fazendeiro: () => ({ pic: 'farmer', nome: t('Fazendeiro'), txt: t('Cuida dos 4 canteiros: rega para crescer {n}x mais rápido, colhe, planta de novo e não deixa passarinho comer.', { n: CFG.workerGrow }),
       body: rows(lvRow(t('Fazendeiro'), S.farmer ? t('Na horta') : '', 'next', S.farmer ? '<i class="lv-ok">✓</i>' : nugBtn('worker', null, CFG.workerNug))) }),
   };
   let detail = null;
+  // Palavra que abre outra explicação, como o ladrão dentro do pato e do caçador.
+  function mark(key, txt) { return '<button type="button" class="mark" data-a="info" data-v="' + key + '">' + txt + '</button>'; }
+  // Planos do galo e do caçador: o que falta do turno e os botões de contratar.
+  function planRows(kind) {
+    return rows((S[kind] > 0 ? lvRow(t('No turno'), durTxt(S[kind]), 'now') : lvRow(kind === 'rooster' ? t('Sem galo') : t('Sem caçador'), '', 'later'))
+      + CFG[kind + 'Plans'].map((p, k) => { const full = S[kind] + p.days * 24 > CFG.planMax * 24;
+        return lvRow(t('{n} dias', { n: p.days }), (p.nug ? nugTxt(Math.round(p.nug / p.days)) : solTxt(Math.round(p.sol / p.days * 1000) / 1000)) + ' / ' + t('dia'), 'next', p.nug ? nugBtn('plan', kind + ':' + k, p.nug, 'gold', full) : pBtn('plan', kind + ':' + k, solTxt(p.sol), full, 'gold')); }).join(''));
+  }
   function renderDetail() {
     const d = INFO[detail]();
     el.sheetTitle.textContent = d.nome;
@@ -3832,7 +3870,7 @@ window.GRANJA_ART = (function () {
   function syncPane() {
     for (const k in SHEETS) el[SHEETS[k][1]].hidden = k !== sheetTab || !!detail;
     el.pDetail.hidden = !detail;
-    if (!detail) el.sheetTitle.textContent = t(SHEETS[sheetTab][0]);
+    if (!detail && sheetTab) el.sheetTitle.textContent = t(SHEETS[sheetTab][0]);
   }
   const showInfo = (key) => { detail = INFO[key] ? key : null; syncPane(); renderPanel(); el.sheetBody.scrollTop = 0; sheetFocus(); };
   const oddsHtml = () => RAR.map((r) => '<span style="--c:' + r.cor + '">' + t(r.nome) + ' ' + pct(r.chance / 100) + '</span>').join('');
@@ -3855,8 +3893,8 @@ window.GRANJA_ART = (function () {
   }
   // Ações dos botões da folha, por data-a.
   const PANEL = { __proto__: null,
-    rooster: buyRooster, pen: buyPen, duck: buyDuck, mint: (v) => mint(+v || 1), choc: (v) => incubate(+v), open: (v) => openChoc(+v), sellChoc: (v) => sellChoc(+v),
-    vault: buyVault, driver: hireDriver, cleaner: hireCleaner, rush: (v) => rushChoc(+v), slots: (v) => buySlots(+v), rushBuild, abat: buyAbat,
+    plan: (v) => { const [kind, k] = v.split(':'); buyPlan(kind, +k); }, pen: buyPen, duck: buyDuck, mint: (v) => mint(+v || 1), choc: (v) => incubate(+v), open: (v) => openChoc(+v), sellChoc: (v) => sellChoc(+v),
+    vault: buyVault, rush: (v) => rushChoc(+v), slots: (v) => buySlots(+v), rushBuild, abat: buyAbat,
     fuse: (v) => fuse(+v), fuseN: (v) => { const [r, d] = v.split(':'); setFuseN(+r, +d); },
     plant: (v) => { const [i, id] = v.split(':'); plantZone(+i, id); }, harvest: (v) => harvestZone(+v),
     worker: hireWorker,
@@ -3865,7 +3903,6 @@ window.GRANJA_ART = (function () {
     autoPens, clean: (v) => cleanPen(+v), wakePen: (v) => wakeHens(+v), goPen: (v) => { barnView = +v; selHen = null; renderBarn(); el.sheetBody.scrollTop = 0; sheetFocus(); },
     hen: (v) => { selHen = selHen === +v ? null : +v; renderBarn(); },
     move: (v) => moveHen(+v),
-    hunter: (v) => buyHunter(+v),
     sell: (v) => sellEgg(+v),
   };
 
@@ -3947,7 +3984,7 @@ window.GRANJA_ART = (function () {
   };
   // O que cada aba e cada item mostram na cena: [x, z, aproximação, o que fica nítido]. A câmera chega perto, o resto desfoca e o painel fica ao lado.
   const TAB_SPOT = { __proto__: null, barn: [38, 31, 2.1, ['pens']], prod: [81, 23, 3, ['abat']], fox: [62, 63, 2.1, ['hunter', 'pond']], horta: [6, 50, 2.6, ['horta']], market: [64, 47, 4, ['market']] };
-  const ITEM_SPOT = { __proto__: null, belt: [52, 42, 1.6, ['belts']], caixa: [96, 23.5, 4, ['bin']], truck: [95, 33, 3.2, ['truck', 'bin']], driver: [95, 33, 3.2, ['truck', 'bin']],
+  const ITEM_SPOT = { __proto__: null, belt: [52, 42, 1.6, ['belts']], caixa: [96, 23.5, 4, ['bin']], 
     patos: [46, 65.5, 3.2, ['pond']], cacador: [78, 65, 4, ['hunter']], fazendeiro: [3, 6, 3.4, ['house']] };
   function sheetFocus() {
     if (guide.on || !R || !R.spot) return;
@@ -3969,7 +4006,8 @@ window.GRANJA_ART = (function () {
     } else if (tipo === 'fox' || tipo === 'hunter' || tipo === 'pond') H.openSheet('fox', tipo === 'hunter' ? 'cacador' : 'patos');
     else if (tipo === 'next') H.openSheet('barn');
     else if (tipo === 'horta') { if (!S.farmer && S.zones.some((z) => z.seed && z.left <= 0)) harvestAll(); else H.openSheet('horta'); }
-    else if (tipo === 'abat' || tipo === 'truck' || tipo === 'bin') H.openSheet('prod', tipo === 'bin' ? 'caixa' : tipo);
+    else if (tipo === 'truck') collect();
+    else if (tipo === 'abat' || tipo === 'bin') H.openSheet('prod', tipo === 'bin' ? 'caixa' : tipo);
     else if (tipo === 'house') H.openSheet('horta', 'fazendeiro');
     else if (tipo === 'market') H.openSheet('market');
   };
@@ -3994,6 +4032,64 @@ window.GRANJA_ART = (function () {
     // canteiros vazios ganham milho; todos ficam quase prontos
     plotReady() { S.zones.forEach((z) => { if (!z.seed) { z.seed = 'milho'; z.last = 'milho'; } z.left = Math.min(z.left || 1, 0.0001); }); tested('plot'); },
     thiefNow() { if (!W.thief && S.hens.length) { S.thieves++; spawnThief(); } tested('thief'); },
+    // Simula um jogador por alguns dias com as regras de verdade, numa granja à parte; a do jogador fica guardada e volta intacta.
+    // o: eggs (ovos comprados no começo), egg (preço de cada um; sem ele, o do pacote de 10), days, every (horas entre visitas), clean, wake, rooster e hunter (plano ou -1), ducks (patos mantidos),
+    // box (nível da caixa), abat (nível), rush (acelera as obras), coop4 (paga o 4º celeiro), eggsLater ([dia, ovos]: compra mais depois).
+    // Devolve o gasto em $NUGGET e em SOL, o ganho acumulado de cada dia e o gasto acumulado até cada dia (spent: [$NUGGET, SOL]).
+    sim(o) {
+      const real = S, mute = demo.mute, on = demo.on, r = { nug: 0, sol: 0, days: [], spent: [], hens: 0, rar: [0, 0, 0, 0, 0, 0] };
+      demo.mute = true; demo.on = true;
+      S = Object.assign(fresh(), { speed: 1, nug: 1e15, eggGift: 0 });
+      try {
+        // os ovos entram até a meta: o que não cabe agora é comprado na visita em que abrir vaga
+        let want = o.eggs || 0;
+        const eggs = (n) => { for (let k = 0; k < n && S.hens.length < slots(); k++) { const h = newHen(roll(), freePen()); S.hens.push(h); S.got++; want--; r.nug += o.egg || CFG.eggPacks[10]; r.rar[h.r]++; coopCheck(); } };
+        eggs(want);
+        for (let k = 1; k <= (o.box || 0); k++) { S.vaultLv = k; r.nug += CFG.vaultNug[k]; }
+        for (let k = 1; k <= (o.abat || 0); k++) { S.abat = k; r.sol += ABATS[k].sol; }
+        syncClock(); syncHens();
+        let earned = 0;
+        const later = (o.eggsLater || []).slice();
+        for (let h = 0; h < o.days * 24; h += o.every) {
+          while (later.length && later[0][0] * 24 <= h) { want += later[0][1]; later.shift(); }
+          if (o.rush) while (S.build) { r.nug += COOPS[S.build.pen].rush; buildDone(true); if (want > 0) eggs(want); }
+          if (want > 0) eggs(want);
+          if (o.coop4 && S.pens === 3 && S.got >= COOPS[3].hens) { S.pens = 4; r.sol += COOPS[3].sol; syncHens(); }
+          for (const kind of ['rooster', 'hunter']) if (o[kind] >= 0 && S[kind] <= 0) { const p = CFG[kind + 'Plans'][o[kind]]; S[kind] += p.days * 24; r.sol += p.sol || 0; r.nug += p.nug || 0; }
+          while (S.ducks < (o.ducks || 0)) { S.ducks++; r.nug += CFG.duckNug; }
+          syncHens();
+          catchUp(o.every * 3600, false);
+          earned += S.eggs.length * CFG.eggSell; S.eggs.length = 0;
+          if (paid()) earned += deliver().net;
+          if (o.clean) S.dirt.fill(0);
+          if (o.wake) for (const d of S.hens) if (d.rest && d.e >= CFG.wakeMin) { d.e = 1; d.rest = false; }
+          if (Math.floor((h + o.every) / 24) > r.days.length) { r.days.push(Math.round(earned)); r.spent.push([Math.round(r.nug), Math.round(r.sol * 1000) / 1000]); }
+        }
+        r.hens = S.hens.length;
+      } finally {
+        S = real; demo.mute = mute; demo.on = on;
+        resetWorld();
+      }
+      return r;
+    },
+    // uma galinha de cada raridade e as 10 Míticas, para ver todas na cena: abre de graça os celeiros que faltarem
+    oneOfEach() {
+      const list = [0, 1, 2, 3, 4].map((r) => newHen(r, 0)).concat(SKINS.map((k, i) => Object.assign(newHen(5, 0), { skin: i })));
+      let n = 0;
+      // com os quatro celeiros abertos e sem vaga, faz as reformas de graça até caber
+      const room = () => PENS.reduce((a, p, i) => a + perPen(i), 0) - S.hens.length;
+      for (let i = 0; S.pens >= CFG.maxPens && room() < list.length && i < 12; i++) { const j = S.penLv.indexOf(Math.min(...S.penLv)); if (S.penLv[j] >= CFG.slotNug.length) break; S.penLv[j]++; }
+      for (const h of list) {
+        while (freePen() >= S.pens && S.pens < CFG.maxPens) { S.pens++; S.build = null; }
+        const i = freePen();
+        if (i < 0 || i >= S.pens) break;
+        h.pen = i; S.hens.push(h); S.got++; n++;
+      }
+      W.pens = S.pens; syncClock(); syncHens();
+      for (const h of W.hens.slice(-n)) emit('mint', { r: h.r, hen: h });
+      toast('<b>+' + n + '</b> ' + t('Galinhas') + (n < list.length ? ' · ' + t('Sem vaga') : ''));
+      tested('each');
+    },
     // galinhas de graça, até o limite de vagas: leva aos celeiros novos sem pagar ovo
     addHens(n) { for (let k = Math.min(n, slots() - S.hens.length); k > 0; k--) { S.hens.push(newHen(0, freePen())); S.got++; coopCheck(); } syncHens(); tested('hens'); },
     birdsNow() { if (!S.zones.some((z) => z.seed && z.left > 0)) plantZone(0, 'milho', true, true); S.nextBird = 0.0001; tested('birds'); },
@@ -4067,7 +4163,7 @@ window.GRANJA_ART = (function () {
     el.bar.style.width = (p * 100).toFixed(1) + '%';
     el.dock.dataset.crate = full ? 'full' : p >= 0.8 ? 'high' : 'ok';
     el.btnCollect.disabled = v < 1;
-    el.uTruckTxt.textContent = full ? t('Caixa cheia') : !paid() && v >= 1 ? t('Sai na 1ª compra em SOL') : S.driver > 0 ? t('Motorista') : v < 1 ? t('Caixa vazia') : t('Chamar caminhão');
+    el.uTruckTxt.textContent = full ? t('Caixa cheia') : !paid() && v >= 1 ? t('Sai na 1ª compra') : v < 1 ? t('Caixa vazia') : t('Chamar caminhão');
     el.uCrate.textContent = v >= 1 ? fmt(Math.min(Math.floor(box), c)) + ' / ' + fmt(c) : '';
     // o que chega ao saldo, já sem o frete: fica sempre inteiro, quem corta é o texto da esquerda
     el.uCollectVal.textContent = v < 1 ? '' : ' · +' + fmt(v - freight(v));
@@ -4100,7 +4196,7 @@ window.GRANJA_ART = (function () {
     const TESTS = [
       ['Saldo', [['+100.000', () => H.test.add('nug', 1e5)], ['+1.000.000', () => H.test.add('nug', 1e6)], ['+1 SOL', () => H.test.add('sol', 1)]]],
       ['Tempo', [['1x', () => H.test.speed(1), 1], ['60x', () => H.test.speed(60), 60], ['600x', () => H.test.speed(600), 600]]],
-      ['Cena', [[t('Raposa'), H.test.foxNow], [t('Ladrão'), H.test.thiefNow], [t('Sujeira'), H.test.dirtAll], [t('Caixa'), H.test.fillBox], ['+1 ' + t('Ovos'), H.test.addEgg], [t('Abrir'), H.test.eggReady], [t('Horta'), H.test.plotReady], [t('Passarinhos'), H.test.birdsNow], ['+10 ' + t('Galinhas'), () => H.test.addHens(10)]]],
+      ['Cena', [[t('Raposa'), H.test.foxNow], [t('Ladrão'), H.test.thiefNow], [t('Sujeira'), H.test.dirtAll], [t('Caixa'), H.test.fillBox], ['+1 ' + t('Ovos'), H.test.addEgg], [t('Abrir'), H.test.eggReady], [t('Horta'), H.test.plotReady], [t('Passarinhos'), H.test.birdsNow], ['+10 ' + t('Galinhas'), () => H.test.addHens(10)], [t('1 de cada'), H.test.oneOfEach]]],
       ['Jogo', [['+8 ' + t('h'), () => H.test.away(8)], [t('Granja de exemplo'), () => { H.test.showcase(); H.closeSheet(); }], [resetTxt(), resetTap]]],
     ];
     const testFn = [];
@@ -4769,6 +4865,38 @@ window.GRANJA_ART = (function () {
       this.block(1.3 * s, 1.1 * s, 1.3 * s, '#4f9a3a', x, 1.35 * s, z, scene);
       this.block(0.8 * s, 0.6 * s, 0.8 * s, '#64b34a', x + 0.1, 2.1 * s, z, scene);
     },
+    // Açude em quadradinhos: água em degradê que mexe, uma volta de areia molhada, areia de largura irregular com pedrinhas,
+    // vitórias-régias e taboa. A areia e os enfeites são blocos assados; a água é uma malha só, com o material próprio.
+    pond(scene, px, pz, pw, pd) {
+      const rx = pw / 2, rz = pd / 2, c = WCELL, r = srand(31), cells = [];
+      const nx = Math.ceil(rx / c) + 3, nz = Math.ceil(rz / c) + 3;
+      for (let i = -nx; i < nx; i++) for (let j = -nz; j < nz; j++) {
+        const x = (i + 0.5) * c, z = (j + 0.5) * c;
+        if (Math.hypot(x / rx, z / rz) < 1) { cells.push([x, z]); continue; }
+        const a = Math.atan2(z / rz, x / rx), m = 0.36 + 0.13 * Math.sin(4 * a + 3) + 0.08 * Math.sin(7 * a + 1);
+        if (Math.hypot(x / (rx + m), z / (rz + m)) >= 1) continue;
+        const wet = Math.hypot(x / (rx + 0.3), z / (rz + 0.3)) < 1, v = r();
+        this.block(c, 0.06, c, wet ? (v < 0.5 ? '#b9a06a' : '#c4ab74') : v < 0.4 ? '#d9c08a' : v < 0.75 ? '#e3cd98' : '#cfb47c', px + x, 0.03, pz + z, scene).castShadow = false;
+        if (!wet && v > 0.88) this.block(c * 0.6, 0.12, c * 0.6, v > 0.95 ? '#8d867c' : '#a39b8f', px + x, 0.08, pz + z, scene);
+      }
+      const A = pondWater(this, scene, cellGeo(cells, 0.07, c), px, pz, rx, rz, true, 0.07);
+      const snap = (v) => (Math.floor(v / c) + 0.5) * c;
+      for (const [a, k, s, fl] of PADS) {
+        const x = snap(Math.cos(a) * k * rx), z = snap(Math.sin(a) * k * rz), big = s > 0.19;
+        this.block(big ? c * 1.6 : c, 0.03, big ? c * 1.3 : c, '#4f9a3a', px + x, 0.085, pz + z, scene).castShadow = false;
+        this.block(c * 0.5, 0.035, c * 0.5, '#64b345', px + x - c * 0.2, 0.087, pz + z - c * 0.15, scene).castShadow = false;
+        if (fl) { this.block(0.1, 0.08, 0.1, '#e98fb0', px + x + c * 0.2, 0.12, pz + z, scene); this.block(0.05, 0.04, 0.05, '#ffe066', px + x + c * 0.2, 0.17, pz + z, scene); }
+        A.pads.push([px + x, pz + z, s + 0.42]);
+      }
+      for (const [a, n] of REEDS) {
+        const bx = Math.cos(a) * (rx + 0.08), bz = Math.sin(a) * (rz + 0.08);
+        for (let i = 0; i < n; i++) {
+          const h = 0.3 + r() * 0.35, x = bx + (r() - 0.5) * 0.45, z = bz + (r() - 0.5) * 0.3;
+          this.block(0.06, h, 0.06, i % 2 ? '#4f9a3a' : '#64b345', px + x, h / 2 + 0.05, pz + z, scene);
+          if (i % 3 === 0) this.block(0.09, 0.14, 0.09, '#7a4f2a', px + x, h + 0.1, pz + z, scene);
+        }
+      }
+    },
     roof(parent, w, d, x, y, z, c1, c2) {
       for (let i = 0; i < 4; i++) this.block(w + 0.2 - i * (w / 4), 0.26, d + 0.2, i % 2 ? c2 : c1, x, y + 0.13 + i * 0.26, z, parent);
     },
@@ -5205,16 +5333,44 @@ window.GRANJA_ART = (function () {
       }
       for (const [x, z, s] of DECOR.trees) if (inSlab(X(x), Z(z), 1.3)) this.tree(scene, X(x), Z(z), s);
     },
-    // açude com fundo mais escuro, brilhos que piscam e um trapiche com bote (os patos são os comprados, do motor)
+    // Açude: areia de beira irregular com pedrinhas, faixa molhada, água em degradê que mexe, vitórias-régias, taboa na margem,
+    // brilhos que piscam e um trapiche com bote (os patos são os comprados, do motor). Só a água e os anéis ficam fora do assado.
     pond(scene, px, pz, pw, pd) {
-      const cyl = new T.CylinderGeometry(1, 1, 1, 30);
-      const disc = (rx, rz, h, y, c) => { const m = new T.Mesh(cyl, real(c)); m.scale.set(rx, h, rz); m.position.set(px, y, pz); m.receiveShadow = true; scene.add(m); return m; };
-      disc(pw / 2 + 0.5, pd / 2 + 0.5, 0.06, 0.02, '#d9c08a');
-      disc(pw / 2 + 0.16, pd / 2 + 0.16, 0.06, 0.035, '#9a8a5e');
-      disc(pw / 2, pd / 2, 0.06, 0.05, '#3a95d2');
-      disc(pw * 0.34, pd * 0.34, 0.06, 0.056, '#1f5f96');
-      const sp = new T.InstancedMesh(boxGeo, new T.MeshBasicMaterial({ color: 0xffffff }), 36), spots = [];
-      for (let i = 0; i < 36; i++) { const a = Math.random() * Math.PI * 2, k = Math.sqrt(Math.random()) * 0.9; spots.push([px + Math.cos(a) * k * pw / 2, pz + Math.sin(a) * k * pd / 2, Math.random() * 6]); sp.setMatrixAt(i, ZERO); }
+      const rx = pw / 2, rz = pd / 2, r = srand(23);
+      const wob = (a) => 1 + 0.025 * Math.sin(3 * a + 1.3) + 0.018 * Math.sin(5 * a + 0.4) + 0.01 * Math.sin(8 * a + 2);
+      const edge = (a, m) => { const k = wob(a); return [Math.cos(a) * (rx * k + m), Math.sin(a) * (rz * k + m)]; };
+      const flat = (geo, c) => { const m = new T.Mesh(geo, real(c)); m.position.set(px, 0, pz); m.receiveShadow = true; m.castShadow = false; scene.add(m); return m; };
+      flat(pondFan(72, 0.045, (a) => edge(a, 0.34 + 0.1 * Math.sin(4 * a + 3) + 0.06 * Math.sin(7 * a + 1))), '#d9c08a');
+      flat(pondFan(72, 0.057, (a) => edge(a, 0.13)), '#a8945f');
+      const A = pondWater(this, scene, pondFan(72, 0.07, (a) => edge(a, 0)), px, pz, rx, rz, false, 0.07);
+      // a beira do trapiche fica limpa: é por onde se chega na água
+      const nearDock = (a) => { const d = Math.atan2(Math.sin(a - 0.1), Math.cos(a - 0.1)); return Math.abs(d) < 0.38; };
+      const ico = new T.IcosahedronGeometry(1, 0), stone = (x, z, s, c) => { const m = new T.Mesh(ico, real(c)); m.scale.set(s, s * 0.55, s * (0.7 + r() * 0.5)); m.rotation.y = r() * 6; m.position.set(px + x, 0.05, pz + z); m.castShadow = true; m.receiveShadow = true; scene.add(m); };
+      for (let i = 0; i < 46; i++) {
+        const a = r() * Math.PI * 2;
+        if (nearDock(a)) continue;
+        const [x, z] = edge(a, i < 6 ? -0.02 : 0.05 + r() * 0.26);
+        stone(x, z, 0.05 + r() * r() * 0.12, ['#8d867c', '#a39b8f', '#77706a', '#b4aea3'][i % 4]);
+      }
+      // vitórias-régias: folha redonda com o corte em V, umas com flor rosa
+      for (const [a, k, s, fl] of PADS) {
+        const x = Math.cos(a) * k * rx, z = Math.sin(a) * k * rz;
+        const pad = new T.Mesh(new T.CylinderGeometry(s, s, 0.02, 14, 1, false, r() * 6, Math.PI * 2 - 0.55), real(s > 0.19 ? '#4f9a3a' : '#62b043'));
+        pad.position.set(px + x, 0.08, pz + z); pad.receiveShadow = true; scene.add(pad);
+        if (fl) { this.block(0.09, 0.07, 0.09, '#e98fb0', px + x + s * 0.2, 0.12, pz + z, scene).rotation.y = 0.7; this.block(0.04, 0.04, 0.04, '#ffe066', px + x + s * 0.2, 0.16, pz + z, scene); }
+        A.pads.push([px + x, pz + z, s + 0.42]);
+      }
+      // taboa: hastes finas meio tortas, umas com a espiga marrom
+      for (const [a, n] of REEDS) {
+        const [bx, bz] = edge(a, 0.02);
+        for (let i = 0; i < n; i++) {
+          const h = 0.35 + r() * 0.35, x = bx + (r() - 0.5) * 0.4, z = bz + (r() - 0.5) * 0.25;
+          const st = this.block(0.035, h, 0.035, i % 2 ? '#4f9a3a' : '#62b043', px + x, h / 2 + 0.04, pz + z, scene); st.rotation.set((r() - 0.5) * 0.3, 0, (r() - 0.5) * 0.3);
+          if (i % 3 === 0) this.block(0.07, 0.13, 0.07, '#7a4f2a', px + x, h + 0.06, pz + z, scene);
+        }
+      }
+      const sp = new T.InstancedMesh(boxGeo, new T.MeshBasicMaterial({ color: 0xffffff }), 18), spots = [];
+      for (let i = 0; i < 18; i++) { const a = Math.random() * Math.PI * 2, k = Math.sqrt(Math.random()) * 0.78; spots.push([px + Math.cos(a) * k * rx, pz + Math.sin(a) * k * rz, Math.random() * 6]); sp.setMatrixAt(i, ZERO); }
       sp.frustumCulled = false; scene.add(sp);
       const dk = new T.Group(); dk.position.set(px + pw / 2 - 0.1, 0, pz + pd * 0.12); scene.add(dk);
       const planks = texMat(TEX.planks('#a8703f', 4, 1));
@@ -5836,6 +5992,87 @@ window.GRANJA_ART = (function () {
     g.fillStyle = c; g.fillRect(0, 0, 128, 128);
   });
 
+  // ---------- água do açude: viva sem refazer geometria. Degradê, ondas e brilho saem do material; por quadro só muda o tempo, num uniform.
+  // Fundo escuro no meio, raso claro na beira e uma espuma fininha encostando na areia. No voxel a água vem em quadradinhos de WCELL.
+  const WCELL = 0.3;
+  const WATER_FS = [
+    'uniform float uT; uniform vec2 uR; varying float vR; varying vec2 vW; vec3 wGlint;',
+    'vec3 water(){',
+    '#if WVOX',
+    '  vec2 p = (floor(vW / ' + WCELL.toFixed(2) + ') + 0.5) * ' + WCELL.toFixed(2) + '; float r = min(1.0, length(p / uR));',
+    '#else',
+    '  vec2 p = vW; float r = vR;',
+    '#endif',
+    '  vec3 c = mix(vec3(0.10, 0.34, 0.57), vec3(0.22, 0.56, 0.82), smoothstep(0.08, 0.6, r));',
+    '  c = mix(c, vec3(0.45, 0.76, 0.94), smoothstep(0.6, 0.9, r));',
+    '  c = mix(c, vec3(0.82, 0.94, 0.98), smoothstep(0.92, 1.0, r));',
+    // três ondas em direções diferentes: onde se somam a água clareia e, no pico, vira brilho
+    '  float w = sin(p.x * 2.3 + p.y * 1.1 + uT * 0.8) + sin(p.y * 2.7 - p.x * 1.3 - uT * 0.6) + 0.7 * sin(p.x * 3.9 - p.y * 0.6 + uT * 1.2);',
+    '  c *= 1.0 + 0.06 * w * (1.0 - r * 0.6);',
+    // reflexo do céu: uma faixa larga em diagonal que atravessa o açude bem devagar
+    '  float s = fract(dot(p, vec2(0.11, 0.15)) - uT * 0.018);',
+    '  c = mix(c, vec3(0.75, 0.9, 1.0), 0.16 * smoothstep(0.3, 0.5, s) * (1.0 - smoothstep(0.5, 0.7, s)));',
+    '  wGlint = vec3(0.85, 0.95, 1.0) * smoothstep(1.85, 2.3, w) * 0.45 * (1.0 - smoothstep(0.82, 0.97, r));',
+    '  return c;',
+    '}',
+  ].join('\n');
+  // O material da luz de cada kit, com a cor trocada pela da água e o brilho somado ao emissive: sombra, luz da tarde e destaque seguem valendo.
+  function waterMat(kit, vox, uT, rx, rz) {
+    const m = kit.maquete ? new T.MeshStandardMaterial({ color: 0xffffff, roughness: 0.3, metalness: 0 }) : new T.MeshLambertMaterial({ color: 0xffffff });
+    m.defines = { WVOX: vox ? 1 : 0 };
+    m.onBeforeCompile = (sh) => {
+      sh.uniforms.uT = uT; sh.uniforms.uR = { value: new T.Vector2(rx, rz) };
+      sh.vertexShader = 'attribute float aR; varying float vR; varying vec2 vW;\n' + sh.vertexShader.replace('#include <begin_vertex>', '#include <begin_vertex>\n  vR = aR; vW = position.xz;');
+      sh.fragmentShader = WATER_FS + '\n' + sh.fragmentShader
+        .replace('vec4 diffuseColor = vec4( diffuse, opacity );', 'vec4 diffuseColor = vec4( water(), opacity );')
+        .replace('#include <emissivemap_fragment>', '#include <emissivemap_fragment>\n  totalEmissiveRadiance += wGlint;');
+    };
+    m.customProgramCacheKey = () => 'acude' + (vox ? 1 : 0);
+    return m;
+  }
+  // chão chato virado para cima; aR vai de 0 no meio do açude a 1 na beira
+  function flatGeo(pos, ar) {
+    const g = new T.BufferGeometry();
+    g.setAttribute('position', new T.Float32BufferAttribute(pos, 3));
+    g.setAttribute('normal', new T.Float32BufferAttribute(pos.map((v, i) => (i % 3 === 1 ? 1 : 0)), 3));
+    g.setAttribute('aR', new T.Float32BufferAttribute(ar, 1));
+    return g;
+  }
+  // leque com a borda irregular: pt(a) dá o ponto da beira em cada ângulo
+  function pondFan(n, y, pt) {
+    const pos = [], ar = [];
+    for (let i = 0; i < n; i++) {
+      const [x0, z0] = pt(i / n * Math.PI * 2), [x1, z1] = pt((i + 1) / n * Math.PI * 2);
+      pos.push(0, y, 0, x1, y, z1, x0, y, z0); ar.push(0, 1, 1);
+    }
+    return flatGeo(pos, ar);
+  }
+  // os quadradinhos de água do voxel, numa malha só
+  function cellGeo(cells, y, c) {
+    const pos = [], h = c / 2;
+    for (const [x, z] of cells) pos.push(x - h, y, z - h, x - h, y, z + h, x + h, y, z + h, x - h, y, z - h, x + h, y, z + h, x + h, y, z - h);
+    return flatGeo(pos, pos.filter((v, i) => i % 3 === 0).map(() => 0));
+  }
+  // Superfície da água e as ondinhas: poucos anéis instanciados que o motor abre e apaga (somados à cor, então apagar é escurecer até o preto).
+  // Fica tudo no grupo do açude, e o 'pond' do destaque acende a água junto. pads: vitórias-régias, que os patos contornam.
+  function pondWater(kit, scene, geo, px, pz, rx, rz, vox, y) {
+    const uT = { value: 0 }, m = new T.Mesh(geo, waterMat(kit, vox, uT, rx, rz));
+    m.position.set(px, 0, pz); m.receiveShadow = true; m.castShadow = false; m.userData.live = true; scene.add(m);
+    const ring = new T.RingGeometry(0.84, 1, vox ? 4 : 28);
+    if (vox) ring.rotateZ(Math.PI / 4);
+    ring.rotateX(-Math.PI / 2);
+    const n = 20, rip = new T.InstancedMesh(ring, new T.MeshBasicMaterial({ color: 0xffffff, transparent: true, blending: T.AdditiveBlending, depthWrite: false }), n);
+    for (let i = 0; i < n; i++) { rip.setMatrixAt(i, ZERO); rip.setColorAt(i, col.setRGB(0, 0, 0)); }
+    rip.instanceMatrix.setUsage(T.DynamicDrawUsage); rip.frustumCulled = false; scene.add(rip);
+    const A = { uT, rip, y, px, pz, rx, rz, wakes: Array.from({ length: n }, () => ({ t: 1, life: 0 })), next: 0, fishT: 2, pads: [] };
+    scene.userData.water = A;
+    return A;
+  }
+  // Vitórias-régias rente à beira, longe do trapiche e do bote (ângulo na elipse, quanto para fora, raio, se tem flor).
+  const PADS = [[2.3, 0.8, 0.22, 1], [2.72, 0.85, 0.16, 0], [3.55, 0.82, 0.24, 0], [3.95, 0.7, 0.15, 1], [4.85, 0.82, 0.2, 0], [5.55, 0.78, 0.18, 1]];
+  // Touceiras de taboa na margem: ângulo e quantas hastes.
+  const REEDS = [[1.95, 6], [3.2, 5], [4.35, 7], [5.15, 4]];
+
   // ---------- enfeites do sítio, montados com as peças de cada kit
 
   // Açude, horta e poleiro ficam em grupos próprios: o destaque do tutorial e o contorno precisam deles separados do cenário assado.
@@ -5843,14 +6080,9 @@ window.GRANJA_ART = (function () {
     const D = DECOR, own = () => { const g = new T.Group(); g.userData.live = true; scene.add(g); return g; };
     const P = { pond: own(), horta: own(), perch: own() };
     const rectXZ = (o) => [X(o.x + o.w / 2), Z(o.z + o.d / 2), o.w * U, o.d * U];
-    // açude
+    // açude: cada kit desenha o seu (a água viva e as ondinhas saem de pondWater)
     const [px, pz, pw, pd] = rectXZ(D.pond);
-    if (kit.pond) kit.pond(P.pond, px, pz, pw, pd);
-    else {
-      kit.block(pw + 0.6, 0.06, pd + 0.6, '#d9c08a', px, 0.02, pz, P.pond).castShadow = false;
-      kit.block(pw, 0.08, pd, '#4aa8e8', px, 0.04, pz, P.pond).castShadow = false;
-      kit.block(pw * 0.5, 0.09, pd * 0.25, '#7cc4f2', px - pw * 0.15, 0.045, pz - pd * 0.2, P.pond).castShadow = false;
-    }
+    kit.pond(P.pond, px, pz, pw, pd);
     // horta: quatro canteiros de terra arada, um atrás do outro, com três sulcos e borda de tábua; as plantas, os trabalhadores e os passarinhos são do motor
     for (const zn of MAP.zones) {
       const [zx, zz, zw, zd] = rectXZ(zn);
@@ -7066,7 +7298,7 @@ window.GRANJA_ART = (function () {
     const voxCam = { pos: new T.Vector3(), look: new T.Vector3() };
     const FX = { scene: null, cam: null, quad: null, M: null, scn: null, mask: null, blurA: null, blurB: null, softA: null, softB: null, gray: null, cMask: null, cEdge: null, cPix: false, key: new Float64Array(32), size: new T.Vector2() };
     // patos do açude; o bote e o trapiche ficam de fora da água livre
-    const ducks = [], ROCKS = kit.maquete ? [[PDX + PDW * 0.18, PDZ + PDD * 0.34, 0.7], [PDX + PDW * 0.42, PDZ + PDD * 0.12, 0.85]] : [];
+    const ducks = [], ROCKS = kit.maquete ? [[PDX + PDW * 0.18, PDZ + PDD * 0.34, 0.7], [PDX + PDW * 0.42, PDZ + PDD * 0.12, 0.85]] : [], ROCK0 = ROCKS.length;
 
     function toScreen(x, y, z) {
       vpos.set(x, y, z).project(camera);
@@ -7356,6 +7588,8 @@ window.GRANJA_ART = (function () {
       // açude, horta e poleiro assam à parte; o cenário assado tapa o contorno de quem está atrás dele
       for (const k in parts) { parts[k].userData.live = false; bake(kit, parts[k]); }
       pondG = parts.pond; hortaG = parts.horta; perchG = parts.perch;
+      // as vitórias-régias também desviam os patos
+      ROCKS.length = ROCK0; if (pondG.userData.water) ROCKS.push(...pondG.userData.water.pads);
       still.traverse((o) => { if (o.isMesh && !o.isInstancedMesh) o.layers.enable(L_OCC); });
       buildTruck();
       buildPens();
@@ -7605,6 +7839,7 @@ window.GRANJA_ART = (function () {
         if (!p) return;
         const dx = e.clientX - p[0], dy = e.clientY - p[1];
         p[0] = e.clientX; p[1] = e.clientY;
+        view.ease = null;
         if (ptrs.size === 1) {
           if (p[2]) pan(dx, dy);
           else { view.yawT += dx * 0.009; view.yaw = view.yawT; view.pitch = clamp(view.pitch + dy * 0.004, 0.32, 1.05); view.user = true; }
@@ -7617,10 +7852,28 @@ window.GRANJA_ART = (function () {
       const up = (e) => { ptrs.delete(e.pointerId); if (ptrs.size < 2) pinch = 0; saveView(); };
       cnv.addEventListener('pointerup', up);
       cnv.addEventListener('pointercancel', up);
-      cnv.addEventListener('wheel', (e) => { e.preventDefault(); view.zoom = clamp(view.zoom * Math.exp(-e.deltaY * 0.0015), 0.6, 3); view.zu = true; saveView(); }, { passive: false });
+      cnv.addEventListener('wheel', (e) => { e.preventDefault(); view.ease = null; view.zoom = clamp(view.zoom * Math.exp(-e.deltaY * 0.0015), 0.6, 3); view.zu = true; saveView(); }, { passive: false });
       cnv.addEventListener('contextmenu', (e) => e.preventDefault());
       // dois cliques voltam para a vista inicial; se o primeiro abriu uma folha, ela fecha: o gesto é só da câmera
-      cnv.addEventListener('dblclick', () => { if (performance.now() - tapAt < 1000) G.closeSheet(); Object.assign(view, { zoom: zoomHome(), zu: false, px: 0, pz: 0, pitch: pitchHome(), user: false, yawT: yawHome() }); saveView(); });
+      cnv.addEventListener('dblclick', () => { if (performance.now() - tapAt < 1000) G.closeSheet(); homeView(true); });
+    }
+    // Desliza de volta para a vista boa da fazenda: só o ângulo (de frente, para o foco chegar perto) ou, com all, também o zoom e o arrasto.
+    function homeView(all) {
+      if (!view) return;
+      const y = yawHome();
+      view.yawT = y + Math.round((view.yaw - y) / (2 * Math.PI)) * 2 * Math.PI;
+      view.user = false; view.ease = all ? 'all' : 'angle';
+      if (all) view.zu = false;
+      saveView();
+    }
+    function easeHome(dt) {
+      const a = Math.min(1, dt * 4), all = view.ease === 'all';
+      view.pitch += (pitchHome() - view.pitch) * a;
+      if (all) { view.zoom += (zoomHome() - view.zoom) * a; view.px -= view.px * a; view.pz -= view.pz * a; }
+      if (Math.abs(view.pitch - pitchHome()) < 1e-3 && Math.abs(view.yawT - view.yaw) < 1e-3 && (!all || (Math.abs(view.zoom - zoomHome()) < 1e-3 && Math.abs(view.px) + Math.abs(view.pz) < 1e-3))) {
+        view.pitch = pitchHome(); view.yaw = view.yawT; if (all) { view.zoom = zoomHome(); view.px = view.pz = 0; }
+        view.ease = null;
+      }
     }
     // arrastar move o alvo da câmera pelo chão, na direção em que a tela está virada
     function pan(dx, dy) {
@@ -7647,7 +7900,8 @@ window.GRANJA_ART = (function () {
       return hi;
     }
     function updateCam(dt) {
-      view.yaw += (view.yawT - view.yaw) * Math.min(1, dt * 9);
+      if (view.ease) easeHome(dt);
+      view.yaw += (view.yawT - view.yaw) * Math.min(1, dt * (view.ease ? 4 : 9));
       const pts = tall ? FIT.tall : FIT.wide, c = tall ? FIT_C.tall : FIT_C.wide;
       const dir = [-Math.sin(view.yaw) * Math.cos(view.pitch), Math.sin(view.pitch), Math.cos(view.yaw) * Math.cos(view.pitch)];
       const key = vw + ',' + vh + ',' + view.yaw.toFixed(3) + ',' + view.pitch.toFixed(3) + ',' + tall;
@@ -7681,9 +7935,11 @@ window.GRANJA_ART = (function () {
       else if (camera.view && camera.view.enabled) camera.clearViewOffset();
     }
     // R.focus(x, z, zoom, cover) leva a câmera até o ponto do mapa; quanto maior o zoom, mais perto. cover: { right, bottom } em px, a parte da tela coberta pelo painel.
-    // R.focus(null) devolve a vista do jogador.
+    // A câmera vira de frente ao chegar; R.focus(null) volta para a visão geral da fazenda.
     function focus(x, z, zoom, cover) {
-      if (x == null) { fo.on = false; return; }
+      const maq = kit.maquete && view;
+      if (x == null) { if (fo.on && maq) homeView(true); fo.on = false; return; }
+      if (!fo.on && maq) homeView(false);
       fo.gx = X(x); fo.gz = Z(z); fo.zoom = zoom || 2; fo.on = true;
       fo.gr = Math.max(0, (cover && cover.right) || 0); fo.gb = Math.max(0, (cover && cover.bottom) || 0);
       if (!fo.set) { fo.x = fo.gx; fo.z = fo.gz; fo.zoomNow = fo.zoom; fo.r = fo.gr; fo.b = fo.gb; fo.set = true; }
@@ -8304,6 +8560,35 @@ window.GRANJA_ART = (function () {
         if (v > 1) { a.x = PDX + (a.x - PDX) / v; a.z = PDZ + (a.z - PDZ) / v; }
       }
     }
+    // Ondinhas do açude: cada pato solta um anel atrás de si, mais seguido enquanto nada, e um maior quando mete a cabeça na água.
+    // De vez em quando um peixinho belisca a superfície. A água anda pelo uniform do tempo; os anéis são as poucas instâncias de pondWater.
+    function wakeStep(dt, nd) {
+      const A = pondG && pondG.userData.water;
+      if (!A) return;
+      A.uT.value = time;
+      const add = (x, z, s0, s1, life, k) => { const w = A.wakes[A.next]; A.next = (A.next + 1) % A.wakes.length; Object.assign(w, { x, z, s0, s1, life, k, t: 0 }); };
+      for (let i = 0; i < nd; i++) {
+        const d = ducks[i], go = d.sp > 0.08;
+        d.wk = (d.wk == null ? Math.random() : d.wk) - dt;
+        if (d.wk <= 0) { d.wk = go ? 0.5 : 1.7; add(d.x - Math.cos(d.yaw) * 0.14, d.z + Math.sin(d.yaw) * 0.14, 0.22, go ? 0.65 : 0.5, 1.6, go ? 0.4 : 0.28); }
+        if (d.dip > 1.35 && !d.dw) { d.dw = true; add(d.x + Math.cos(d.yaw) * 0.45, d.z - Math.sin(d.yaw) * 0.45, 0.1, 0.8, 1.9, 0.55); }
+        if (d.dip <= 0) d.dw = false;
+      }
+      if ((A.fishT -= dt) <= 0) {
+        A.fishT = 2.5 + Math.random() * 4;
+        const a = Math.random() * Math.PI * 2, k = Math.sqrt(Math.random()) * 0.6, x = A.px + Math.cos(a) * k * A.rx, z = A.pz + Math.sin(a) * k * A.rz;
+        if (!ducks.some((d) => Math.hypot(d.x - x, d.z - z) < 0.8)) add(x, z, 0.05, 0.45, 1.4, 0.32);
+      }
+      for (let i = 0; i < A.wakes.length; i++) {
+        const w = A.wakes[i];
+        if (w.t >= w.life) { if (w.life) { A.rip.setMatrixAt(i, ZERO); w.life = 0; } continue; }
+        w.t += dt;
+        const a = Math.min(1, w.t / w.life), s = w.s0 + (w.s1 - w.s0) * (1 - (1 - a) * (1 - a)), b = w.k * Math.min(1, w.t / 0.15) * (1 - a) * (1 - a);
+        mtx.makeScale(s, 1, s); mtx.setPosition(w.x, A.y + 0.006, w.z); A.rip.setMatrixAt(i, mtx);
+        A.rip.setColorAt(i, col.setRGB(b * 0.8, b * 0.92, b));
+      }
+      A.rip.instanceMatrix.needsUpdate = true; A.rip.instanceColor.needsUpdate = true;
+    }
     const angleTo = (a, b, k) => { let d = b - a; while (d > Math.PI) d -= Math.PI * 2; while (d < -Math.PI) d += Math.PI * 2; return a + d * k; };
 
     function frame(W, dt) {
@@ -8466,6 +8751,7 @@ window.GRANJA_ART = (function () {
       }
       pondDucks.count = nd;
       pondDucks.instanceMatrix.needsUpdate = true;
+      wakeStep(dt, nd);
       const bd = fx && fx.duck;
       baitDuck.g.visible = !!bd;
       if (bd) {
@@ -8721,6 +9007,13 @@ window.GRANJA_ART = (function () {
   // Pato 7×5 virado para a direita; andando ganha a linha das patas.
   const DUCK = ['....hh.', '....hKB', 'wwwwhh.', 'wWWWWw.', '.wwww..'];
   const DUCK_PAL = { h: '#f4efe2', w: '#f4efe2', W: '#d6cfc3', K: '#1b1420', B: '#e8772e', L: '#e8772e' };
+  // Açude: tons da água do fundo para a beira, o pontilhado 2x2 da troca de tom, vitórias-régias (as mesmas do 3D: ângulo, quanto para fora,
+  // tamanho, flor), taboa (ângulo e hastes) e os brilhos que andam (posição na elipse e fase).
+  const POND_WATER = ['#2f7fc0', '#3a95d2', '#4aa8e8', '#6cbcee'];
+  const POND_DITHER = [0, 0.5, 0.75, 0.25];
+  const POND_PADS = [[2.3, 0.8, 0.22, 1], [2.72, 0.85, 0.16, 0], [3.55, 0.82, 0.24, 0], [3.95, 0.7, 0.15, 1], [4.85, 0.82, 0.2, 0], [5.55, 0.78, 0.18, 1]];
+  const POND_REEDS = [[-2.5, 4], [-0.65, 3], [2.8, 3]];
+  const POND_GLINT = [[-0.35, -0.3, 0], [0.2, -0.45, 1.7], [0.45, 0.1, 3.1], [-0.1, 0.25, 4.4], [-0.55, 0.05, 5.2], [0.1, -0.05, 2.4], [0.3, 0.4, 0.9]];
   // Luz da hora: o quadro passa por um multiply dessa cor; de dia é branco e nada muda.
   const TINT = { dia: [255, 255, 255], tarde: [255, 196, 154] };
   // Céu do topo ao horizonte, em 4 faixas: só aparece em tela em pé, acima da mata.
@@ -9187,14 +9480,38 @@ window.GRANJA_ART = (function () {
     // cerca de divisa
     rect(g, 0, top - 1, bw, 3, '#7a4a2a'); rect(g, 0, top, bw, 1, '#a8703f');
     for (let x = 2; x < bw; x += 8) { rect(g, x - 1, top - 4, 3, 7, OUT); rect(g, x, top - 3, 1, 5, '#a8703f'); }
-    // açude
+    // açude: areia de largura irregular com pedrinhas, faixa molhada e a água do fundo escuro ao raso claro, com pontilhado na troca de tom
+    // e espuma fininha na beira; por cima, vitórias-régias e taboa. O brilho que anda e as ondinhas dos patos são do quadro (pondFx).
     const pond = (x, z, w, d) => {
-      const x0 = Math.round(sx(x)), y0 = Math.round(sy(z)), pw = Math.round(w * PX), pd = Math.round(d * PZ);
+      const x0 = Math.round(sx(x)), y0 = Math.round(sy(z)), pw = Math.round(w * PX), pd = Math.round(d * PZ), cx = pw / 2, cy = pd / 2, pr = rng(17);
       for (let y = 0; y < pd; y++) for (let xx = 0; xx < pw; xx++) {
-        const ex = (xx - pw / 2) / (pw / 2), ey = (y - pd / 2) / (pd / 2), r2 = ex * ex + ey * ey;
-        if (r2 > 1) continue;
-        g.fillStyle = r2 > 0.82 ? '#d9c08a' : r2 > 0.7 ? '#3b8fd0' : ((xx + y * 3) % 17 === 0 ? '#bfe6ff' : '#4aa8e8');
+        const dx = xx + 0.5 - cx, dy = y + 0.5 - cy, a = Math.atan2(dy / cy, dx / cx);
+        if (Math.hypot(dx / (cx - 0.6 - 0.6 * Math.sin(5 * a + 1)), dy / (cy - 0.6 - 0.6 * Math.sin(5 * a + 1))) > 1) continue;
+        const m = 2.6 + 1.2 * Math.sin(4 * a + 3), k = 1 + 0.03 * Math.sin(3 * a + 1.3) + 0.02 * Math.sin(5 * a + 0.4);
+        const e = Math.hypot(dx / ((cx - m) * k), dy / ((cy - m) * k)), wet = Math.hypot(dx / ((cx - m) * k + 1.3), dy / ((cy - m) * k + 1.3));
+        const v = pr();
+        if (e < 1) {
+          const t = e * 3.4 + (POND_DITHER[(y & 1) * 2 + (xx & 1)] - 0.4) * 0.5;
+          g.fillStyle = e > 0.93 ? '#9fd8f6' : POND_WATER[Math.max(0, Math.min(3, Math.floor(t)))];
+        } else if (wet < 1) g.fillStyle = v < 0.5 ? '#b9a06a' : '#c4ab74';
+        else g.fillStyle = v < 0.06 ? '#8d867c' : v < 0.12 ? '#a39b8f' : v < 0.4 ? '#e3cd98' : v < 0.55 ? '#cfb47c' : '#d9c08a';
         g.fillRect(x0 + xx, y0 + y, 1, 1);
+      }
+      // vitórias-régias rente à beira, as mesmas do 3D; umas com flor
+      for (const [a, k, s, fl] of POND_PADS) {
+        const px = Math.round(x0 + cx + Math.cos(a) * k * (cx - 3)), py = Math.round(y0 + cy + Math.sin(a) * k * (cy - 3));
+        rect(g, px - 1, py - 1, s > 0.19 ? 4 : 3, 1, '#4f9a3a'); rect(g, px - 2, py, s > 0.19 ? 5 : 4, 1, '#3f8a34'); rect(g, px, py - 1, 1, 1, '#78c850');
+        rect(g, px + 1, py, 1, 1, '#3a95d2');
+        if (fl) { rect(g, px - 1, py - 2, 2, 1, '#e98fb0'); rect(g, px - 1, py - 2, 1, 1, '#ffe066'); }
+      }
+      // taboa nas pontas de cima da margem: haste fina e espiga marrom
+      for (const [a, n] of POND_REEDS) {
+        const bx = Math.round(x0 + cx + Math.cos(a) * (cx - 1.5)), by = Math.round(y0 + cy + Math.sin(a) * (cy - 1.5));
+        for (let i = 0; i < n; i++) {
+          const h = 3 + ((i * 7 + n) % 3), rx = bx + i * 2 - n;
+          rect(g, rx, by - h, 1, h, i % 2 ? '#4f9a3a' : '#62b043');
+          if (i % 2 === 0) rect(g, rx, by - h - 1, 1, 2, '#7a4f2a');
+        }
       }
     };
     pond(MAP.pond.x, MAP.pond.z, MAP.pond.w, MAP.pond.d);
@@ -9771,9 +10088,39 @@ window.GRANJA_ART = (function () {
     // patos passeando pelo açude: cada um escolhe um ponto na água, vai até lá, para um tempo e às vezes mergulha a cabeça
     {
       const P = MAP.pond, cx = P.x + P.w / 2, cz = P.z + P.d / 2, n = Math.min(Wd.ducks || 0, CFG.duckMax), rx = P.w / 2 * 0.76, rz = P.d / 2 * 0.76;
-      const goal = (d) => { const a = Math.random() * 6.28, k = Math.sqrt(Math.random()); d.tx = cx + Math.cos(a) * k * rx; d.tz = cz + Math.sin(a) * k * rz; };
+      const padAt = (a, k) => [cx + Math.cos(a) * k * (P.w / 2 - 3 / PX), cz + Math.sin(a) * k * (P.d / 2 - 3 / PZ)];
+      const goal = (d) => {
+        for (let t = 0; t < 8; t++) {
+          const a = Math.random() * 6.28, k = Math.sqrt(Math.random()); d.tx = cx + Math.cos(a) * k * rx; d.tz = cz + Math.sin(a) * k * rz;
+          if (!POND_PADS.some(([pa, pk]) => { const [qx, qz] = padAt(pa, pk); return Math.hypot(d.tx - qx, (d.tz - qz) * PZ / PX) < 3; })) return;
+        }
+      };
       while (lake.length < n) { const d = { x: 0, z: 0, wait: Math.random() * 2, right: true, dip: 0, ph: Math.random() * 6, go: 0 }; goal(d); d.x = d.tx; d.z = d.tz; goal(d); lake.push(d); }
       lake.length = Math.min(lake.length, n);
+      // a água mexe: brilhos que deslizam devagar e piscam, e um peixinho que belisca a superfície de vez em quando
+      const pcx = sx(cx), pcy = sy(cz), wx = P.w / 2 * PX * 0.8, wy = P.d / 2 * PZ * 0.72;
+      const inWater = (x, y) => Math.hypot((x - pcx) / wx, (y - pcy) / wy) < 1;
+      for (const [u, v, ph] of POND_GLINT) {
+        const s = Math.sin(time * 1.3 + ph * 5);
+        if (s < 0.1) continue;
+        const gx = Math.round(pcx + u * wx + Math.sin(time * 0.35 + ph) * 3), gy = Math.round(pcy + v * wy);
+        if (!inWater(gx, gy)) continue;
+        rect(ctx, gx, gy, s > 0.8 ? 3 : 2, 1, '#bfe6ff');
+        if (s > 0.8) rect(ctx, gx + 1, gy, 1, 1, '#ffffff');
+      }
+      // anel achatado de pixels; só o que cai na água aparece
+      const ring = (x, y, r, a) => {
+        if (a <= 0.02) return;
+        ctx.globalAlpha = a; ctx.fillStyle = '#d8f1ff';
+        const k = Math.max(8, Math.round(r * 2.4));
+        for (let j = 0; j < k; j++) {
+          const t = j / k * Math.PI * 2, rxp = Math.round(x + Math.cos(t) * r), ryp = Math.round(y + Math.sin(t) * r * 0.45);
+          if (inWater(rxp, ryp)) ctx.fillRect(rxp, ryp, 1, 1);
+        }
+        ctx.globalAlpha = 1;
+      };
+      const fish = (time * 0.23) % 1, fa = Math.floor(time * 0.23);
+      ring(pcx + Math.sin(fa * 12.9) * wx * 0.5, pcy + Math.cos(fa * 7.3) * wy * 0.45, 1 + fish * 6, (1 - fish) * 0.5);
       lake.forEach((d, i) => {
         if (d.wait > 0) { d.wait -= dt; if (d.wait <= 0) { goal(d); d.go = 0; } }
         else {
@@ -9784,8 +10131,17 @@ window.GRANJA_ART = (function () {
         }
         d.dip = Math.max(0, d.dip - dt);
         for (let j = 0; j < i; j++) { const o = lake[j], dx = d.x - o.x, dz = d.z - o.z, l = Math.hypot(dx, dz) || 0.01; if (l < 3.2) { const k = (3.2 - l) * 0.5 / l; d.x += dx * k; d.z += dz * k; o.x -= dx * k; o.z -= dz * k; } }
+        // as vitórias-régias ficam livres: quem chega perto é empurrado para fora
+        for (const [a, k] of POND_PADS) {
+          const [qx, qz] = padAt(a, k), dx = d.x - qx, dz = (d.z - qz) * PZ / PX, l = Math.hypot(dx, dz) || 0.01;
+          if (l < 2.4) { d.x = qx + dx / l * 2.4; d.z = qz + dz / l * 2.4 * PX / PZ; }
+        }
         const v = Math.hypot((d.x - cx) / (P.w / 2 * 0.82), (d.z - cz) / (P.d / 2 * 0.82));
         if (v > 1) { d.x = cx + (d.x - cx) / v; d.z = cz + (d.z - cz) / v; }
+        // ondinhas: dois anéis que abrem atrás do pato, mais fortes enquanto ele nada; ao mergulhar a cabeça, um maior
+        const moving = d.wait <= 0, wxp = sx(d.x) + 0.5, wyp = sy(d.z) + 2;
+        for (let r2 = 0; r2 < 2; r2++) { const f = (time * (moving ? 0.8 : 0.45) + d.ph + r2 * 0.5) % 1; ring(wxp, wyp, 4.5 + f * 6, (1 - f * f) * (moving ? 0.75 : 0.45)); }
+        if (d.dip > 0) { const f = 1 - d.dip / 1.4; ring(wxp + (d.right ? 3 : -3), wyp, 2 + f * 8, (1 - f) * 0.7); }
         ctx.drawImage(spr.duck.swim[d.right ? 0 : 1], Math.round(sx(d.x) - 4), Math.round(sy(d.z) - 4 + (d.dip > 0 ? 2 : Math.floor(time * 2 + i) % 2)));
       });
     }
