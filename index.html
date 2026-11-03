@@ -1013,6 +1013,9 @@ window.GRANJA_I18N = (function () {
       "Sem proteção": "No protection",
       "Só aparece com mais de 10 galinhas e mais de um celeiro, mais ou menos uma vez por dia. Sem caçador, ele leva uma galinha. Pato não engana ladrão.": "Only shows up with more than 10 hens and more than one coop, about once a day. With no hunter, he takes a hen. Ducks don't fool a thief.",
       "cada": "each",
+      "Produzindo agora": "Producing now",
+      "{n} nuggets por hora": "{n} nuggets per hour",
+      "Parado: caixa cheia": "Stopped: crate full",
     },
     es: {
       "A fusão falhou": "La fusión falló",
@@ -1306,6 +1309,9 @@ window.GRANJA_I18N = (function () {
       "Sem proteção": "Sin protección",
       "Só aparece com mais de 10 galinhas e mais de um celeiro, mais ou menos uma vez por dia. Sem caçador, ele leva uma galinha. Pato não engana ladrão.": "Solo aparece con más de 10 gallinas y más de un gallinero, más o menos una vez al día. Sin cazador, se lleva una gallina. El pato no engaña al ladrón.",
       "cada": "cada uno",
+      "Produzindo agora": "Produciendo ahora",
+      "{n} nuggets por hora": "{n} nuggets por hora",
+      "Parado: caixa cheia": "Parado: caja llena",
     },
     ar: {
       "A fusão falhou": "فشل الدمج",
@@ -1599,6 +1605,9 @@ window.GRANJA_I18N = (function () {
       "Sem proteção": "بلا حماية",
       "Só aparece com mais de 10 galinhas e mais de um celeiro, mais ou menos uma vez por dia. Sem caçador, ele leva uma galinha. Pato não engana ladrão.": "يظهر فقط مع أكثر من 10 دجاجات وأكثر من حظيرة، مرة في اليوم تقريبًا. بلا صياد يأخذ دجاجة. البطة لا تخدع اللص.",
       "cada": "لكل واحدة",
+      "Produzindo agora": "الإنتاج الآن",
+      "{n} nuggets por hora": "{n} ناغت في الساعة",
+      "Parado: caixa cheia": "متوقف: الصندوق ممتلئ",
     },
     ru: {
       "A fusão falhou": "Слияние не удалось",
@@ -1892,6 +1901,9 @@ window.GRANJA_I18N = (function () {
       "Sem proteção": "Без защиты",
       "Só aparece com mais de 10 galinhas e mais de um celeiro, mais ou menos uma vez por dia. Sem caçador, ele leva uma galinha. Pato não engana ladrão.": "Приходит только при более чем 10 курах и нескольких курятниках, примерно раз в день. Без охотника уносит курицу. Утка вора не обманет.",
       "cada": "за штуку",
+      "Produzindo agora": "Производство сейчас",
+      "{n} nuggets por hora": "{n} наггетсов в час",
+      "Parado: caixa cheia": "Стоит: ящик полон",
     },
   };
   function pick() {
@@ -3659,6 +3671,8 @@ window.GRANJA_ART = (function () {
 
   let selHen = null, barnView = -1;                         // barnView: -1 é a visão geral dos quatro; senão, o celeiro aberto
   const burnK = 1 - CFG.collectBurn;
+  // o que a granja está produzindo agora, já sem o frete: com a caixa cheia, nada
+  const nowRate = () => (W.full ? t('Parado: caixa cheia') : t('{n} nuggets por hora', { n: fmt(rate() * burnK) }));
   const perMin = (v) => v + '/' + t('min');
   const henName = (h) => t(RAR[h.r].nome) + (h.skin != null ? ' · ' + t(SKINS[h.skin].nome) : '');
   const henPic = (h, sleep) => ART.henOf(h.r, h.skin, sleep, RAR[h.r].cor);
@@ -3769,9 +3783,9 @@ window.GRANJA_ART = (function () {
     const a = ABATS[S.abat];
     setHTML(el.pProd, '<p class="p-lead">+<span data-live="rate"></span>/' + t('h') + '</p>'
       + infoRow('belt', 'belt', t('Esteira'), t('Leva os pintinhos ao abatedouro'))
-      + infoRow('abat', 'abat' + S.abat, t(a.nome), t('Transforma pintinhos em nuggets') + ' ' + pips(S.abat, ABATS.length))
+      + infoRow('abat', 'abat' + S.abat, t(a.nome), '<span data-live="now"></span> ' + pips(S.abat, ABATS.length))
       + infoRow('caixa', 'crate', t('Caixa'), t('Guarda os nuggets') + ' ' + pips(S.vaultLv, CFG.vaultLv.length)));
-    live(el.pProd, { rate: fmt(rate() * burnK) });
+    live(el.pProd, { rate: fmt(rate() * burnK), now: nowRate() });
   }
   function renderFox() {
     const fx = W.fox, th = W.thief, near = !!fx && fx.state !== 'flee' && fx.state !== 'die' && fx.state !== 'lure', out = [];
@@ -3817,7 +3831,7 @@ window.GRANJA_ART = (function () {
       body: rows(PENS.map((p, i) => { const b = BELTS[i], over = i < S.pens && penChicks(i) > b.cap;
         return lvRow(t('Celeiro') + ' ' + (i + 1), t(b.nome) + ' · ' + perMin(b.cap) + (over ? ' · <em class="bad">' + t('Produz') + ' ' + perMin(Math.round(penChicks(i))) + '</em>' : ''), 'later'); }).join('')) }),
     abat: () => ({ pic: 'abat' + S.abat, nome: t(ABATS[S.abat].nome), txt: t('Transforma cada pintinho em nuggets. Cada nível é um prédio novo, que paga mais por pintinho.'),
-      body: lvTable(ABATS, S.abat, (a) => [t(a.nome), t('{n} nuggets por pintinho', { n: num(a.mult * CFG.chickNug) }), a.sol ? solTxt(a.sol) : ''], (a) => pBtn('abat', null, solTxt(a.sol), false, 'gold')) }),
+      body: rows(lvRow(t('Produzindo agora'), '<span data-live="now"></span>', 'now')) + lvTable(ABATS, S.abat, (a) => [t(a.nome), t('{n} nuggets por pintinho', { n: num(a.mult * CFG.chickNug) }), a.sol ? solTxt(a.sol) : ''], (a) => pBtn('abat', null, solTxt(a.sol), false, 'gold')) }),
     caixa: () => ({ pic: 'crate', nome: t('Caixa'), txt: t('Guarda os nuggets até você chamar o caminhão. Cheia, as galinhas param. Caixa maior aguenta mais tempo longe.'),
       body: rows(lvRow(t('Agora'), fmt(Math.floor(S.vault + W.inflightV)) + ' / ' + fmt(cap()), 'now')) + lvTable(CFG.vaultLv, S.vaultLv, (h, k) => [t('{n} h de produção', { n: h }), t('Frete') + ' ' + Math.round(CFG.collectBurn * 100) + '%', CFG.vaultNug[k] ? nugTxt(CFG.vaultNug[k]) : ''], (h, k) => nugBtn('vault', null, CFG.vaultNug[k])) }),
     galinhas: () => ({ pic: 'hen', nome: t('Galinhas'), txt: t('Cada galinha nasce com uma produção sorteada dentro da faixa da raridade. Quanto mais rara, mais produz e mais tempo trabalha antes de cansar. A Mítica tem 10 versões únicas.'),
@@ -3865,6 +3879,7 @@ window.GRANJA_ART = (function () {
     const d = INFO[detail]();
     el.sheetTitle.textContent = d.nome;
     setHTML(el.pDetail, '<button type="button" class="p-back" data-a="back"><i class="go-arrow">‹</i>' + t('Voltar') + '</button><div class="d-head">' + ART.pic(d.pic) + '<p>' + d.txt + '</p></div>' + d.body);
+    live(el.pDetail, { now: nowRate() });
   }
   // Troca entre a lista da aba e os detalhes de um item.
   function syncPane() {
