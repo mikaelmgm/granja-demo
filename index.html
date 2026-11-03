@@ -523,6 +523,118 @@ button.tile { appearance: none; cursor: pointer; width: 100%; border: 0; color: 
 .slot .t-txt > .h-en { display: flex; align-items: center; gap: 6px; }
 .h-en > span:first-child { flex: none; font-weight: 700; }
 .h-en .bar { flex: 1; margin-top: 0; }
+
+/* ---------- HUD com volume: brilho em cima, sombra embaixo, botões que afundam no toque.
+   Vale para Maquete e Voxel; o Pixel continua chapado de propósito. */
+:root:not([data-style=pixel]) {
+  --hl: rgba(255, 255, 255, .55); --hl-soft: rgba(255, 255, 255, .14); --sh: rgba(0, 0, 0, .38); --sh-deep: rgba(0, 0, 0, .55);
+}
+:root:not([data-style=pixel]) .hud {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--hud-bg) 82%, #fff) 0%, var(--hud-bg) 45%, color-mix(in srgb, var(--hud-bg) 80%, #000) 100%);
+  box-shadow: inset 0 -1px 0 var(--hl-soft), 0 8px 18px -10px var(--sh-deep);
+}
+:root:not([data-style=pixel]) .dock {
+  background: linear-gradient(0deg, color-mix(in srgb, var(--dock-bg) 80%, #000) 0%, var(--dock-bg) 55%, color-mix(in srgb, var(--dock-bg) 84%, #fff) 100%);
+  box-shadow: inset 0 1px 0 var(--hl-soft), 0 -8px 18px -10px var(--sh-deep);
+}
+/* saldo e SOL em fichas encaixadas no painel */
+:root:not([data-style=pixel]) :is(.bal, .wallet) {
+  display: flex; align-items: center; gap: 6px; padding: 6px 12px 6px 9px; border-radius: 99px;
+  background: linear-gradient(180deg, rgba(0, 0, 0, .34), rgba(0, 0, 0, .18));
+  box-shadow: inset 0 2px 4px var(--sh-deep), 0 1px 0 var(--hl-soft);
+  text-shadow: 0 2px 0 var(--sh);
+}
+:root:not([data-style=pixel]) .bal .ico { filter: drop-shadow(0 0 5px color-mix(in srgb, var(--nug) 75%, transparent)) drop-shadow(0 2px 0 var(--sh)); }
+:root:not([data-style=pixel]) .hud-btns { gap: 6px; }
+:root:not([data-style=pixel]) .gear {
+  width: 42px; height: 42px; border-radius: 12px; text-shadow: 0 2px 0 var(--sh);
+  background: radial-gradient(120% 90% at 50% 15%, rgba(255, 255, 255, .2), rgba(255, 255, 255, .03) 60%), rgba(0, 0, 0, .22);
+  box-shadow: inset 0 1px 0 var(--hl-soft), inset 0 -2px 0 rgba(0, 0, 0, .25), 0 3px 0 var(--sh), 0 6px 10px -6px var(--sh-deep);
+  transition: transform .12s, box-shadow .12s, filter .2s;
+}
+:root:not([data-style=pixel]) .gear:hover { transform: translateY(-1px); filter: brightness(1.12); }
+:root:not([data-style=pixel]) .gear:active, :root:not([data-style=pixel]) .gear[aria-expanded=true] { transform: translateY(2px); box-shadow: inset 0 2px 5px var(--sh-deep), 0 1px 0 var(--sh); }
+
+/* o botão do caminhão: plástico dourado, com um reflexo que passa de tempos em tempos */
+:root:not([data-style=pixel]) .act-truck {
+  position: relative; overflow: hidden; border-radius: 14px;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--truck) 62%, #fff) 0%, var(--truck) 42%, color-mix(in srgb, var(--truck) 80%, #000) 100%);
+  box-shadow: inset 0 1px 0 var(--hl), inset 0 -3px 0 rgba(0, 0, 0, .16), 0 6px 0 color-mix(in srgb, var(--truck) 50%, #000), 0 16px 22px -8px var(--sh-deep);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, .45);
+  transition: transform .1s, box-shadow .1s, filter .2s;
+}
+:root:not([data-style=pixel]) .act-truck::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none; border-radius: inherit;
+  background: linear-gradient(105deg, transparent 38%, rgba(255, 255, 255, .5) 50%, transparent 62%);
+  transform: translateX(-130%);
+}
+:root:not([data-style=pixel]) .act-truck:hover:not(:disabled) { filter: brightness(1.05) saturate(1.08); transform: translateY(-1px); }
+:root:not([data-style=pixel]) .act-truck:active:not(:disabled) {
+  transform: translateY(5px);
+  box-shadow: inset 0 1px 0 var(--hl), inset 0 -1px 0 rgba(0, 0, 0, .16), 0 1px 0 color-mix(in srgb, var(--truck) 50%, #000), 0 4px 8px -6px var(--sh-deep);
+}
+:root:not([data-style=pixel]) .act-truck .pic { filter: drop-shadow(0 2px 0 rgba(0, 0, 0, .3)); }
+/* barra da caixa: um sulco fundo com o enchimento brilhante e listrado */
+:root:not([data-style=pixel]) .act-truck .bar {
+  border: 0; border-radius: 99px; background: rgba(0, 0, 0, .32);
+  box-shadow: inset 0 2px 3px var(--sh-deep), 0 1px 0 rgba(255, 255, 255, .4);
+}
+:root:not([data-style=pixel]) .bar i { position: relative; border-radius: inherit; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .55), inset 0 -1px 0 rgba(0, 0, 0, .2); }
+:root:not([data-style=pixel]) .bar i::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit;
+  background: repeating-linear-gradient(-45deg, rgba(255, 255, 255, .22) 0 6px, transparent 6px 12px);
+}
+
+/* abas: cada uma é uma tecla; a aberta sobe e acende */
+:root:not([data-style=pixel]) .tabs { gap: 6px; }
+:root:not([data-style=pixel]) .tabs button {
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, .07), rgba(0, 0, 0, .14));
+  box-shadow: inset 0 1px 0 var(--hl-soft), 0 4px 0 var(--sh), 0 8px 12px -8px var(--sh-deep);
+  transition: transform .15s, background .2s, box-shadow .2s, color .2s;
+}
+:root:not([data-style=pixel]) .tabs button .pic { filter: drop-shadow(0 2px 1px var(--sh-deep)); transition: transform .15s; }
+:root:not([data-style=pixel]) .tabs button:hover { transform: translateY(-2px); color: var(--dock-fg); }
+:root:not([data-style=pixel]) .tabs button:hover .pic { transform: scale(1.08); }
+:root:not([data-style=pixel]) .tabs button:active { transform: translateY(1px); box-shadow: inset 0 2px 4px var(--sh-deep); }
+:root:not([data-style=pixel]) .tabs button[aria-expanded=true] {
+  transform: translateY(-3px);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--tab-on) 75%, #fff) 0%, var(--tab-on) 50%, color-mix(in srgb, var(--tab-on) 86%, #000) 100%);
+  box-shadow: inset 0 1px 0 var(--hl), 0 5px 0 color-mix(in srgb, var(--tab-on) 50%, #000), 0 12px 18px -8px var(--sh-deep), 0 0 22px -4px color-mix(in srgb, var(--accent) 70%, transparent);
+}
+:root:not([data-style=pixel]) .tab-dot { box-shadow: 0 0 0 2px var(--dock-bg), 0 0 10px 1px color-mix(in srgb, var(--bad) 80%, transparent); }
+
+/* folha: cartões em relevo e botões de plástico */
+:root:not([data-style=pixel]) .panel-head { background: linear-gradient(180deg, rgba(255, 255, 255, .35), transparent); }
+:root:not([data-style=pixel]) .tile {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--sheet-inset) 70%, #fff) 0%, var(--sheet-inset) 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .7), 0 2px 0 rgba(0, 0, 0, .1), 0 6px 12px -9px var(--sh-deep);
+}
+:root:not([data-style=pixel]) .tile .pic, :root:not([data-style=pixel]) .lv .pic { filter: drop-shadow(0 2px 1px rgba(0, 0, 0, .28)); }
+:root:not([data-style=pixel]) .tile.go { transition: transform .15s, box-shadow .15s, background .2s; }
+:root:not([data-style=pixel]) .tile.go:hover { transform: translateY(-2px); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .7), 0 3px 0 rgba(0, 0, 0, .12), 0 12px 18px -10px var(--sh-deep); }
+:root:not([data-style=pixel]) .tile.go:active { transform: translateY(1px) scale(.99); box-shadow: inset 0 2px 4px rgba(0, 0, 0, .18); }
+:root:not([data-style=pixel]) .tile.sel, :root:not([data-style=pixel]) .lv.now { box-shadow: inset 0 0 0 2px var(--accent), 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent), 0 6px 12px -9px var(--sh-deep); }
+:root:not([data-style=pixel]) .p-btn:not(.ghost):not([aria-pressed=true]):not(:disabled) {
+  border-radius: 10px;
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, .38) 0%, rgba(255, 255, 255, .06) 48%, rgba(0, 0, 0, .14) 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .55), 0 4px 0 rgba(0, 0, 0, .34), 0 8px 12px -6px var(--sh-deep);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, .18);
+  transition: transform .1s, box-shadow .1s, filter .2s;
+}
+:root:not([data-style=pixel]) .p-btn:not(.ghost):not([aria-pressed=true]):not(:disabled):hover { filter: brightness(1.07); transform: translateY(-1px); }
+:root:not([data-style=pixel]) .p-btn:not(.ghost):not([aria-pressed=true]):not(:disabled):active { transform: translateY(2px); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .4), 0 1px 0 rgba(0, 0, 0, .34); }
+:root:not([data-style=pixel]) .p-btn.gold:not(:disabled) { box-shadow: inset 0 1px 0 rgba(255, 255, 255, .7), 0 3px 0 #b08a00, 0 0 16px -2px rgba(255, 210, 31, .65); }
+:root:not([data-style=pixel]) .lv-now { box-shadow: inset 0 1px 0 rgba(255, 255, 255, .4), 0 2px 0 rgba(0, 0, 0, .3); }
+
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-style=pixel]) .act-truck:not(:disabled)::after { animation: hudShine 5s ease-in-out infinite; }
+  :root:not([data-style=pixel]) .bar i::after { background-size: 17px 17px; animation: hudStripes .9s linear infinite; }
+  :root:not([data-style=pixel]) .tab-dot { animation: hudDot 1.6s ease-in-out infinite; }
+  @keyframes hudShine { 0%, 70% { transform: translateX(-130%); } 100% { transform: translateX(130%); } }
+  @keyframes hudStripes { to { background-position: 17px 0; } }
+  @keyframes hudDot { 50% { transform: scale(1.18); } }
+}
 </style>
 <style>
   /* Uma página, três visuais. O seletor em Ajustes troca data-style no <html> e os tokens abaixo trocam juntos.
